@@ -21,9 +21,10 @@ public class StateMachine
 	
 	public void Reset()
 	{
-		if(_current_state != null)
-			_current_state.OnFinish();
+		State temp = _current_state;
 		_current_state = null;
+		if(temp != null)
+			temp.OnFinish();
 	}
 	
 	public void Update()
@@ -218,10 +219,10 @@ public class StateLinkAttack : State
 		} else if (pc.current_direction == Direction.SOUTH) {
 			direction_Offset = new Vector3 (0, -1, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 270);
-		} else if (pc.current_direction == Direction.EAST) 
+		} else if (pc.current_direction == Direction. WEST) 
 		{
 			direction_Offset = new Vector3 (-1, 0, 0);
-			direction_Eulerangle = new Vector3 (0, 0, 100);
+			direction_Eulerangle = new Vector3 (0, 0, 180);
 		}
 
 		weapon_Instance.transform.position += direction_Offset;
@@ -241,6 +242,7 @@ public class StateLinkAttack : State
 	public override void OnFinish ()
 	{
 		pc.current_state = EntityState.NORMAL;
+		state_machine.ChangeState (new StateLinkNormalMovement (pc));
 		MonoBehaviour.Destroy (weapon_Instance);
 	}
 }

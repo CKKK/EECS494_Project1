@@ -33,12 +33,16 @@ public class PlayerControl : MonoBehaviour {
 		
 		animation_state_machine = new StateMachine ();
 		animation_state_machine.ChangeState (new StateIdleWithSprite (this, GetComponent<SpriteRenderer> (), link_run_down [0]));
+
+		control_state_machine = new StateMachine ();
+		control_state_machine.ChangeState (new StateLinkNormalMovement (this));
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 		animation_state_machine.Update ();
+		control_state_machine.Update ();
 		float horizontal_Input = Input.GetAxis ("Horizontal");
 		float vertical_Input = Input.GetAxis("Vertical");
 		if(horizontal_Input != 0.0f)
