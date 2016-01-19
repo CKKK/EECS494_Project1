@@ -40,15 +40,11 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 		animation_state_machine.Update ();
 		control_state_machine.Update ();
-		float horizontal_Input = Input.GetAxis ("Horizontal");
-		float vertical_Input = Input.GetAxis("Vertical");
-		if(horizontal_Input != 0.0f)
-			vertical_Input = 0.0f;
-		GetComponent<Rigidbody> ().velocity = new Vector3 (horizontal_Input, vertical_Input, 0) * walking_Velocity;
-		
+		if (control_state_machine.IsFinished ()) {
+			control_state_machine.ChangeState (new StateLinkNormalMovement (this));
+		}
 	}
 	
 	void OnTriggerEnter(Collider coll)

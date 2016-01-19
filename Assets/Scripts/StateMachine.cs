@@ -21,10 +21,9 @@ public class StateMachine
 	
 	public void Reset()
 	{
-		State temp = _current_state;
+		if(_current_state != null)
+			_current_state.OnFinish();
 		_current_state = null;
-		if(temp != null)
-			temp.OnFinish();
 	}
 	
 	public void Update()
@@ -242,7 +241,6 @@ public class StateLinkAttack : State
 	public override void OnFinish ()
 	{
 		pc.current_state = EntityState.NORMAL;
-		state_machine.ChangeState (new StateLinkNormalMovement (pc));
 		MonoBehaviour.Destroy (weapon_Instance);
 	}
 }
