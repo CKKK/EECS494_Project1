@@ -7,7 +7,7 @@ public enum EntityState {NORMAL, ATTACKING};
 public class PlayerControl : MonoBehaviour {
 	public float walking_Velocity = 4.0f;
 	public int rupee_Count = 0;
-
+	public int health = 6;
 
 
 
@@ -55,6 +55,13 @@ public class PlayerControl : MonoBehaviour {
 		} else if (coll.tag == "Heart") 
 		{
 			//increase heart
+		}
+	}
+
+	void OnCollisionEnter(Collision coll) {
+		if (coll.gameObject.tag == "Enemy") {
+			Enemy enemyObj = coll.gameObject.GetComponent<Enemy>();
+			health -= enemyObj.getDamage ();
 		}
 	}
 }
