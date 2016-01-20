@@ -7,7 +7,8 @@ public enum EntityState {NORMAL, ATTACKING};
 public class PlayerControl : MonoBehaviour {
 	public float walking_Velocity = 4.0f;
 	public int rupee_Count = 0;
-
+	public int health_Count = 3;
+	public int health_Max = 3;
 
 
 
@@ -52,9 +53,17 @@ public class PlayerControl : MonoBehaviour {
 		if (coll.tag == "Rupee") {
 			rupee_Count++;
 			Destroy (coll.gameObject);
-		} else if (coll.tag == "Heart") 
+		} else if (coll.tag == "heart_1") { // add health
+			health_Count++;
+			if (health_Count > health_Max) {
+				health_Count = health_Max;
+			}
+			Destroy (coll.gameObject);
+		} else if (coll.tag == "heart_2") 
 		{
-			//increase heart
+			health_Max++;//add health max
+			health_Count++;
+			Destroy(coll.gameObject);
 		}
 	}
 }
