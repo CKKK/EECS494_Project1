@@ -59,10 +59,12 @@ public class PlayerControl : MonoBehaviour {
 				health_Count = health_Max;
 			}
 			Destroy (coll.gameObject);
-		} else if (coll.tag == "heart_2") 
-		{
+		} else if (coll.tag == "heart_2") {
 			health_Max++;//add health max
 			health_Count++;
+			Destroy (coll.gameObject);
+		} else if (coll.tag == "rupee_2") {
+			rupee_Count = rupee_Count +2;
 			Destroy(coll.gameObject);
 		}
 	}
