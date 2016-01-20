@@ -11,7 +11,6 @@ public class PlayerControl : MonoBehaviour {
 	public int health_Max = 3;
 
 
-
 	public Sprite[] link_run_down;
 	public Sprite[] link_run_up;
 	public Sprite[] link_run_right;
@@ -66,6 +65,13 @@ public class PlayerControl : MonoBehaviour {
 		} else if (coll.tag == "rupee_2") {
 			rupee_Count = rupee_Count +2;
 			Destroy(coll.gameObject);
+		}
+	}
+
+	void OnCollisionEnter(Collision coll) {
+		if (coll.gameObject.tag == "Enemy") {
+			Enemy enemyObj = coll.gameObject.GetComponent<Enemy>();
+			health_Count -= enemyObj.getDamage ();
 		}
 	}
 }
