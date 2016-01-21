@@ -10,6 +10,7 @@ public class Stalfos : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
+
 	
 	}
 }

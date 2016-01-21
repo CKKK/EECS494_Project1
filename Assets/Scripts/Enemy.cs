@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
-	int health = 1;
-	int damage = 1;
+	public int health = 1;
+	public int damage = 1;
 
 	public Enemy(int health_, int damage_){
 		health = health_;
@@ -25,8 +25,11 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider coll) {
+		print (coll.gameObject.tag);
 		if (coll.tag == "Weapon") {
-			
+			health -= 1; // need the fix this
+			if(health == 0)
+				Destroy(this.gameObject);
 		}
 	}
 }

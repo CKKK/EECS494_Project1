@@ -212,16 +212,32 @@ public class StateLinkAttack : State
 		if (pc.current_direction == Direction.NORTH) {
 			direction_Offset = new Vector3 (0, 1, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 90);
+			if(pc.health_Count == pc.health_Max)
+			{
+				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(0,10,0);
+			}
 		} else if (pc.current_direction == Direction.EAST) {
 			direction_Offset = new Vector3 (1, 0, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 0);
+			if(pc.health_Count == pc.health_Max)
+			{
+				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(10,0,0);
+			}
 		} else if (pc.current_direction == Direction.SOUTH) {
 			direction_Offset = new Vector3 (0, -1, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 270);
+			if(pc.health_Count == pc.health_Max)
+			{
+				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(0,-10,0);
+			}
 		} else if (pc.current_direction == Direction. WEST) 
 		{
 			direction_Offset = new Vector3 (-1, 0, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 180);
+			if(pc.health_Count == pc.health_Max)
+			{
+				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(-10,0,0);
+			}
 		}
 
 		weapon_Instance.transform.position += direction_Offset;
@@ -241,7 +257,8 @@ public class StateLinkAttack : State
 	public override void OnFinish ()
 	{
 		pc.current_state = EntityState.NORMAL;
-		MonoBehaviour.Destroy (weapon_Instance);
+		if (pc.health_Max != pc.health_Count)
+			MonoBehaviour.Destroy (weapon_Instance);
 	}
 }
 
