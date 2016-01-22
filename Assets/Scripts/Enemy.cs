@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider coll) {
+		print (coll.gameObject.tag);
 		if (coll.tag == "Weapon") {
 			health -= 1; // need the fix this
 			if(health == 0)
