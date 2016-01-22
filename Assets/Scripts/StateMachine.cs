@@ -270,31 +270,50 @@ public class LinkStunning : State
 	Sprite [] sprites;
 	float cooldown = 0.0f;
 	int counter = 0;
-	public LinkStunning(PlayerControl pc, Sprite[] sprites, int cooldown)
+	GameObject Collider_obj;
+	Direction attack_direction;
+	public LinkStunning(PlayerControl pc, Sprite[] sprites, int cooldown, GameObject Collider_obj_)
 	{
 		this.pc = pc;
 		this.sprites = sprites;
 		this.cooldown = cooldown;
+		this.Collider_obj = Collider_obj_;
 	}
 	
 	public override void OnStart ()
 	{
 		pc.current_state = EntityState.STUNNING;
-		if (pc.current_direction == Direction.NORTH) 
+		Vector3 attack_vector = pc.GetComponent<Transform> ().position - Collider_obj.GetComponent<Transform> ().position;
+		if (Mathf.Abs (attack_vector.x) > Mathf.Abs (attack_vector.y)) {
+			attack_vector.y = 0.0f;
+		} else {
+			attack_vector.x = 0.0f;
+		}
+
+		if (attack_vector.x < 0.0f)
+			attack_direction = Direction.EAST;
+		else if (attack_vector.x > 0.0f)
+			attack_direction = Direction.WEST;
+		else if (attack_vector.y < 0.0f)
+			attack_direction = Direction.NORTH;
+		else if (attack_vector.y > 0.0f)
+			attack_direction = Direction.SOUTH;
+
+		if (attack_direction == Direction.NORTH) 
 		{
 			pc.GetComponent<Rigidbody>().velocity = new Vector3(0,-2,0) * pc.walking_Velocity;
 		}
-		else if(pc.current_direction == Direction.WEST) 
+		else if(attack_direction == Direction.WEST) 
 		{
 			pc.GetComponent<Rigidbody>().velocity = new Vector3(2,0,0) * pc.walking_Velocity;
 
 		}
-		else if(pc.current_direction == Direction.SOUTH) 
+		else if(attack_direction == Direction.SOUTH) 
 		{
 			pc.GetComponent<Rigidbody>().velocity = new Vector3(0,2,0) * pc.walking_Velocity;
 
 		}
-		else if(pc.current_direction == Direction.EAST) 
+		else if(attack_direction == Direction.EAST) 
 		{
 			pc.GetComponent<Rigidbody>().velocity = new Vector3(-2,0,0) * pc.walking_Velocity;
 
@@ -305,7 +324,7 @@ public class LinkStunning : State
 	public override void OnUpdate(float time_Delta_Fraction)
 	{
 		counter++;
-		if (pc.current_direction == Direction.NORTH) 
+		if (attack_direction == Direction.NORTH) 
 		{
 			if(counter <5)
 			{
@@ -319,7 +338,7 @@ public class LinkStunning : State
 			else
 				counter = 0;
 		}
-		else if(pc.current_direction == Direction.WEST) 
+		else if(attack_direction == Direction.WEST) 
 		{
 			if(counter <5)
 			{
@@ -333,7 +352,7 @@ public class LinkStunning : State
 			else
 				counter = 0;
 		}
-		else if(pc.current_direction == Direction.SOUTH) 
+		else if(attack_direction == Direction.SOUTH) 
 		{
 			if(counter <5)
 			{
@@ -347,7 +366,7 @@ public class LinkStunning : State
 			else
 				counter = 0;
 		}
-		else if(pc.current_direction == Direction.EAST) 
+		else if(attack_direction == Direction.EAST) 
 		{
 			if(counter <5)
 			{
@@ -365,24 +384,24 @@ public class LinkStunning : State
 		cooldown -= time_Delta_Fraction;
 		if (cooldown <= 0) 
 		{
-			if (pc.current_direction == Direction.NORTH) 
+			if (attack_direction == Direction.NORTH) 
 			{
 				pc.GetComponent<SpriteRenderer>().sprite = sprites[0];
 
 			}
-			else if(pc.current_direction == Direction.WEST) 
+			else if(attack_direction == Direction.WEST) 
 			{
 
 					pc.GetComponent<SpriteRenderer>().sprite = sprites[2];
 
 			}
-			else if(pc.current_direction == Direction.SOUTH) 
+			else if(attack_direction == Direction.SOUTH) 
 			{
 
 					pc.GetComponent<SpriteRenderer>().sprite = sprites[4];
 
 			}
-			else if(pc.current_direction == Direction.EAST) 
+			else if(attack_direction == Direction.EAST) 
 			{
 
 					pc.GetComponent<SpriteRenderer>().sprite = sprites[6];
