@@ -262,6 +262,206 @@ public class StateLinkAttack : State
 	}
 }
 
+public class LinkStunning : State
+{
+	PlayerControl pc;
+	Sprite [] sprites;
+	float cooldown = 0.0f;
+	int counter = 0;
+	public LinkStunning(PlayerControl pc, Sprite[] sprites, int cooldown)
+	{
+		this.pc = pc;
+		this.sprites = sprites;
+		this.cooldown = cooldown;
+	}
+	
+	public override void OnStart ()
+	{
+		pc.current_state = EntityState.STUNNING;
+		if (pc.current_direction == Direction.NORTH) 
+		{
+			pc.GetComponent<Rigidbody>().velocity = new Vector3(0,-2,0) * pc.walking_Velocity;
+		}
+		else if(pc.current_direction == Direction.WEST) 
+		{
+			pc.GetComponent<Rigidbody>().velocity = new Vector3(2,0,0) * pc.walking_Velocity;
+
+		}
+		else if(pc.current_direction == Direction.SOUTH) 
+		{
+			pc.GetComponent<Rigidbody>().velocity = new Vector3(0,2,0) * pc.walking_Velocity;
+
+		}
+		else if(pc.current_direction == Direction.EAST) 
+		{
+			pc.GetComponent<Rigidbody>().velocity = new Vector3(-2,0,0) * pc.walking_Velocity;
+
+		}
+
+	}
+	
+	public override void OnUpdate(float time_Delta_Fraction)
+	{
+		counter++;
+		if (pc.current_direction == Direction.NORTH) 
+		{
+			if(counter <5)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[0];
+			}
+			else if(counter>=5 && counter <10)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[1];
+
+			}
+			else
+				counter = 0;
+		}
+		else if(pc.current_direction == Direction.WEST) 
+		{
+			if(counter <5)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[2];
+			}
+			else if(counter>=5 && counter <10)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[3];
+				
+			}
+			else
+				counter = 0;
+		}
+		else if(pc.current_direction == Direction.SOUTH) 
+		{
+			if(counter <5)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[4];
+			}
+			else if(counter>=5 && counter <10)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[5];
+				
+			}
+			else
+				counter = 0;
+		}
+		else if(pc.current_direction == Direction.EAST) 
+		{
+			if(counter <5)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[6];
+			}
+			else if(counter>=5 && counter <10)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[7];
+				
+			}
+			else
+				counter = 0;
+		}
+
+		cooldown -= time_Delta_Fraction;
+		if (cooldown <= 0) 
+		{
+			if (pc.current_direction == Direction.NORTH) 
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[0];
+
+			}
+			else if(pc.current_direction == Direction.WEST) 
+			{
+
+					pc.GetComponent<SpriteRenderer>().sprite = sprites[2];
+
+			}
+			else if(pc.current_direction == Direction.SOUTH) 
+			{
+
+					pc.GetComponent<SpriteRenderer>().sprite = sprites[4];
+
+			}
+			else if(pc.current_direction == Direction.EAST) 
+			{
+
+					pc.GetComponent<SpriteRenderer>().sprite = sprites[6];
+			}
+			ConcludeState ();
+		}
+	}
+	
+	public override void OnFinish ()
+	{
+		pc.current_state = EntityState.NORMAL;
+
+	}
+}
+
+public class LinkDead : State
+{
+	PlayerControl pc;
+	Sprite [] sprites;
+	float cooldown = 0.0f;
+	int counter = 0;
+	public LinkDead(PlayerControl pc, Sprite[] spritesfordead, int cooldown)
+	{
+		this.pc = pc;
+		this.sprites = spritesfordead;
+		this.cooldown = cooldown;
+	}
+	
+	public override void OnStart ()
+	{
+		pc.current_state = EntityState.DEAD;
+
+		
+	}
+	
+	public override void OnUpdate(float time_Delta_Fraction)
+	{
+		counter++;
+
+			if(counter <5)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[0];
+			}
+			else if(counter>=5 && counter <10)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[1];
+				
+			}
+			else if(counter>=10 && counter <15)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[2];
+				
+			}
+			else if(counter>=15 && counter <20)
+			{
+				pc.GetComponent<SpriteRenderer>().sprite = sprites[3];
+				
+			}
+			else
+				counter = 0;
+
+		
+		cooldown -= time_Delta_Fraction;
+		if (cooldown <= 0) 
+		{
+
+			ConcludeState ();
+		}
+	}
+	
+	public override void OnFinish ()
+	{
+		pc.current_state = EntityState.NORMAL;
+		pc.transform.position = new Vector3(39.654f,2.904f,0f);
+		Camera.main.transform.position  = new Vector3(39.51f, 6.41f, -10f);
+		pc.GetComponent<SpriteRenderer> ().sprite = sprites [4];
+	}
+}
+
+
+
 
 
 // Additional recommended states:
