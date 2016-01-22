@@ -15,16 +15,16 @@ public class Enemy : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 	
 	}
 
-	void OnTriggerEnter(Collider coll) {
+	protected void OnTriggerEnter(Collider coll) {
 		print (coll.gameObject.tag);
 		if (coll.tag == "Weapon") {
 			health -= 1; // need the fix this
