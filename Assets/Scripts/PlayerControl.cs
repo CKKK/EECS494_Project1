@@ -2,7 +2,7 @@
 using System.Collections;
 
 public enum Direction {NORTH, EAST, SOUTH, WEST};
-public enum EntityState {NORMAL, ATTACKING};
+public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD,CANVAS};
 
 public class PlayerControl : MonoBehaviour {
 
@@ -10,8 +10,9 @@ public class PlayerControl : MonoBehaviour {
 	public int rupee_Count = 0;
 	public int health_Count = 3;
 	public int health_Max = 3;
-
-
+	public int key = 0;
+	public Sprite [] sprites;
+	public Sprite[] spritesfordead;
 	public Sprite[] link_run_down;
 	public Sprite[] link_run_up;
 	public Sprite[] link_run_right;
@@ -45,7 +46,29 @@ public class PlayerControl : MonoBehaviour {
 		control_state_machine.Update ();
 		if (control_state_machine.IsFinished ()) {
 			control_state_machine.ChangeState (new StateLinkNormalMovement (this));
+
 		}
+		if (this.transform.position.x >= 46 && this.transform.position.x < 47 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
+		{
+			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+		}
+		if (this.transform.position.x >= 48 && this.transform.position.x < 49 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
+		{
+			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+		}
+		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
+		{
+			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+		}
+		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
+		{
+			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+		}
+
 	}
 	
 	void OnTriggerEnter(Collider coll)
@@ -64,7 +87,11 @@ public class PlayerControl : MonoBehaviour {
 			health_Count++;
 			Destroy (coll.gameObject);
 		} else if (coll.tag == "rupee_2") {
-			rupee_Count = rupee_Count +2;
+			rupee_Count = rupee_Count + 2;
+			Destroy (coll.gameObject);
+		} else if (coll.tag == "key") 
+		{
+			key++;
 			Destroy(coll.gameObject);
 		}
 	}
@@ -73,6 +100,11 @@ public class PlayerControl : MonoBehaviour {
 		if (coll.gameObject.tag == "Enemy") {
 			Enemy enemyObj = coll.gameObject.GetComponent<Enemy>();
 			health_Count -= enemyObj.getDamage ();
+			if(health_Count >0)
+			control_state_machine.ChangeState(new LinkStunning(this,sprites,15));
+			else			
+				control_state_machine.ChangeState(new LinkDead(this,spritesfordead,47));
+
 
 		}
 
