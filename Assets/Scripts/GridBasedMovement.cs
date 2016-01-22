@@ -5,9 +5,14 @@ public class GridBasedMovement{
 	GameObject moving_obj;
 	Direction current_direction;
 	float current_speed;
-
-	public GridBasedMovement(GameObject moving_obj_){
+	float gridMultiplyer;
+	public GridBasedMovement(GameObject moving_obj_, bool halfGrid){
 		this.moving_obj = moving_obj_;
+		if (halfGrid) {
+			gridMultiplyer = 2.0f;
+		} else {
+			gridMultiplyer = 1.0f;
+		}
 	}
 
 	public Direction getCurrentDirection(){
@@ -18,8 +23,8 @@ public class GridBasedMovement{
 		current_direction = direction;
 		float x = moving_obj.transform.position.x;
 		float y = moving_obj.transform.position.y;
-		float rounded_x = Mathf.Round ( x * 2.0f) / 2.0f;
-		float rounded_y = Mathf.Round ( y * 2.0f) / 2.0f;
+		float rounded_x = Mathf.Round ( x * gridMultiplyer) / gridMultiplyer;
+		float rounded_y = Mathf.Round ( y * gridMultiplyer) / gridMultiplyer;
 		if (direction == Direction.EAST || direction == Direction.WEST) {
 			moving_obj.transform.position = new Vector3 (x, rounded_y, 0);
 		} else {

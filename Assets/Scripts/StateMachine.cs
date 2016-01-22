@@ -172,7 +172,7 @@ public class StateLinkNormalMovement: State
 		float vertical_Input = Input.GetAxis("Vertical");
 		if (horizontal_Input != 0.0f)
 			vertical_Input = 0.0f;
-		pc.GetComponent<Rigidbody> ().velocity = new Vector3 (horizontal_Input, vertical_Input, 0) * pc.walking_Velocity * time_delta_fraction;
+		
 		if (horizontal_Input > 0.0f)
 			pc.current_direction = Direction.EAST;
 		else if (horizontal_Input < 0.0f)
@@ -181,7 +181,8 @@ public class StateLinkNormalMovement: State
 			pc.current_direction = Direction.NORTH;
 		else if (vertical_Input < 0.0f)
 			pc.current_direction = Direction.SOUTH;
-
+		pc.movement_controller.SetSpeed (Mathf.Abs(horizontal_Input + vertical_Input) * pc.walking_Velocity * time_delta_fraction);
+		pc.movement_controller.SetDirection (pc.current_direction);
 		if (Input.GetKeyDown (KeyCode.S))
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
 		if (Input.GetKeyDown (KeyCode.Z))

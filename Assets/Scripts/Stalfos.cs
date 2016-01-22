@@ -14,7 +14,7 @@ public class Stalfos : Enemy {
 
 	// Use this for initialization
 	protected override void Start () {
-		MovementController = new GridBasedMovement (gameObject);
+		MovementController = new GridBasedMovement (gameObject, false);
 		MovementController.SetDirection (StartDirection);
 		MovementController.SetSpeed (1);
 	}

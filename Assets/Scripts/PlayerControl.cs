@@ -17,9 +17,11 @@ public class PlayerControl : MonoBehaviour {
 	public Sprite[] link_run_up;
 	public Sprite[] link_run_right;
 	public Sprite[] link_run_left;
+	public GridBasedMovement movement_controller;
 
 	StateMachine animation_state_machine;
 	StateMachine control_state_machine;
+
 	
 	public EntityState current_state = EntityState.NORMAL;
 	public Direction current_direction = Direction.SOUTH;
@@ -38,6 +40,7 @@ public class PlayerControl : MonoBehaviour {
 
 		control_state_machine = new StateMachine ();
 		control_state_machine.ChangeState (new StateLinkNormalMovement (this));
+		movement_controller = new GridBasedMovement (gameObject, true);
 	}
 	
 	// Update is called once per frame
