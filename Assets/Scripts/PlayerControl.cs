@@ -5,6 +5,7 @@ public enum Direction {NORTH, EAST, SOUTH, WEST};
 public enum EntityState {NORMAL, ATTACKING};
 
 public class PlayerControl : MonoBehaviour {
+
 	public float walking_Velocity = 4.0f;
 	public int rupee_Count = 0;
 	public int health_Count = 3;
@@ -30,7 +31,7 @@ public class PlayerControl : MonoBehaviour {
 		if(instance != null)
 			Debug.LogError("Multiple link objects detected");
 		instance = this;
-		
+
 		animation_state_machine = new StateMachine ();
 		animation_state_machine.ChangeState (new StateIdleWithSprite (this, GetComponent<SpriteRenderer> (), link_run_down [0]));
 
@@ -72,6 +73,8 @@ public class PlayerControl : MonoBehaviour {
 		if (coll.gameObject.tag == "Enemy") {
 			Enemy enemyObj = coll.gameObject.GetComponent<Enemy>();
 			health_Count -= enemyObj.getDamage ();
+
 		}
+
 	}
 }

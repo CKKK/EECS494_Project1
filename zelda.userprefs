@@ -1,15 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerControl.cs">
     <Files>
-      <File FileName="Assets/wooden_Sword.cs" Line="5" Column="26" />
-      <File FileName="Assets/Scripts/PlayerControl.cs" Line="1" Column="1" />
-      <File FileName="Assets/Resources/Collision.txt" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/StateMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Hud.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/heart.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemy.cs" Line="30" Column="37" />
+      <File FileName="Assets/Scripts/PlayerControl.cs" Line="9" Column="1" />
+      <File FileName="Assets/Scripts/StateMachine.cs" Line="259" Column="5" />
+      <File FileName="Assets/Scripts/Hud.cs" Line="18" Column="65" />
+      <File FileName="Assets/Scripts/heart.cs" Line="21" Column="16" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="32" Column="30" />
       <File FileName="Assets/Scripts/Stalfos.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ShowMapOnCamera.cs" Line="8" Column="39" />
+      <File FileName="Assets/Scripts/ShowMap.cs" Line="1" Column="3" />
+      <File FileName="Assets/Scripts/CameraFollow.cs" Line="45" Column="84" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
