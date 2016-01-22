@@ -52,7 +52,7 @@ public class Stalfos : Enemy {
 	}
 
 	void OnCollisionEnter(Collision coll) {
-		if (coll.gameObject.tag == "Tile") {
+		if (coll.gameObject.tag == "key") {
 			randomChangeDirection (MovementController.getCurrentDirection());
 		}
 
