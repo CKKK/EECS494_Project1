@@ -104,7 +104,7 @@ public class PlayerControl : MonoBehaviour {
 			Enemy enemyObj = coll.gameObject.GetComponent<Enemy>();
 			health_Count -= enemyObj.getDamage ();
 			if(health_Count >0)
-			control_state_machine.ChangeState(new LinkStunning(this,sprites,15));
+				control_state_machine.ChangeState(new LinkStunning(this,sprites,15, coll.gameObject));
 			else			
 				control_state_machine.ChangeState(new LinkDead(this,spritesfordead,47));
 
