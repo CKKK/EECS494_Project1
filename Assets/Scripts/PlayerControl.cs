@@ -2,7 +2,7 @@
 using System.Collections;
 
 public enum Direction {NORTH, EAST, SOUTH, WEST};
-public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD};
+public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD,CANVAS};
 
 public class PlayerControl : MonoBehaviour {
 
@@ -10,7 +10,7 @@ public class PlayerControl : MonoBehaviour {
 	public int rupee_Count = 0;
 	public int health_Count = 3;
 	public int health_Max = 3;
-
+	public int key = 0;
 	public Sprite [] sprites;
 	public Sprite[] spritesfordead;
 	public Sprite[] link_run_down;
@@ -87,7 +87,11 @@ public class PlayerControl : MonoBehaviour {
 			health_Count++;
 			Destroy (coll.gameObject);
 		} else if (coll.tag == "rupee_2") {
-			rupee_Count = rupee_Count +2;
+			rupee_Count = rupee_Count + 2;
+			Destroy (coll.gameObject);
+		} else if (coll.tag == "key") 
+		{
+			key++;
 			Destroy(coll.gameObject);
 		}
 	}

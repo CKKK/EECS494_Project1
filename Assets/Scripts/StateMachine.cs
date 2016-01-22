@@ -182,9 +182,10 @@ public class StateLinkNormalMovement: State
 		else if (vertical_Input < 0.0f)
 			pc.current_direction = Direction.SOUTH;
 
-		if (Input.GetKeyDown (KeyCode.Z))
+		if (Input.GetKeyDown (KeyCode.S))
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
-
+		if (Input.GetKeyDown (KeyCode.Z))
+			state_machine.ChangeState (new Linkcanvas (pc,Canvas.canvas));
 	}
 }
 
@@ -457,6 +458,42 @@ public class LinkDead : State
 		pc.transform.position = new Vector3(39.654f,2.904f,0f);
 		Camera.main.transform.position  = new Vector3(39.51f, 6.41f, -10f);
 		pc.GetComponent<SpriteRenderer> ().sprite = sprites [4];
+	}
+}
+
+public class Linkcanvas : State
+{
+	Canvas canvas;
+	PlayerControl pc;
+	public Linkcanvas(PlayerControl pc,Canvas canvas)
+	{
+		this.canvas = canvas;
+		this.pc = pc;
+	}
+	
+	public override void OnStart ()
+	{
+		pc.current_state = EntityState.CANVAS;
+		
+		
+	}
+	
+	public  void OnFixedUpdate(float time_Delta_Fraction)
+	{
+
+		canvas.transform.position = new Vector3 (canvas.transform.position.x, canvas.transform.position.y+10, canvas.transform.position.z);
+		if (Input.GetKeyDown (KeyCode.Z))
+		     
+		{
+			
+			ConcludeState ();
+		}
+	}
+	
+	public override void OnFinish ()
+	{
+		pc.current_state = EntityState.NORMAL;
+
 	}
 }
 
