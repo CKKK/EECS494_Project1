@@ -18,6 +18,7 @@ public class PlayerControl : MonoBehaviour {
 	public Sprite[] link_run_right;
 	public Sprite[] link_run_left;
 	public GridBasedMovement movement_controller;
+	public Sprite[] doors;
 
 	StateMachine animation_state_machine;
 	StateMachine control_state_machine;
@@ -92,10 +93,17 @@ public class PlayerControl : MonoBehaviour {
 		} else if (coll.tag == "rupee_2") {
 			rupee_Count = rupee_Count + 2;
 			Destroy (coll.gameObject);
-		} else if (coll.tag == "key") 
-		{
+		} else if (coll.tag == "key") {
 			key++;
-			Destroy(coll.gameObject);
+			Destroy (coll.gameObject);
+		} else if (coll.tag == "locked") 
+		{
+			if(coll.name == "039x009" || coll.name == "040x009")
+			{
+				GameObject.Find("039x009").GetComponent<SpriteRenderer>().sprite = doors[0];
+				GameObject.Find("040x009").GetComponent<SpriteRenderer>().sprite = doors[1];
+
+			}
 		}
 	}
 
