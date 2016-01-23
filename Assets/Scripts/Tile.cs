@@ -63,11 +63,12 @@ public class Tile : MonoBehaviour {
         // Collider info from collisionData
         bc.enabled = true;
         char c = ShowMapOnCamera.S.collisionS[tileNum];
-		if (tileNum == 80 || tileNum == 81) 
+		if (tileNum == 80 || tileNum == 81 || tileNum == 100 || tileNum == 106 || tileNum == 101) 
 		{
 			bc.isTrigger = true;
 			this.tag = "locked";
 		}
+
         switch (c) {
         case 'S': // Solid
             bc.center = Vector3.zero;
