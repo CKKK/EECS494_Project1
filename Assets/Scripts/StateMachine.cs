@@ -478,6 +478,7 @@ public class LinkDead : State
 		pc.transform.position = new Vector3(39.654f,2.904f,0f);
 		Camera.main.transform.position  = new Vector3(39.51f, 6.41f, -10f);
 		pc.GetComponent<SpriteRenderer> ().sprite = sprites [4];
+		pc.health_Count = 3;
 	}
 }
 

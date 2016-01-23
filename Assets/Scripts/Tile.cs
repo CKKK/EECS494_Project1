@@ -9,7 +9,6 @@ public class Tile : MonoBehaviour {
 	public int				tileNum;
 	private BoxCollider		bc;
     private Material        mat;
-
     private SpriteRenderer  sprend;
 
 	void Awake() {
@@ -64,6 +63,11 @@ public class Tile : MonoBehaviour {
         // Collider info from collisionData
         bc.enabled = true;
         char c = ShowMapOnCamera.S.collisionS[tileNum];
+		if (tileNum == 80 || tileNum == 81) 
+		{
+			bc.isTrigger = true;
+			this.tag = "locked";
+		}
         switch (c) {
         case 'S': // Solid
             bc.center = Vector3.zero;
