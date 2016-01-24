@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 public enum Direction {NORTH, EAST, SOUTH, WEST};
 public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD,PANEL,CANVAS};
-
 public class PlayerControl : MonoBehaviour {
-
+	public bool invince = false;
 	public float walking_Velocity = 4.0f;
 	public int rupee_Count = 0;
 	public int health_Count = 3;
 	public int health_Max = 3;
+	public int boom_Count = 0;
 	public int key = 0;
 	public Sprite [] sprites;
 	public Sprite[] spritesfordead;
@@ -36,8 +36,6 @@ public class PlayerControl : MonoBehaviour {
 		if(instance != null)
 			Debug.LogError("Multiple link objects detected");
 		instance = this;
-		Inventory.Add (wooden_Sword.sword_instance.gameObject);
-		print (Inventory [0].name);
 		animation_state_machine = new StateMachine ();
 		animation_state_machine.ChangeState (new StateIdleWithSprite (this, GetComponent<SpriteRenderer> (), link_run_down [0]));
 
@@ -233,7 +231,12 @@ public class PlayerControl : MonoBehaviour {
 				Destroy(coll.gameObject);
 			}
 		}
-		if (coll.tag == "Rupee") {
+		else if (coll.tag == "boom") 
+		{
+			Destroy(coll.gameObject);
+			boom_Count++;
+		}
+		else if (coll.tag == "Rupee") {
 			rupee_Count++;
 			Destroy (coll.gameObject);
 		} else if (coll.tag == "heart_1") { // add health
@@ -260,7 +263,8 @@ public class PlayerControl : MonoBehaviour {
 			}
 		} else if (coll.gameObject.tag == "EnemyProjectile") {
 			EnemyProjectile enemyProjObj = coll.gameObject.GetComponent<EnemyProjectile> ();
-			health_Count -= enemyProjObj.getDamage ();
+			if(invince != true)
+				health_Count -= enemyProjObj.getDamage ();
 			if (health_Count > 0)
 				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
 			else
@@ -273,7 +277,8 @@ public class PlayerControl : MonoBehaviour {
 	void OnCollisionEnter(Collision coll) {
 		if (coll.gameObject.tag == "Enemy") {
 			Enemy enemyObj = coll.gameObject.GetComponent<Enemy> ();
-			health_Count -= enemyObj.getDamage ();
+			if(invince != true)
+				health_Count -= enemyObj.getDamage ();
 			if (health_Count > 0)
 				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
 			else
