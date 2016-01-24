@@ -65,7 +65,6 @@ public class Tile : MonoBehaviour {
         char c = ShowMapOnCamera.S.collisionS[tileNum];
 		if (tileNum == 80 || tileNum == 81 || tileNum == 100 || tileNum == 106 || tileNum == 101) 
 		{
-			bc.isTrigger = true;
 			this.tag = "locked";
 		}
 

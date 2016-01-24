@@ -1,15 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class canvas : MonoBehaviour {
-	
-	
+public class hearts : MonoBehaviour {
+
+
 	public GameObject heartPrefab;
 	public static List<GameObject> heartImages = new List<GameObject>();
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	
 	// Update is called once per frame
@@ -40,8 +40,8 @@ public class canvas : MonoBehaviour {
 				Destroy(heartToRemove);
 			}
 		}		
-		
+	
 	}
-	
-	
+
+
 }
