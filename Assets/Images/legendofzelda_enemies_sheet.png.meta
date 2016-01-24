@@ -1,11 +1,13 @@
 fileFormatVersion: 2
 guid: 4486c7d37e6fb4918a487b32829553e8
-timeCreated: 1453233007
+timeCreated: 1453513294
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: legendofzelda_enemies_sheet_0
     21300002: legendofzelda_enemies_sheet_1
+    21300004: legendofzelda_enemies_sheet_2
+    21300006: legendofzelda_enemies_sheet_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -68,6 +70,28 @@ TextureImporter:
         serializedVersion: 2
         x: 420
         y: 181
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: legendofzelda_enemies_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 59
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: legendofzelda_enemies_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 59
         width: 16
         height: 16
       alignment: 0
