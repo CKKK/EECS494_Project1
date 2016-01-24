@@ -20,7 +20,7 @@ public class PlayerControl : MonoBehaviour {
 	public Sprite[] link_run_left;
 	public GridBasedMovement movement_controller;
 	public Sprite[] doors;
-	public static List<GameObject> Inventory = new List<GameObject>();
+	public List<GameObject> Inventory = new List<GameObject>();
 	StateMachine animation_state_machine;
 	StateMachine control_state_machine;
 
@@ -226,7 +226,7 @@ public class PlayerControl : MonoBehaviour {
 		{
 			if(coll.name == "bow")
 			{
-				Inventory.Add(coll.gameObject);
+				//Inventory.Add(coll.gameObject);
 				print ("Succesful added");
 				Destroy(coll.gameObject);
 			}
