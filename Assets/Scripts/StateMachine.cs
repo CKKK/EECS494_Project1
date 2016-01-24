@@ -185,8 +185,7 @@ public class StateLinkNormalMovement: State
 		pc.movement_controller.SetDirection (pc.current_direction);
 		if (Input.GetKeyDown (KeyCode.S))
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
-		if (Input.GetKeyDown (KeyCode.Z))
-			state_machine.ChangeState (new Linkcanvas (pc,Canvas.canvas));
+
 	}
 }
 
