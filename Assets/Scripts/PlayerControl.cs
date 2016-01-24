@@ -96,28 +96,35 @@ public class PlayerControl : MonoBehaviour {
 		} else if (coll.tag == "key") {
 			key++;
 			Destroy (coll.gameObject);
-		} else if (coll.tag == "locked") 
-		{
+		} else if (coll.tag == "locked") {
 			if(coll.name == "039x009" || coll.name == "040x009")
 			{
 				GameObject.Find("039x009").GetComponent<SpriteRenderer>().sprite = doors[0];
 				GameObject.Find("040x009").GetComponent<SpriteRenderer>().sprite = doors[1];
 
 			}
+		} else if (coll.gameObject.tag == "EnemyProjectile") {
+			EnemyProjectile enemyProjObj = coll.gameObject.GetComponent<EnemyProjectile> ();
+			health_Count -= enemyProjObj.getDamage ();
+			if (health_Count > 0)
+				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
+			else
+				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 		}
 	}
 
 	void OnCollisionEnter(Collision coll) {
 		if (coll.gameObject.tag == "Enemy") {
-			Enemy enemyObj = coll.gameObject.GetComponent<Enemy>();
+			Enemy enemyObj = coll.gameObject.GetComponent<Enemy> ();
 			health_Count -= enemyObj.getDamage ();
-			if(health_Count >0)
-				control_state_machine.ChangeState(new LinkStunning(this,sprites,15, coll.gameObject));
-			else			
-				control_state_machine.ChangeState(new LinkDead(this,spritesfordead,47));
+			if (health_Count > 0)
+				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
+			else
+				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 
 
 		}
 
 	}
+
 }
