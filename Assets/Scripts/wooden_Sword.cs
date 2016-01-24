@@ -3,9 +3,10 @@ using System.Collections;
 
 public class wooden_Sword : MonoBehaviour {
 	// Use this for initialization
+	public static wooden_Sword sword_instance;
 
 	void Start () {
-
+		sword_instance = this;
 	}
 	
 	// Update is called once per frame

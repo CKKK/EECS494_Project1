@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 // State Machines are responsible for processing states, notifying them when they're about to begin or conclude, etc.
 public class StateMachine
@@ -185,7 +186,10 @@ public class StateLinkNormalMovement: State
 		pc.movement_controller.SetDirection (pc.current_direction);
 		if (Input.GetKeyDown (KeyCode.S))
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
-
+		if (Input.GetKeyDown (KeyCode.A) && pc.rupee_Count>=1)
+			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab1, 15));
+		if (Input.GetKeyDown (KeyCode.Z))
+			state_machine.ChangeState (new LinkInventory (pc,panel.panel_instance));
 	}
 }
 
@@ -194,6 +198,7 @@ public class StateLinkAttack : State
 	PlayerControl pc;
 	GameObject  weapon_Prefab;
 	GameObject weapon_Instance;
+	GameObject arrow_Instance;
 	float cooldown = 0.0f;
 	public StateLinkAttack(PlayerControl pc, GameObject weapon_Prefab, int cooldown)
 	{
@@ -207,37 +212,58 @@ public class StateLinkAttack : State
 		pc.current_state = EntityState.ATTACKING;
 		pc.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		weapon_Instance = MonoBehaviour.Instantiate (weapon_Prefab, pc.transform.position, Quaternion.identity) as GameObject;
+		arrow_Instance = MonoBehaviour.Instantiate (pc.Arrow, pc.transform.position, Quaternion.identity) as GameObject;
 		Vector3 direction_Offset = Vector3.zero;
 		Vector3 direction_Eulerangle = Vector3.zero;
 
 		if (pc.current_direction == Direction.NORTH) {
 			direction_Offset = new Vector3 (0, 1, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 90);
-			if(pc.health_Count == pc.health_Max)
+			if(pc.health_Count == pc.health_Max && weapon_Prefab.name == "wooden sword")
 			{
 				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(0,10,0);
+			}
+			if(weapon_Prefab.name == "bow")
+			{
+				arrow_Instance.GetComponent<Rigidbody>().velocity = new Vector3(0,10,0);
+
 			}
 		} else if (pc.current_direction == Direction.EAST) {
 			direction_Offset = new Vector3 (1, 0, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 0);
-			if(pc.health_Count == pc.health_Max)
+			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword")
 			{
 				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(10,0,0);
+			}
+			if(weapon_Prefab.name == "bow")
+			{
+				arrow_Instance.GetComponent<Rigidbody>().velocity = new Vector3(10,0,0);
+				
 			}
 		} else if (pc.current_direction == Direction.SOUTH) {
 			direction_Offset = new Vector3 (0, -1, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 270);
-			if(pc.health_Count == pc.health_Max)
+			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword")
 			{
 				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(0,-10,0);
+			}
+			if(weapon_Prefab.name == "bow")
+			{
+				arrow_Instance.GetComponent<Rigidbody>().velocity = new Vector3(0,-10,0);
+				
 			}
 		} else if (pc.current_direction == Direction. WEST) 
 		{
 			direction_Offset = new Vector3 (-1, 0, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 180);
-			if(pc.health_Count == pc.health_Max)
+			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword")
 			{
 				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(-10,0,0);
+			}
+			if(weapon_Prefab.name == "bow")
+			{
+				arrow_Instance.GetComponent<Rigidbody>().velocity = new Vector3(-10,0,0);
+				
 			}
 		}
 
@@ -245,6 +271,17 @@ public class StateLinkAttack : State
 		Quaternion new_Weapon_Rotaion = new Quaternion ();
 		new_Weapon_Rotaion = Quaternion.Euler (direction_Eulerangle.x, direction_Eulerangle.y, direction_Eulerangle.z);
 		weapon_Instance.transform.rotation = new_Weapon_Rotaion;
+		if (weapon_Prefab.name == "bow") 
+		{
+
+			arrow_Instance.transform.position += direction_Offset;
+			arrow_Instance.transform.rotation = new_Weapon_Rotaion;
+			pc.rupee_Count--;
+		}
+		if (weapon_Prefab.name != "bow") 
+		{
+			MonoBehaviour.Destroy(arrow_Instance);
+		}
 
 	}
 
@@ -258,8 +295,13 @@ public class StateLinkAttack : State
 	public override void OnFinish ()
 	{
 		pc.current_state = EntityState.NORMAL;
-		if (pc.health_Max != pc.health_Count)
+		if (weapon_Prefab.name == "bow") 
+		{
+			MonoBehaviour.Destroy(weapon_Instance);
+		}
+		if (pc.health_Max != pc.health_Count && weapon_Prefab.name == "wooden sword");
 			MonoBehaviour.Destroy (weapon_Instance);
+
 	}
 }
 
@@ -516,6 +558,58 @@ public class Linkcanvas : State
 
 	}
 }
+
+
+
+public class LinkInventory : State
+{
+	PlayerControl pc;
+	panel panel;
+	bool flag = false;
+	public LinkInventory(PlayerControl pc,panel panel)
+	{
+		this.pc = pc;
+		this.panel = panel;
+	}
+	
+	public override void OnStart ()
+	{
+		pc.current_state = EntityState.PANEL;
+		
+		
+	}
+	
+	public override void OnUpdate(float time_Delta_Fraction)
+	{
+
+		if (flag == false) 
+		{
+			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != -122)
+				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y - 2);
+		}
+
+		if (Input.GetKeyDown (KeyCode.Z))
+		{
+			flag = true;
+		}
+		if (flag == true) 
+		{
+			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != 114)
+				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y+2);
+			else
+				ConcludeState();
+		}
+
+	}
+	
+	public override void OnFinish ()
+	{
+
+		pc.current_state = EntityState.NORMAL;
+
+	}
+}
+
 
 
 

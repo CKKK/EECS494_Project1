@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum Direction {NORTH, EAST, SOUTH, WEST};
-public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD,CANVAS};
+public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD,PANEL,CANVAS};
 
 public class PlayerControl : MonoBehaviour {
 
@@ -19,23 +20,24 @@ public class PlayerControl : MonoBehaviour {
 	public Sprite[] link_run_left;
 	public GridBasedMovement movement_controller;
 	public Sprite[] doors;
-
+	public static List<GameObject> Inventory = new List<GameObject>();
 	StateMachine animation_state_machine;
 	StateMachine control_state_machine;
 
-	
 	public EntityState current_state = EntityState.NORMAL;
 	public Direction current_direction = Direction.SOUTH;
 
 	public GameObject selected_weapon_prefab;
-
+	public GameObject selected_weapon_prefab1;
+	public GameObject Arrow;
 	public static PlayerControl instance;
 	// Use this for initialization
 	void Start () {
 		if(instance != null)
 			Debug.LogError("Multiple link objects detected");
 		instance = this;
-
+		Inventory.Add (wooden_Sword.sword_instance.gameObject);
+		print (Inventory [0].name);
 		animation_state_machine = new StateMachine ();
 		animation_state_machine.ChangeState (new StateIdleWithSprite (this, GetComponent<SpriteRenderer> (), link_run_down [0]));
 
@@ -222,6 +224,15 @@ public class PlayerControl : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider coll)
 	{
+		if (coll.tag == "Weapon") 
+		{
+			if(coll.name == "bow")
+			{
+				Inventory.Add(coll.gameObject);
+				print ("Succesful added");
+				Destroy(coll.gameObject);
+			}
+		}
 		if (coll.tag == "Rupee") {
 			rupee_Count++;
 			Destroy (coll.gameObject);
