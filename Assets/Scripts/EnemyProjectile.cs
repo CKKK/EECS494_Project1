@@ -12,4 +12,12 @@ public class EnemyProjectile : MonoBehaviour {
 	public int getDamage(){
 		return damage;
 	}
+
+	void OnTriggerEnter(Collider coll)
+	{
+		if(coll.gameObject.tag == "Player")
+		{
+			Destroy(this.gameObject);
+		}
+	}
 }

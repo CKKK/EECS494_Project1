@@ -2,20 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
-public class Stalfos : Enemy {
+public class Gel : Enemy {
 	public double changeDirectionProb = 0.5;
 	public float speed = 0.5f;
-
+	enum GelState {move, stop};
+	GelState movingState;
 	public GameObject[] detectors;
 
 	GameObject currentMovingTowardDetector;
 
-	public Stalfos(): base(2, 1) {
+	public Gel(): base(1, 1) {
 	}
 
 	// Use this for initialization
 	protected override void Start () {
+		movingState = GelState.move;
 		State normalMovementState = new EnemyMovementState (this, randomTakeStep(), speed);
 		base.BehaviorStateMathine.ChangeState (normalMovementState);
 	}
@@ -23,22 +24,25 @@ public class Stalfos : Enemy {
 	// Update is called once per frame
 	protected override void Update ()
 	{
-//		float time_delta_fraction = Time.deltaTime / (1.0f / Application.targetFrameRate);
+		//		float time_delta_fraction = Time.deltaTime / (1.0f / Application.targetFrameRate);
 		base.Update ();
 		base.BehaviorStateMathine.Update ();
 		if (base.BehaviorStateMathine.IsFinished()) {
-			int randNum = Random.Range (0, 100);
-			if (!currentMovingTowardDetector.GetComponent<Detector> ().CollideWithTile () && randNum >= changeDirectionProb * 100) {
-				
-				State normalMovementState = new EnemyMovementState (this, currentMovingTowardDetector.transform.position, speed);
+			if (movingState == GelState.move) {
+				movingState = GelState.stop;
+				State normalMovementState = new EnemyMovementState (this, this.transform.position, speed);
 				base.BehaviorStateMathine.ChangeState (normalMovementState);
-				 
 			} else {
-				State normalMovementState = new EnemyMovementState (this, randomTakeStep (), speed);
-				base.BehaviorStateMathine.ChangeState (normalMovementState);
+				movingState = GelState.move;
+				int randNum = Random.Range (0, 100);
+				if (!currentMovingTowardDetector.GetComponent<Detector> ().CollideWithTile () && randNum >= changeDirectionProb * 100) {
+					State normalMovementState = new EnemyMovementState (this, currentMovingTowardDetector.transform.position, speed);
+					base.BehaviorStateMathine.ChangeState (normalMovementState);
+				} else {
+					State normalMovementState = new EnemyMovementState (this, randomTakeStep (), speed);
+					base.BehaviorStateMathine.ChangeState (normalMovementState);
+				}
 			}
-
-
 		}
 	}
 
@@ -62,7 +66,8 @@ public class Stalfos : Enemy {
 
 	void OnCollisionEnter(Collision coll) {
 		if (coll.gameObject.tag == "Tiles") {
-			State normalMovementState = new EnemyMovementState (this, randomTakeStep (), speed);
+			movingState = GelState.stop;
+			State normalMovementState = new EnemyMovementState (this, transform.position, speed);
 			base.BehaviorStateMathine.ChangeState (normalMovementState);
 		}
 	}

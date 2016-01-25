@@ -25,10 +25,10 @@ public class hearts : MonoBehaviour {
 			{
 				GameObject newHeart = Instantiate(this.heartPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 				newHeart.transform.SetParent(this.gameObject.transform);
-				newHeart.transform.localScale = new Vector3(10,10,0);
+				newHeart.transform.localScale = new Vector3(1,1,0);
 				newHeart.layer = 5;
-				newHeart.GetComponent<RectTransform>().anchoredPosition = new Vector3(heartImages.Count * 20, 0, 0);
-				newHeart.GetComponent<RectTransform>().sizeDelta = new Vector2(25,25);
+				newHeart.GetComponent<RectTransform>().anchoredPosition = new Vector3(heartImages.Count * 12, 0, 0) + new Vector3(155, -32, 0);
+				newHeart.GetComponent<RectTransform>().sizeDelta = new Vector2(10,3);
 				heartImages.Add(newHeart);
 			}
 			

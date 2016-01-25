@@ -624,6 +624,206 @@ public class LinkInventory : State
 	}
 }
 
+public class EnemyMovementState : State {
+	Enemy enemy;
+	Vector3 Destination;
+	float speed;
+	float timeStart;
+	float duration;
+	Vector3 Departure;
+	public EnemyMovementState(Enemy enemy, Vector3 Destination_, float speed)
+	{
+		
+		Destination = Destination_;
+		Departure = enemy.gameObject.transform.position;
+		float distance = (Departure - Destination).magnitude;
+		if (distance != 0) {
+			duration = distance / speed;
+		} else {
+			duration = 1;
+		}
+		timeStart = Time.time;
+		this.enemy = enemy;
+
+
+	}
+
+	public override void OnStart () {
+		Vector3 position = enemy.GetComponent<Transform> ().position;
+		position.x = Mathf.RoundToInt (position.x);
+		position.y = Mathf.RoundToInt (position.y);
+		enemy.GetComponent<Transform> ().position = position;
+	}
+
+	public override void OnUpdate (float time_delta_fraction)
+	{
+		enemy.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+		float u = (Time.time - timeStart) / duration;
+		if (u >= 1) {  // if u >=1...
+			Vector3 position = enemy.GetComponent<Transform> ().position;
+			position.x = Mathf.RoundToInt (position.x);
+			position.y = Mathf.RoundToInt (position.y);
+			enemy.GetComponent<Transform> ().position = position;
+			ConcludeState ();
+		} else {
+			enemy.GetComponent<Transform> ().position = (1 - u) * Departure + u * Destination; // Simple linear interpolation
+		}
+
+	}
+}
+
+class EnemyStunState : State{
+	Enemy enemy;
+//	Sprite [] sprites;
+	float cooldown = 0.0f;
+//	int counter = 0;
+	GameObject Collider_obj;
+	Direction attack_direction;
+	public EnemyStunState(Enemy enemy_, int cooldown, GameObject Collider_obj_)
+	{
+		this.enemy = enemy_;
+//		this.sprites = sprites;
+		this.cooldown = cooldown;
+		this.Collider_obj = Collider_obj_;
+	}
+
+	public override void OnStart ()
+	{
+		enemy.invincible = true;
+		Vector3 attack_vector = enemy.GetComponent<Transform> ().position - Collider_obj.GetComponent<Transform> ().position;
+		if (Mathf.Abs (attack_vector.x) > Mathf.Abs (attack_vector.y)) {
+			attack_vector.y = 0.0f;
+		} else {
+			attack_vector.x = 0.0f;
+		}
+
+		if (attack_vector.x < 0.0f)
+			attack_direction = Direction.EAST;
+		else if (attack_vector.x > 0.0f)
+			attack_direction = Direction.WEST;
+		else if (attack_vector.y < 0.0f)
+			attack_direction = Direction.NORTH;
+		else if (attack_vector.y > 0.0f)
+			attack_direction = Direction.SOUTH;
+
+		if (attack_direction == Direction.NORTH) 
+		{
+			enemy.GetComponent<Rigidbody>().velocity = new Vector3(0,-5,0);
+		}
+		else if(attack_direction == Direction.WEST) 
+		{
+			enemy.GetComponent<Rigidbody>().velocity = new Vector3(5,0,0);
+
+		}
+		else if(attack_direction == Direction.SOUTH) 
+		{
+			enemy.GetComponent<Rigidbody>().velocity = new Vector3(0,5,0);
+
+		}
+		else if(attack_direction == Direction.EAST) 
+		{
+			enemy.GetComponent<Rigidbody>().velocity = new Vector3(-5,0,0);
+
+		}
+
+	}
+
+	public override void OnUpdate(float time_Delta_Fraction)
+	{
+//		counter++;
+//		if (attack_direction == Direction.NORTH) 
+//		{
+//			if(counter <5)
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[0];
+//			}
+//			else if(counter>=5 && counter <10)
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[1];
+//
+//			}
+//			else
+//				counter = 0;
+//		}
+//		else if(attack_direction == Direction.WEST) 
+//		{
+//			if(counter <5)
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[2];
+//			}
+//			else if(counter>=5 && counter <10)
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[3];
+//
+//			}
+//			else
+//				counter = 0;
+//		}
+//		else if(attack_direction == Direction.SOUTH) 
+//		{
+//			if(counter <5)
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[4];
+//			}
+//			else if(counter>=5 && counter <10)
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[5];
+//
+//			}
+//			else
+//				counter = 0;
+//		}
+//		else if(attack_direction == Direction.EAST) 
+//		{
+//			if(counter <5)
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[6];
+//			}
+//			else if(counter>=5 && counter <10)
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[7];
+//
+//			}
+//			else
+//				counter = 0;
+//		}
+
+		cooldown -= time_Delta_Fraction;
+		if (cooldown <= 0) 
+		{
+//			if (attack_direction == Direction.NORTH) 
+//			{
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[0];
+//
+//			}
+//			else if(attack_direction == Direction.WEST) 
+//			{
+//
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[2];
+//
+//			}
+//			else if(attack_direction == Direction.SOUTH) 
+//			{
+//
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[4];
+//
+//			}
+//			else if(attack_direction == Direction.EAST) 
+//			{
+//
+//				enemy.GetComponent<SpriteRenderer>().sprite = sprites[6];
+//			}
+			ConcludeState ();
+		}
+	}
+
+	public override void OnFinish ()
+	{
+		enemy.invincible = false;
+//		enemy.current_state = EntityState.NORMAL;
+
+	}
+}
 
 
 
