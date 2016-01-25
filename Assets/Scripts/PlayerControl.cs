@@ -20,10 +20,9 @@ public class PlayerControl : MonoBehaviour {
 	public Sprite[] link_run_left;
 	public GridBasedMovement movement_controller;
 	public Sprite[] doors;
-	public List<GameObject> Inventory = new List<GameObject>();
+
 	StateMachine animation_state_machine;
 	StateMachine control_state_machine;
-
 	public EntityState current_state = EntityState.NORMAL;
 	public Direction current_direction = Direction.SOUTH;
 
@@ -226,7 +225,6 @@ public class PlayerControl : MonoBehaviour {
 		{
 			if(coll.name == "bow")
 			{
-				//Inventory.Add(coll.gameObject);
 				print ("Succesful added");
 				Destroy(coll.gameObject);
 			}

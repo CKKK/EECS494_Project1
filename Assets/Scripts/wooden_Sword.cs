@@ -4,6 +4,7 @@ using System.Collections;
 public class wooden_Sword : MonoBehaviour {
 	// Use this for initialization
 	public static wooden_Sword sword_instance;
+	public bool inventory_or_not;
 
 	void Start () {
 		sword_instance = this;
@@ -11,7 +12,7 @@ public class wooden_Sword : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (this != null) {
+		if (this != null && inventory_or_not == false) {
 			if (PlayerControl.instance.health_Max == PlayerControl.instance.health_Count) 
 			{
 

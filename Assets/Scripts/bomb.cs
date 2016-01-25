@@ -4,7 +4,7 @@ using System.Collections;
 public class bomb : MonoBehaviour {
 	private int counter = 0 ;
 	public GameObject explosion;
-
+	public bool inventory_or_not;
 	GameObject explosion1;
 	// Use this for initialization
 	void Start () {
@@ -13,7 +13,7 @@ public class bomb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (this != null) {
+		if (this != null && inventory_or_not == false) {
 			counter ++;
 			if(counter == 30)
 			{

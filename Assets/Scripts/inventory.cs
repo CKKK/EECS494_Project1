@@ -2,7 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+
 public class inventory : MonoBehaviour {
+	public GameObject[] Inventory;
+	public bool [] Inventory_bool;
 	// Use this for initialization
 	void Start () {
 		
@@ -10,16 +14,19 @@ public class inventory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// Heart display
-		for(int i = 0; i < PlayerControl.instance.Inventory.Count; i++)
+		int counter = 0;
+		print (Inventory.Length);
+		for (int i =0; i < Inventory.Length; i++) 
 		{
-			print (this.gameObject.transform.position);
-			PlayerControl.instance.Inventory[i].transform.position = this.gameObject.transform.position;
-			//PlayerControl.instance.Inventory[i].layer = 5;
-				
-				
-
-		}		
+			if(Inventory[i].gameObject!= null && Inventory_bool[i] == true)
+			{
+				Inventory[i].gameObject.transform.position = new Vector3(20f,4.8f,0f);
+				//S.Inventory[i].gameObject.transform.position = new Vector3(20f+counter * 20,4.8f,0);
+				//S.Inventory[i].gameObject.layer = 5;
+				counter++;
+			}
+		}
+		
 		
 	}
 	
