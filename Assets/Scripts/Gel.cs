@@ -66,7 +66,8 @@ public class Gel : Enemy {
 
 	void OnCollisionEnter(Collision coll) {
 		if (coll.gameObject.tag == "Tiles") {
-			State normalMovementState = new EnemyMovementState (this, randomTakeStep (), speed);
+			movingState = GelState.stop;
+			State normalMovementState = new EnemyMovementState (this, transform.position, speed);
 			base.BehaviorStateMathine.ChangeState (normalMovementState);
 		}
 	}
