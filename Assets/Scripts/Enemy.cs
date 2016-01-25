@@ -4,10 +4,12 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 	public int health = 1;
 	public int damage = 1;
-
+	public StateMachine BehaviorStateMathine;
+	public bool invincible = false;
 	public Enemy(int health_, int damage_){
 		health = health_;
 		damage = damage_;
+		BehaviorStateMathine = new StateMachine ();
 	}
 
 	public int getDamage(){
@@ -24,12 +26,14 @@ public class Enemy : MonoBehaviour {
 	
 	}
 
-	protected void OnTriggerEnter(Collider coll) {
-		print (coll.gameObject.tag);
+	protected virtual void OnTriggerEnter(Collider coll) {
+//		print (coll.gameObject.tag);
 		if (coll.tag == "Weapon") {
-			health -= 1; // need the fix this
-			if(health == 0)
-				Destroy(this.gameObject);
+			if (!invincible) {
+				health -= 1; // need the fix this
+				if (health == 0)
+					Destroy (this.gameObject);
+			}
 		}
 	}
 }

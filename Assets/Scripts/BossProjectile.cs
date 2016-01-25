@@ -38,11 +38,5 @@ public class BossProjectile : EnemyProjectile {
 		}
 	}
 
-	void OnTriggerEnter(Collider coll)
-	{
-		if(coll.gameObject.tag == "Player")
-		{
-			Destroy(this.gameObject);
-		}
-	}
+
 }
