@@ -20,7 +20,7 @@ public class inventory : MonoBehaviour {
 		{
 			if(Inventory[i].gameObject!= null && Inventory_bool[i] == true)
 			{
-				Inventory[i].gameObject.transform.position = new Vector3(20f,4.8f,0f);
+				Inventory[i].gameObject.transform.position = new Vector3(-117f,-18f,0f);
 				//S.Inventory[i].gameObject.transform.position = new Vector3(20f+counter * 20,4.8f,0);
 				//S.Inventory[i].gameObject.layer = 5;
 				counter++;
