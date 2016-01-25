@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 // State Machines are responsible for processing states, notifying them when they're about to begin or conclude, etc.
@@ -186,10 +186,20 @@ public class StateLinkNormalMovement: State
 		pc.movement_controller.SetDirection (pc.current_direction);
 		if (Input.GetKeyDown (KeyCode.S))
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
-		if (Input.GetKeyDown (KeyCode.A) && pc.rupee_Count>=1)
+		if (Input.GetKeyDown (KeyCode.A) && pc.rupee_Count>=1 && pc.selected_weapon_prefab1.name == "bow")
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab1, 15));
 		if (Input.GetKeyDown (KeyCode.Z))
 			state_machine.ChangeState (new LinkInventory (pc,panel.panel_instance));
+		if (Input.GetKeyDown (KeyCode.A) && pc.boom_Count>=1 && pc.selected_weapon_prefab1.name == "Boom_Bomb")
+			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab1, 0));
+		if (Input.GetKeyDown (KeyCode.I)) 
+		{
+			if(pc.invince == false)
+				pc.invince = true;
+			else
+				pc.invince = false;
+		}
+
 	}
 }
 
@@ -266,11 +276,15 @@ public class StateLinkAttack : State
 				
 			}
 		}
-
-		weapon_Instance.transform.position += direction_Offset;
 		Quaternion new_Weapon_Rotaion = new Quaternion ();
 		new_Weapon_Rotaion = Quaternion.Euler (direction_Eulerangle.x, direction_Eulerangle.y, direction_Eulerangle.z);
-		weapon_Instance.transform.rotation = new_Weapon_Rotaion;
+		if (weapon_Prefab.name != "Boom_Bomb") {
+			weapon_Instance.transform.position += direction_Offset;
+
+			weapon_Instance.transform.rotation = new_Weapon_Rotaion;
+		
+		}
+
 		if (weapon_Prefab.name == "bow") 
 		{
 
@@ -299,7 +313,7 @@ public class StateLinkAttack : State
 		{
 			MonoBehaviour.Destroy(weapon_Instance);
 		}
-		if (pc.health_Max != pc.health_Count && weapon_Prefab.name == "wooden sword");
+		if (pc.health_Max != pc.health_Count && weapon_Prefab.name == "wooden sword")
 			MonoBehaviour.Destroy (weapon_Instance);
 
 	}

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 45afd34443b96473598b76e2b1778b4e
-timeCreated: 1452809536
+timeCreated: 1453667670
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -1789,6 +1789,26 @@ TextureImporter:
         height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: link_sprites_155
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 118
+        width: 49
+        height: 33
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: link_sprites_156
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 120
+        width: 46
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
