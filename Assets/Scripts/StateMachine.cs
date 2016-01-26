@@ -616,6 +616,14 @@ public class LinkInventory : State
 			inventory.movemen_counter++;
 		if (Input.GetKeyDown (KeyCode.LeftArrow))
 			inventory.movemen_counter--;
+		if (Input.GetKeyDown (KeyCode.A))
+		{
+			if (inventory.inventory_instance.Inventory [inventory.active_counter].name == "boom_pic_inventory")
+				pc.selected_weapon_prefab1 = pc.weapon_Inventory [0];
+			else if (inventory.inventory_instance.Inventory [inventory.active_counter].name == "Bow") 
+				pc.selected_weapon_prefab1 = pc.weapon_Inventory [1];
+		}
+		//Debug.Log(inventory.inventory_instance.Inventory[inventory.movemen_counter].name);
 		if (Input.GetKeyDown (KeyCode.Z))
 		{
 			flag = true;

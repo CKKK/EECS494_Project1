@@ -5,13 +5,16 @@ using System.Collections.Generic;
 
 
 public class inventory : MonoBehaviour {
+	public static inventory inventory_instance;
 	public GameObject[] Inventory;
 	public GameObject[] Inventory_Selected;
 	public static bool[] Inventory_bool = {false,false,false,false,false,false,false,false};
 	public static int active_Max;
 	public static int movemen_counter;
+	public static int active_counter;
 	// Use this for initialization
 	void Start () {
+		inventory_instance = this;
 	}
 	
 	// Update is called once per frame
@@ -30,7 +33,10 @@ public class inventory : MonoBehaviour {
 				if(Inventory_bool[i] == true)
 				{
 					if(movemen_counter == counter)
+					{
 						Inventory_Selected[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-100,0,0);
+						active_counter = i;
+					}
 					else
 						Inventory_Selected[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-500,0,0);
 					Inventory[i].GetComponent<RectTransform>(). anchoredPosition = new Vector3(30+counter*40,0,0);

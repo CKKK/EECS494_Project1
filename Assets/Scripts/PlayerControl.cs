@@ -27,6 +27,7 @@ public class PlayerControl : MonoBehaviour {
 
 	public GameObject selected_weapon_prefab;
 	public GameObject selected_weapon_prefab1;
+	public GameObject[] weapon_Inventory;
 	public GameObject Arrow;
 	public static PlayerControl instance;
 	// Use this for initialization
