@@ -188,10 +188,17 @@ public class StateLinkNormalMovement: State
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
 		if (Input.GetKeyDown (KeyCode.A) && pc.rupee_Count>=1 && pc.selected_weapon_prefab1.name == "bow")
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab1, 15));
-		if (Input.GetKeyDown (KeyCode.Z))
-			state_machine.ChangeState (new LinkInventory (pc,panel.panel_instance));
-		if (Input.GetKeyDown (KeyCode.A) && pc.boom_Count>=1 && pc.selected_weapon_prefab1.name == "Boom_Bomb")
+		if (Input.GetKeyDown (KeyCode.Z)) 
+		{
+			Time.timeScale = 0;
+			state_machine.ChangeState (new LinkInventory (pc, panel.panel_instance));
+		}
+		if (Input.GetKeyDown (KeyCode.A) && pc.boom_Count >= 1 && pc.selected_weapon_prefab1.name == "Boom_Bomb") {
+			pc.boom_Count--;
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab1, 0));
+			if(pc.boom_Count == 0)
+				inventory.Inventory_bool[0] = true;
+		}
 		if (Input.GetKeyDown (KeyCode.I)) 
 		{
 			if(pc.invince == false)
@@ -536,7 +543,7 @@ public class LinkDead : State
 		pc.health_Count = 3;
 	}
 }
-
+/*
 public class Linkcanvas : State
 {
 	Canvas canvas;
@@ -561,7 +568,6 @@ public class Linkcanvas : State
 		if (Input.GetKeyDown (KeyCode.Z))
 		     
 		{
-			
 			ConcludeState ();
 		}
 	}
@@ -572,7 +578,7 @@ public class Linkcanvas : State
 
 	}
 }
-
+*/
 
 
 public class LinkInventory : State
@@ -589,6 +595,11 @@ public class LinkInventory : State
 	public override void OnStart ()
 	{
 		pc.current_state = EntityState.PANEL;
+		for (int i = 0; i < inventory.Inventory_bool.Length; i++) 
+		{
+			if(inventory.Inventory_bool[i] == true)
+				inventory.active_Max++;
+		}
 		
 		
 	}
@@ -598,13 +609,17 @@ public class LinkInventory : State
 
 		if (flag == false) 
 		{
-			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != -122)
+			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != -74)
 				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y - 2);
 		}
-
+		if (Input.GetKeyDown (KeyCode.RightArrow))
+			inventory.movemen_counter++;
+		if (Input.GetKeyDown (KeyCode.LeftArrow))
+			inventory.movemen_counter--;
 		if (Input.GetKeyDown (KeyCode.Z))
 		{
 			flag = true;
+
 		}
 		if (flag == true) 
 		{
@@ -618,7 +633,9 @@ public class LinkInventory : State
 	
 	public override void OnFinish ()
 	{
-
+		Time.timeScale = 1;
+		inventory.movemen_counter = 0;
+		inventory.active_Max = 0;
 		pc.current_state = EntityState.NORMAL;
 
 	}

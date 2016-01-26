@@ -17,7 +17,7 @@ public class hearts : MonoBehaviour {
 		int diff = PlayerControl.instance.health_Count - heartImages.Count;
 		int absVal = Mathf.Abs(diff);
 		
-		// Heart display
+		// Heart display // Credit to Austin Yager from 494 Quest
 		for(int i = 0; i < absVal; i++)
 		{
 			// Add hearts.
@@ -27,7 +27,7 @@ public class hearts : MonoBehaviour {
 				newHeart.transform.SetParent(this.gameObject.transform);
 				newHeart.transform.localScale = new Vector3(1,1,0);
 				newHeart.layer = 5;
-				newHeart.GetComponent<RectTransform>().anchoredPosition = new Vector3(heartImages.Count * 12, 0, 0) + new Vector3(155, -32, 0);
+				newHeart.GetComponent<RectTransform>().anchoredPosition = new Vector3(heartImages.Count * 12, 0, 0) + new Vector3(25, -32, 0);
 				newHeart.GetComponent<RectTransform>().sizeDelta = new Vector2(10,3);
 				heartImages.Add(newHeart);
 			}
