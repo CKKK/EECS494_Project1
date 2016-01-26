@@ -20,7 +20,6 @@ public class PlayerControl : MonoBehaviour {
 	public Sprite[] link_run_left;
 	public GridBasedMovement movement_controller;
 	public Sprite[] doors;
-
 	StateMachine animation_state_machine;
 	StateMachine control_state_machine;
 	public EntityState current_state = EntityState.NORMAL;
@@ -53,168 +52,200 @@ public class PlayerControl : MonoBehaviour {
 		}
 		if (this.transform.position.x >= 46 && this.transform.position.x < 47 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
 		{
+			print ("1");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 48 && this.transform.position.x < 49 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
 		{
+			print ("2");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
 		{
+			print ("3");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
 		{
+			print ("4");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 38 && this.transform.position.x < 40 && this.transform.position.y >= 9 && this.transform.position.y < 10) 
 		{
+			print ("5");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+12,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 38 && this.transform.position.x < 40 && this.transform.position.y >= 11 && this.transform.position.y < 12.2) 
 		{
+			print ("6");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-12,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 20 && this.transform.position.y < 21) 
 		{
+			print ("7");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+10,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 22 && this.transform.position.y < 23.1) 
 		{
+			print ("7");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-10,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 27 && this.transform.position.y < 27.1) 
 		{
+			print ("8");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 27 && this.transform.position.y < 27.1) 
 		{
+			print ("9");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
-		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 31 && this.transform.position.y < 32) 
-		{
-			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+10,Camera.main.transform.position.z);
+		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 31 && this.transform.position.y < 32) {
+			print ("10");
+			this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y + 2.7f, this.transform.position.z);
+			Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y + 11, Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 33 && this.transform.position.y < 34) 
 		{
+			print ("11");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-10,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 24 && this.transform.position.x < 25 && this.transform.position.y >= 38 && this.transform.position.y < 39) 
 		{
+			print ("12");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-10,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 16 && this.transform.position.x < 17 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
+			print ("13");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 14 && this.transform.position.x < 15 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
+			print ("14");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
+			print ("15");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
+			print ("16");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 42 && this.transform.position.y < 43) 
 		{
+			print ("17");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+12,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 44 && this.transform.position.y < 45) 
 		{
+			print ("18");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-12,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 53 && this.transform.position.y < 54) 
 		{
+			print ("19");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+10,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 55 && this.transform.position.y < 56) 
 		{
+			print ("20");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-10,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 60 && this.transform.position.y < 60.1) 
 		{
+			print ("21");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 60 && this.transform.position.y < 60.1) 
 		{
+			print ("22");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 46 && this.transform.position.x < 47 && this.transform.position.y >=27 && this.transform.position.y < 28) 
 		{
+			print ("23");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 48 && this.transform.position.x < 49 && this.transform.position.y >=27 && this.transform.position.y < 28) 
 		{
+			print ("24");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 46 && this.transform.position.x < 47 && this.transform.position.y >=38 && this.transform.position.y < 39) 
 		{
+			print ("25");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 48 && this.transform.position.x < 49 && this.transform.position.y >=38 && this.transform.position.y < 39) 
 		{
+			print ("26");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 62 && this.transform.position.x < 63 && this.transform.position.y >=38 && this.transform.position.y < 39) 
 		{
+			print ("27");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 64 && this.transform.position.x < 65 && this.transform.position.y >=38 && this.transform.position.y < 39) 
 		{
+			print ("28");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 71 && this.transform.position.x < 72 && this.transform.position.y >= 42 && this.transform.position.y < 43) 
 		{
+			print ("29");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+12,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 71 && this.transform.position.x < 72 && this.transform.position.y >= 44 && this.transform.position.y < 45) 
 		{
+			print ("30");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-12,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 78 && this.transform.position.x < 79 && this.transform.position.y >=49 && this.transform.position.y < 50) 
 		{
+			print ("31");
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 80 && this.transform.position.x < 81 && this.transform.position.y >=49 && this.transform.position.y < 50) 
 		{
+			print ("32");
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-15,Camera.main.transform.position.y,Camera.main.transform.position.z);
+			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 
 	}
@@ -226,12 +257,14 @@ public class PlayerControl : MonoBehaviour {
 			if(coll.name == "bow")
 			{
 				print ("Succesful added");
+				inventory.Inventory_bool[1] = true;
 				Destroy(coll.gameObject);
 			}
 		}
 		else if (coll.tag == "boom") 
 		{
 			Destroy(coll.gameObject);
+			inventory.Inventory_bool[0] = true;
 			boom_Count++;
 		}
 		else if (coll.tag == "Rupee") {
