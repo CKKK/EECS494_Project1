@@ -30,7 +30,7 @@ public class Keese : Enemy {
 			u=0;
 		}
 
-		u = 1 - Mathf.Pow( 1-u, 2 );         // Apply Ease Out easing to u
+//		u = 1 - Mathf.Pow( 1-u, 2 );         // Apply Ease Out easing to u
 
 		this.GetComponent<Transform>().position = (1-u)*points[0] + u*points[1]; // Simple linear interpolation
 	}
@@ -40,8 +40,8 @@ public class Keese : Enemy {
 		float esp = 1;
 		float c_bounds_min_x = Camera.main.transform.position.x - 3;
 		float c_bounds_max_x = Camera.main.transform.position.x + 3;
-		float c_bounds_min_y = Camera.main.transform.position.y - 5;
-		float c_bounds_max_y = Camera.main.transform.position.y + 5;
+		float c_bounds_min_y = Camera.main.transform.position.y - 4;
+		float c_bounds_max_y = Camera.main.transform.position.y + 2;
 		p1.x = Random.Range(c_bounds_min_x + esp, c_bounds_max_x - esp);
 		p1.y = Random.Range(c_bounds_min_y + esp, c_bounds_max_y - esp);
 		points[0] = points[1];  // Shift points[1] to points[0]
