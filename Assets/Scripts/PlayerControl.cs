@@ -282,9 +282,14 @@ public class PlayerControl : MonoBehaviour {
 			else
 				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 
-		}
-		if (coll.gameObject.tag == "locked") 
-		{
+		} else if (coll.gameObject.tag == "EnemyProjectile") {
+			if(invince != true)
+				health_Count -= 1;
+			if (health_Count > 0)
+				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
+			else
+				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
+		} else if (coll.gameObject.tag == "locked") {
 			if(key >=1)
 			{
 				if(coll.gameObject.name == "039x009" || coll.gameObject.name == "040x009")

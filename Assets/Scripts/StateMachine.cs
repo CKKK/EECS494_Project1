@@ -725,7 +725,7 @@ class EnemyStunState : State{
 			enemy.GetComponent<Rigidbody>().velocity = new Vector3(-5,0,0);
 
 		}
-
+		enemy.GetComponent<SpriteRenderer> ().color = Color.red;
 	}
 
 	public override void OnUpdate(float time_Delta_Fraction)
@@ -821,11 +821,40 @@ class EnemyStunState : State{
 	{
 		enemy.invincible = false;
 //		enemy.current_state = EntityState.NORMAL;
-
+		enemy.GetComponent<SpriteRenderer> ().color = Color.white;
 	}
 }
 
+public class GoriyaAttackState : State {
+	Enemy enemy;
+	GameObject boomerang;
+	public GoriyaAttackState(Enemy enemy_, GameObject boomerang_, Vector3 velocity_) {
+		enemy = enemy_;
+		boomerang = GameObject.Instantiate (boomerang_, enemy.transform.position, Quaternion.Euler (Vector3.zero)) as GameObject;
+		boomerang.GetComponent<Boomerange> ().throw_obj = enemy.gameObject;
+		boomerang.GetComponent<Boomerange> ().velocity = velocity_;
+		boomerang.tag = "EnemyProjectile";
+		boomerang.layer = 12;
+		Vector3 position = boomerang.GetComponent<Transform> ().position;
+		position.z = -1;
+		boomerang.GetComponent<Transform> ().position = position;
 
+	}
+
+	public override void OnStart () {
+		Vector3 position = enemy.GetComponent<Transform> ().position;
+		position.x = Mathf.RoundToInt (position.x);
+		position.y = Mathf.RoundToInt (position.y);
+		enemy.GetComponent<Transform> ().position = position;
+	}
+
+	public override void OnUpdate (float time_delta_fraction)
+	{
+		if (boomerang == null) {
+			ConcludeState ();
+		}
+	}
+}
 
 
 
