@@ -7,6 +7,7 @@ public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD,PANEL,CANVAS};
 public class PlayerControl : MonoBehaviour {
 	public bool invince = false;
 	public float walking_Velocity = 4.0f;
+	public float pushPower = 2.0F;
 	public int rupee_Count = 0;
 	public int health_Count = 3;
 	public int health_Max = 3;
@@ -253,6 +254,7 @@ public class PlayerControl : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider coll)
 	{
+		print (coll.tag);
 		if (coll.tag == "Weapon") 
 		{
 			if(coll.name == "bow")
@@ -309,7 +311,7 @@ public class PlayerControl : MonoBehaviour {
 	void OnCollisionEnter(Collision coll) {
 		if (coll.gameObject.tag == "Enemy") {
 			Enemy enemyObj = coll.gameObject.GetComponent<Enemy> ();
-			if(invince != true)
+			if (invince != true)
 				health_Count -= enemyObj.getDamage ();
 			if (health_Count > 0)
 				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
@@ -317,70 +319,79 @@ public class PlayerControl : MonoBehaviour {
 				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 
 		} else if (coll.gameObject.tag == "EnemyProjectile") {
-			if(invince != true)
+			if (invince != true)
 				health_Count -= 1;
 			if (health_Count > 0)
 				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
 			else
 				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 		} else if (coll.gameObject.tag == "locked") {
-			if(key >=1)
-			{
-				if(coll.gameObject.name == "039x009" || coll.gameObject.name == "040x009")
-				{
+			if (key >= 1) {
+				if (coll.gameObject.name == "039x009" || coll.gameObject.name == "040x009") {
 					
-					GameObject.Find("039x009").GetComponent<SpriteRenderer>().sprite = doors[0];
-					GameObject.Find("040x009").GetComponent<SpriteRenderer>().sprite = doors[1];
-					GameObject.Find("039x009").GetComponent<BoxCollider>().isTrigger = true;
-					GameObject.Find("040x009").GetComponent<BoxCollider>().isTrigger = true;
+					GameObject.Find ("039x009").GetComponent<SpriteRenderer> ().sprite = doors [0];
+					GameObject.Find ("040x009").GetComponent<SpriteRenderer> ().sprite = doors [1];
+					GameObject.Find ("039x009").GetComponent<BoxCollider> ().isTrigger = true;
+					GameObject.Find ("040x009").GetComponent<BoxCollider> ().isTrigger = true;
 					
 				}
-				if(coll.gameObject.name == "023x031"|| coll.gameObject.name == "024x031")
-				{
-					GameObject.Find("023x031").GetComponent<SpriteRenderer>().sprite = doors[0];
-					GameObject.Find("024x031").GetComponent<SpriteRenderer>().sprite = doors[1];
-					GameObject.Find("023x031").GetComponent<BoxCollider>().isTrigger = true;
-					GameObject.Find("024x031").GetComponent<BoxCollider>().isTrigger = true;
+				if (coll.gameObject.name == "023x031" || coll.gameObject.name == "024x031") {
+					GameObject.Find ("023x031").GetComponent<SpriteRenderer> ().sprite = doors [0];
+					GameObject.Find ("024x031").GetComponent<SpriteRenderer> ().sprite = doors [1];
+					GameObject.Find ("023x031").GetComponent<BoxCollider> ().isTrigger = true;
+					GameObject.Find ("024x031").GetComponent<BoxCollider> ().isTrigger = true;
 				}
-				if(coll.gameObject.name == "039x053"|| coll.gameObject.name == "040x053")
-				{
-					GameObject.Find("039x053").GetComponent<SpriteRenderer>().sprite = doors[0];
-					GameObject.Find("040x053").GetComponent<SpriteRenderer>().sprite = doors[1];
-					GameObject.Find("039x053").GetComponent<BoxCollider>().isTrigger = true;
-					GameObject.Find("040x053").GetComponent<BoxCollider>().isTrigger = true;
+				if (coll.gameObject.name == "039x053" || coll.gameObject.name == "040x053") {
+					GameObject.Find ("039x053").GetComponent<SpriteRenderer> ().sprite = doors [0];
+					GameObject.Find ("040x053").GetComponent<SpriteRenderer> ().sprite = doors [1];
+					GameObject.Find ("039x053").GetComponent<BoxCollider> ().isTrigger = true;
+					GameObject.Find ("040x053").GetComponent<BoxCollider> ().isTrigger = true;
 				}
-				if(coll.gameObject.name == "071x042"|| coll.gameObject.name == "072x042")
-				{
-					GameObject.Find("071x042").GetComponent<SpriteRenderer>().sprite = doors[0];
-					GameObject.Find("072x042").GetComponent<SpriteRenderer>().sprite = doors[1];
-					GameObject.Find("071x042").GetComponent<BoxCollider>().isTrigger = true;
-					GameObject.Find("072x042").GetComponent<BoxCollider>().isTrigger = true;
+				if (coll.gameObject.name == "071x042" || coll.gameObject.name == "072x042") {
+					GameObject.Find ("071x042").GetComponent<SpriteRenderer> ().sprite = doors [0];
+					GameObject.Find ("072x042").GetComponent<SpriteRenderer> ().sprite = doors [1];
+					GameObject.Find ("071x042").GetComponent<BoxCollider> ().isTrigger = true;
+					GameObject.Find ("072x042").GetComponent<BoxCollider> ().isTrigger = true;
 				}
 
 
-				if(coll.gameObject.name == "017x038")
-				{
-					GameObject.Find("017x038").GetComponent<SpriteRenderer>().sprite = doors[2];
-					GameObject.Find("017x038").GetComponent<BoxCollider>().isTrigger = true;
+				if (coll.gameObject.name == "017x038") {
+					GameObject.Find ("017x038").GetComponent<SpriteRenderer> ().sprite = doors [2];
+					GameObject.Find ("017x038").GetComponent<BoxCollider> ().isTrigger = true;
 					
 				}
-				if(coll.gameObject.name == "033x060")
-				{
-					GameObject.Find("033x060").GetComponent<SpriteRenderer>().sprite = doors[2];
-					GameObject.Find("033x060").GetComponent<BoxCollider>().isTrigger = true;
+				if (coll.gameObject.name == "033x060") {
+					GameObject.Find ("033x060").GetComponent<SpriteRenderer> ().sprite = doors [2];
+					GameObject.Find ("033x060").GetComponent<BoxCollider> ().isTrigger = true;
 
 				}
-				if(coll.gameObject.name == "046x038")
-				{
-					GameObject.Find("046x038").GetComponent<SpriteRenderer>().sprite = doors[3];
-					GameObject.Find("046x038").GetComponent<BoxCollider>().isTrigger = true;
+				if (coll.gameObject.name == "046x038") {
+					GameObject.Find ("046x038").GetComponent<SpriteRenderer> ().sprite = doors [3];
+					GameObject.Find ("046x038").GetComponent<BoxCollider> ().isTrigger = true;
 					
 				}
 				key--;
 				
 			}
+
+		} else if (coll.gameObject.name == "push") 
+		{
+			//GameObject block = Instantiate(coll.gameObject, coll.gameObject.transform.position,Quaternion.identity);
+			//block.AddComponent(Rigidbody);
+			//OnControllerColliderHit(block);
 		}
 
 	}
-
+	void OnControllerColliderHit(ControllerColliderHit hit) {
+		Rigidbody body = hit.collider.attachedRigidbody;
+		if (body == null || body.isKinematic)
+			return;
+		
+		if (hit.moveDirection.y < -0.3F)
+			return;
+		
+		Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+		body.velocity = pushDir * pushPower;
+	}
+	
 }

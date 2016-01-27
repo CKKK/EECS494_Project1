@@ -8,10 +8,11 @@ public class inventory : MonoBehaviour {
 	public static inventory inventory_instance;
 	public GameObject[] Inventory;
 	public GameObject[] Inventory_Selected;
+	public GameObject[] selected;
 	public static bool[] Inventory_bool = {false,false,false,false,false,false,false,false};
 	public static int active_Max;
 	public static int movemen_counter;
-	public static int active_counter;
+	public static int active_counter = -1;
 	// Use this for initialization
 	void Start () {
 		inventory_instance = this;

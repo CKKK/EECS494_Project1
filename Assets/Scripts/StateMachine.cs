@@ -323,6 +323,7 @@ public class StateLinkAttack : State
 		if (pc.health_Max != pc.health_Count && weapon_Prefab.name == "wooden sword")
 			MonoBehaviour.Destroy (weapon_Instance);
 
+
 	}
 }
 
@@ -609,8 +610,8 @@ public class LinkInventory : State
 
 		if (flag == false) 
 		{
-			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != -74)
-				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y - 2);
+			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != -206)
+				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y - 4);
 		}
 		if (Input.GetKeyDown (KeyCode.RightArrow))
 			inventory.movemen_counter++;
@@ -618,10 +619,24 @@ public class LinkInventory : State
 			inventory.movemen_counter--;
 		if (Input.GetKeyDown (KeyCode.A))
 		{
-			if (inventory.inventory_instance.Inventory [inventory.active_counter].name == "boom_pic_inventory")
-				pc.selected_weapon_prefab1 = pc.weapon_Inventory [0];
-			else if (inventory.inventory_instance.Inventory [inventory.active_counter].name == "Bow") 
-				pc.selected_weapon_prefab1 = pc.weapon_Inventory [1];
+			if(inventory.active_counter != -1)
+			{
+				if (inventory.inventory_instance.Inventory [inventory.active_counter].name == "boom_pic_inventory")
+				{
+					pc.selected_weapon_prefab1 = pc.weapon_Inventory [0];
+					inventory.inventory_instance.selected[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(-50f,-31f,0f);
+					inventory.inventory_instance.selected[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(-277f,-31f,0f);
+
+					
+				}
+				else if (inventory.inventory_instance.Inventory [inventory.active_counter].name == "Bow") 
+				{
+					pc.selected_weapon_prefab1 = pc.weapon_Inventory [1];
+					inventory.inventory_instance.selected[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(-277f,-31f,0f);
+					inventory.inventory_instance.selected[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(-50f,-31f,0f);
+
+				}
+			}
 		}
 		//Debug.Log(inventory.inventory_instance.Inventory[inventory.movemen_counter].name);
 		if (Input.GetKeyDown (KeyCode.Z))
@@ -632,7 +647,7 @@ public class LinkInventory : State
 		if (flag == true) 
 		{
 			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != 114)
-				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y+2);
+				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y+4);
 			else
 				ConcludeState();
 		}
