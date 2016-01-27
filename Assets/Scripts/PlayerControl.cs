@@ -19,6 +19,7 @@ public class PlayerControl : MonoBehaviour {
 	public Sprite[] link_run_up;
 	public Sprite[] link_run_right;
 	public Sprite[] link_run_left;
+	public bool sword_fire;
 	public GridBasedMovement movement_controller;
 	public Sprite[] doors;
 	StateMachine animation_state_machine;

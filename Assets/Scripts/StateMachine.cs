@@ -322,6 +322,8 @@ public class StateLinkAttack : State
 		}
 		if (pc.health_Max != pc.health_Count && weapon_Prefab.name == "wooden sword")
 			MonoBehaviour.Destroy (weapon_Instance);
+		if (pc.sword_fire == true)
+			MonoBehaviour.Destroy (weapon_Instance);
 
 
 	}

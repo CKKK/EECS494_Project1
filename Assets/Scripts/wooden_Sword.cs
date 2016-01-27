@@ -5,10 +5,8 @@ public class wooden_Sword : MonoBehaviour {
 	// Use this for initialization
 	public static wooden_Sword sword_instance;
 	public bool inventory_or_not;
-	public bool Destroyed_or_not;
 	void Start () {
 		sword_instance = this;
-		Destroyed_or_not = false;
 	}
 	
 	// Update is called once per frame
@@ -19,22 +17,22 @@ public class wooden_Sword : MonoBehaviour {
 
 				if (Camera.main.transform.position.y + 3 <= this.transform.position.y) 
 				{
-					Destroyed_or_not = true;
+					PlayerControl.instance.sword_fire = false;
 					Destroy(this.gameObject);
 				}
 				else if(Camera.main.transform.position.y -6 >= this.transform.position.y)
 				{
-					Destroyed_or_not = true;
+					PlayerControl.instance.sword_fire = false;
 					Destroy(this.gameObject);
 				}
 				else if(Camera.main.transform.position.x-6 >= this.transform.position.x)
 				{
-					Destroyed_or_not = true;
+					PlayerControl.instance.sword_fire = false;
 					Destroy(this.gameObject);
 				}
 				else if(Camera.main.transform.position.x +6 <= this.transform.position.x)
 				{
-					Destroyed_or_not = true;
+					PlayerControl.instance.sword_fire = false;
 					Destroy(this.gameObject);
 				}
 			}
@@ -46,7 +44,7 @@ public class wooden_Sword : MonoBehaviour {
 	{
 		if(coll.gameObject.tag == "Enemy")
 		{
-			Destroyed_or_not = true;
+			PlayerControl.instance.sword_fire = false;
 			Destroy(this.gameObject);
 		}
 	}
