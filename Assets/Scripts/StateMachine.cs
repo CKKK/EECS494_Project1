@@ -86,14 +86,22 @@ public class StateIdleWithSprite : State
 			return;
 
 		// Transition to walking animations on key press.
-		if(Input.GetKeyDown(KeyCode.DownArrow))
+		if (Input.GetKeyDown (KeyCode.DownArrow)) {
 			state_machine.ChangeState(new StatePlayAnimationForHeldKey(pc, renderer, pc.link_run_down, 6, KeyCode.DownArrow));
-		if(Input.GetKeyDown(KeyCode.UpArrow))
+		}
+		if (Input.GetKeyDown (KeyCode.UpArrow)) 
+		{
 			state_machine.ChangeState(new StatePlayAnimationForHeldKey(pc, renderer, pc.link_run_up, 6, KeyCode.UpArrow));
-		if(Input.GetKeyDown(KeyCode.RightArrow))
+		}
+		if (Input.GetKeyDown (KeyCode.RightArrow)) 
+		{
 			state_machine.ChangeState(new StatePlayAnimationForHeldKey(pc, renderer, pc.link_run_right, 6, KeyCode.RightArrow));
-		if(Input.GetKeyDown(KeyCode.LeftArrow))
+
+		}
+		if (Input.GetKeyDown (KeyCode.LeftArrow))
+		{
 			state_machine.ChangeState(new StatePlayAnimationForHeldKey(pc, renderer, pc.link_run_left, 6, KeyCode.LeftArrow));
+		}
 	}
 }
 
@@ -236,8 +244,10 @@ public class StateLinkAttack : State
 		if (pc.current_direction == Direction.NORTH) {
 			direction_Offset = new Vector3 (0, 1, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 90);
-			if(pc.health_Count == pc.health_Max && weapon_Prefab.name == "wooden sword")
+			if(pc.health_Count == pc.health_Max && weapon_Prefab.name == "wooden sword" && pc.sword_fire == false)
 			{
+				pc.sword_fire = true;
+				Debug.Log (pc.sword_fire);
 				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(0,10,0);
 			}
 			if(weapon_Prefab.name == "bow")
@@ -248,8 +258,9 @@ public class StateLinkAttack : State
 		} else if (pc.current_direction == Direction.EAST) {
 			direction_Offset = new Vector3 (1, 0, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 0);
-			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword")
+			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword" && pc.sword_fire == false)
 			{
+				pc.sword_fire = true;
 				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(10,0,0);
 			}
 			if(weapon_Prefab.name == "bow")
@@ -260,8 +271,9 @@ public class StateLinkAttack : State
 		} else if (pc.current_direction == Direction.SOUTH) {
 			direction_Offset = new Vector3 (0, -1, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 270);
-			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword")
+			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword"&& pc.sword_fire == false)
 			{
+				pc.sword_fire = true;
 				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(0,-10,0);
 			}
 			if(weapon_Prefab.name == "bow")
@@ -273,8 +285,9 @@ public class StateLinkAttack : State
 		{
 			direction_Offset = new Vector3 (-1, 0, 0);
 			direction_Eulerangle = new Vector3 (0, 0, 180);
-			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword")
+			if(pc.health_Count == pc.health_Max&& weapon_Prefab.name == "wooden sword"&& pc.sword_fire == false)
 			{
+				pc.sword_fire = true;
 				weapon_Instance.GetComponent<Rigidbody>().velocity = new Vector3(-10,0,0);
 			}
 			if(weapon_Prefab.name == "bow")
@@ -322,7 +335,7 @@ public class StateLinkAttack : State
 		}
 		if (pc.health_Max != pc.health_Count && weapon_Prefab.name == "wooden sword")
 			MonoBehaviour.Destroy (weapon_Instance);
-		if (pc.sword_fire == true)
+		if (pc.sword_fire == false && weapon_Prefab.name == "wooden sword")
 			MonoBehaviour.Destroy (weapon_Instance);
 
 

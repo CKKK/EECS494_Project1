@@ -14,7 +14,6 @@ public class wooden_Sword : MonoBehaviour {
 		if (this != null && inventory_or_not == false) {
 			if (PlayerControl.instance.health_Max == PlayerControl.instance.health_Count) 
 			{
-
 				if (Camera.main.transform.position.y + 3 <= this.transform.position.y) 
 				{
 					PlayerControl.instance.sword_fire = false;

@@ -19,6 +19,7 @@ public class PlayerControl : MonoBehaviour {
 	public Sprite[] link_run_up;
 	public Sprite[] link_run_right;
 	public Sprite[] link_run_left;
+	public Sprite tile;
 	public bool sword_fire;
 	public GridBasedMovement movement_controller;
 	public Sprite[] doors;
@@ -26,7 +27,11 @@ public class PlayerControl : MonoBehaviour {
 	StateMachine control_state_machine;
 	public EntityState current_state = EntityState.NORMAL;
 	public Direction current_direction = Direction.SOUTH;
-
+	public int direction;
+	public GameObject rock;
+	public float presstime,downtime;
+	public bool ready = false;
+	public float countdown;
 	public GameObject selected_weapon_prefab;
 	public GameObject selected_weapon_prefab1;
 	public GameObject[] weapon_Inventory;
@@ -124,12 +129,12 @@ public class PlayerControl : MonoBehaviour {
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
-		if (this.transform.position.x >= 24 && this.transform.position.x < 25 && this.transform.position.y >= 38 && this.transform.position.y < 39) 
+		/*if (this.transform.position.x >= 24 && this.transform.position.x < 25 && this.transform.position.y >= 38 && this.transform.position.y < 39) 
 		{
 			print ("12");
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
-		}
+		}*/
 		if (this.transform.position.x >= 16 && this.transform.position.x < 17 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
 			print ("13");
@@ -250,6 +255,21 @@ public class PlayerControl : MonoBehaviour {
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
+		if (this.transform.position.x >=39 && this.transform.position.x < 40 && this.transform.position.y >=0 && this.transform.position.y < 1) 
+		{
+			print ("33");
+			this.transform.position = new Vector3(376.4f,9.5f,0f);
+			Camera.main.transform.position = new Vector3(380.5f,7f,-10);
+		}
+		if (this.transform.position.x >=376 && this.transform.position.x < 377 && this.transform.position.y >=10 && this.transform.position.y < 11) 
+		{
+			this.transform.position = new Vector3(39.5f,1.25f,0f);
+			Camera.main.transform.position = new Vector3(39.51f,6.41f,-10);
+		}
+		
+		
+
+
 
 	}
 	
@@ -375,24 +395,86 @@ public class PlayerControl : MonoBehaviour {
 				
 			}
 
-		} else if (coll.gameObject.name == "push") 
-		{
-			//GameObject block = Instantiate(coll.gameObject, coll.gameObject.transform.position,Quaternion.identity);
-			//block.AddComponent(Rigidbody);
-			//OnControllerColliderHit(block);
-		}
+
+		} 
 
 	}
-	void OnControllerColliderHit(ControllerColliderHit hit) {
-		Rigidbody body = hit.collider.attachedRigidbody;
-		if (body == null || body.isKinematic)
-			return;
-		
-		if (hit.moveDirection.y < -0.3F)
-			return;
-		
-		Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-		body.velocity = pushDir * pushPower;
+	//Credit to http://answers.unity3d.com/questions/815394/how-to-get-time-of-key-held-down.html
+	void OnCollisionStay(Collision coll)
+	{
+		if (coll.gameObject.tag == "push") 
+		{
+			if(Input.GetKeyDown(KeyCode.UpArrow) && ready == false)
+			{
+				downtime = Time.time;
+				presstime = downtime + countdown;
+				direction = 1;
+				ready = true;
+			}
+			if(Input.GetKeyUp(KeyCode.UpArrow))
+			{
+				ready = false;
+				presstime = 0;
+				direction = 0;
+			}
+
+			if(Input.GetKeyDown(KeyCode.DownArrow) && ready == false)
+			{
+				downtime = Time.time;
+				presstime = downtime + countdown;
+				direction = 2;
+				ready = true;
+			}
+
+			if(Input.GetKeyUp(KeyCode.DownArrow))
+			{
+				ready = false;
+				presstime = 0;
+				direction = 0;
+			}
+
+
+			if(Input.GetKeyDown(KeyCode.LeftArrow) && ready == false)
+			{
+				downtime = Time.time;
+				presstime = downtime + countdown;
+				direction = 3;
+				ready = true;
+			}
+			if(Input.GetKeyUp(KeyCode.LeftArrow))
+			{
+				ready = false;
+				presstime = 0;
+				direction = 0;
+			}
+
+			if(Input.GetKeyDown(KeyCode.RightArrow) && ready == false)
+			{
+				downtime = Time.time;
+				presstime = downtime + countdown;
+				direction = 4;
+				ready = true;
+			}
+			if(Input.GetKeyUp(KeyCode.RightArrow))
+			{
+				ready = false;
+				presstime = 0;
+				direction = 0;
+			}
+
+			if(Time.time >= presstime && ready == true)
+			{
+				if(coll.gameObject.transform.position.x == 23f && coll.gameObject.transform.position.y == 38f)
+				{
+					coll.gameObject.GetComponent<SpriteRenderer>().sprite = tile;
+					coll.gameObject.GetComponent<BoxCollider>().enabled = false;
+					GameObject block_temp = Instantiate(rock,new Vector3(23,38,0),Quaternion.identity) as GameObject;
+				}
+				ready = false;
+			}
+
+		}
 	}
+
 	
 }

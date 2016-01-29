@@ -67,8 +67,9 @@ public class Tile : MonoBehaviour {
 		{
 			this.tag = "locked";
 		}
-		if(tileNum == 44)
+		if (tileNum == 44 && x == 23 && y == 38) {
 			this.tag = "push";
+		}
 
         switch (c) {
         case 'S': // Solid

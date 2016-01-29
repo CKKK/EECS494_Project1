@@ -6,8 +6,9 @@ using System.Collections.Generic;
 public class Stalfos : Enemy {
 	public double changeDirectionProb = 0.5;
 	public float speed = 0.5f;
-
+	int counter = 0;
 	public GameObject[] detectors;
+	public Sprite[] Stal_sprites;
 
 	GameObject currentMovingTowardDetector;
 
@@ -23,6 +24,19 @@ public class Stalfos : Enemy {
 	// Update is called once per frame
 	protected override void Update ()
 	{
+		counter ++;
+		if (counter < 5) 
+		{
+			this.gameObject.GetComponent<SpriteRenderer>().sprite = Stal_sprites[0];
+
+		} 
+		else if (counter >= 5 && counter < 10) 
+		{
+			this.gameObject.GetComponent<SpriteRenderer>().sprite = Stal_sprites[1];
+
+		}
+		if (counter == 10)
+			counter = 0;
 //		float time_delta_fraction = Time.deltaTime / (1.0f / Application.targetFrameRate);
 		base.Update ();
 		base.BehaviorStateMathine.Update ();
