@@ -308,7 +308,7 @@ public class PlayerControl : MonoBehaviour {
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
-		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 31.3 && this.transform.position.y < 31.4) {
+		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 31.3 && this.transform.position.y < 31.6) {
 			print ("10");
 			for(int i = 0; i < Room_to_Enmeies[4].Count;i++)
 			{
@@ -848,13 +848,17 @@ public class PlayerControl : MonoBehaviour {
 
 			}
 		} else if (coll.gameObject.tag == "EnemyProjectile") {
+			print ("wtf");
 			EnemyProjectile enemyProjObj = coll.gameObject.GetComponent<EnemyProjectile> ();
-			if(invince != true)
-				health_Count -= enemyProjObj.getDamage ();
-			if (health_Count > 0)
-				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
-			else
-				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
+
+				if(invince != true)
+					health_Count -= enemyProjObj.getDamage ();
+				if (health_Count > 0)
+					control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
+				else
+					control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
+
+
 		} else if (coll.gameObject.tag == "triangle") {
 			print (coll.gameObject.tag);
 			movement_controller.SetSpeed(0);
@@ -876,13 +880,6 @@ public class PlayerControl : MonoBehaviour {
 			else
 				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 
-		} else if (coll.gameObject.tag == "EnemyProjectile") {
-			if (invince != true)
-				health_Count -= 1;
-			if (health_Count > 0)
-				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
-			else
-				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 		} else if (coll.gameObject.tag == "locked") {
 			if (key >= 1) {
 				if (coll.gameObject.name == "039x009" || coll.gameObject.name == "040x009") {

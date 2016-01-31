@@ -46,8 +46,7 @@ public class GridBasedMovement{
 	public void onUpdate () {
 		updateVelocity ();
 	}
-
-
+	
 
 	void updateVelocity() {
 		if (current_direction == Direction.NORTH) {
