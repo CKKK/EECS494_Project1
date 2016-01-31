@@ -18,6 +18,14 @@ public class Enemy : MonoBehaviour {
 
 	public virtual void beAttacked(int damage, GameObject Collider){
 		if (!invincible) {
+			health -= damage; // need the fix this
+			if (health == 0)
+				Destroy (this.gameObject);
+		}
+	}
+
+	public virtual void hittenByBoomerange(GameObject collider) {
+		if (!invincible) {
 			health -= 1; // need the fix this
 			if (health == 0)
 				Destroy (this.gameObject);

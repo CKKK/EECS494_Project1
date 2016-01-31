@@ -18,17 +18,17 @@ public class wooden_Sword : MonoBehaviour {
 				PlayerControl.instance.sword_fire = false;
 				Destroy(this.gameObject);
 			}
-			else if(Camera.main.transform.position.y -6 >= this.transform.position.y)
+			else if(Camera.main.transform.position.y - 6 >= this.transform.position.y)
 			{
 				PlayerControl.instance.sword_fire = false;
 				Destroy(this.gameObject);
 			}
-			else if(Camera.main.transform.position.x-6 >= this.transform.position.x)
+			else if(Camera.main.transform.position.x - 6 >= this.transform.position.x)
 			{
 				PlayerControl.instance.sword_fire = false;
 				Destroy(this.gameObject);
 			}
-			else if(Camera.main.transform.position.x +6 <= this.transform.position.x)
+			else if(Camera.main.transform.position.x + 6 <= this.transform.position.x)
 			{
 				PlayerControl.instance.sword_fire = false;
 				Destroy(this.gameObject);
