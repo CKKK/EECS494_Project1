@@ -44,6 +44,7 @@ public class wooden_Sword : MonoBehaviour {
 		if(coll.gameObject.tag == "Enemy")
 		{
 			Destroy(this.gameObject);
+			coll.gameObject.GetComponent<Enemy> ().beAttacked (1);
 			PlayerControl.instance.sword_fire = false;
 		}
 	}

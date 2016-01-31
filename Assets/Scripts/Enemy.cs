@@ -16,6 +16,14 @@ public class Enemy : MonoBehaviour {
 		return damage;
 	}
 
+	public void beAttacked(int damage){
+		if (!invincible) {
+			health -= 1; // need the fix this
+			if (health == 0)
+				Destroy (this.gameObject);
+		}
+	}
+
 	// Use this for initialization
 	protected virtual void Start () {
 	
@@ -28,12 +36,6 @@ public class Enemy : MonoBehaviour {
 
 	protected virtual void OnTriggerEnter(Collider coll) {
 //		print (coll.gameObject.tag);
-		if (coll.tag == "Weapon") {
-			if (!invincible) {
-				health -= 1; // need the fix this
-				if (health == 0)
-					Destroy (this.gameObject);
-			}
-		}
+
 	}
 }
