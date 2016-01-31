@@ -208,6 +208,28 @@ public class StateLinkNormalMovement: State
 			if(pc.boom_Count == 0)
 				inventory.Inventory_bool[0] = true;
 		}
+		if (Input.GetKeyDown (KeyCode.A) && pc.selected_weapon_prefab1.name == "Boomerange" && pc.has_boomerange) {
+			pc.has_boomerange = false;
+			GameObject weapon_Prefab = pc.selected_weapon_prefab1;
+			GameObject weapon_Instance = MonoBehaviour.Instantiate (weapon_Prefab, pc.transform.position, Quaternion.identity) as GameObject;
+			if (weapon_Prefab.name == "Boomerange") {
+				Vector3 velocity_ = Vector3.zero;
+				if (pc.current_direction == Direction.EAST) {
+					velocity_ = new Vector3 (5, 0, 0);
+				} else if (pc.current_direction == Direction.SOUTH) {
+					velocity_ = new Vector3 (0, -5, 0);
+				} else if (pc.current_direction == Direction.WEST) {
+					velocity_ = new Vector3 (-5, 0, 0);
+				} else if (pc.current_direction == Direction.NORTH) {
+					velocity_ = new Vector3 (0, 5, 0);
+				}
+				weapon_Instance.GetComponent<Boomerange> ().throw_obj = pc.gameObject;
+				weapon_Instance.GetComponent<Boomerange> ().velocity = velocity_;
+				weapon_Instance.tag = "Weapon";
+				weapon_Instance.layer = 10;
+			}
+
+		}
 		if (Input.GetKeyDown (KeyCode.I)) 
 		{
 			if(pc.invince == false)
@@ -239,6 +261,22 @@ public class StateLinkAttack : State
 		pc.current_state = EntityState.ATTACKING;
 		pc.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		weapon_Instance = MonoBehaviour.Instantiate (weapon_Prefab, pc.transform.position, Quaternion.identity) as GameObject;
+//		if (weapon_Prefab.name == "Boomerange") {
+//			Vector3 velocity_ = Vector3.zero;
+//			if (pc.current_direction == Direction.EAST) {
+//				velocity_ = new Vector3 (5, 0, 0);
+//			} else if (pc.current_direction == Direction.SOUTH) {
+//				velocity_ = new Vector3 (0, -5, 0);
+//			} else if (pc.current_direction == Direction.WEST) {
+//				velocity_ = new Vector3 (-5, 0, 0);
+//			} else if (pc.current_direction == Direction.NORTH) {
+//				velocity_ = new Vector3 (0, 5, 0);
+//			}
+//			weapon_Instance.GetComponent<Boomerange> ().throw_obj = pc.gameObject;
+//			weapon_Instance.GetComponent<Boomerange> ().velocity = velocity_;
+//			weapon_Instance.tag = "Weapon";
+//			weapon_Instance.layer = 9;
+//		}
 		arrow_Instance = MonoBehaviour.Instantiate (pc.Arrow, pc.transform.position, Quaternion.identity) as GameObject;
 		Vector3 direction_Offset = Vector3.zero;
 		Vector3 direction_Eulerangle = Vector3.zero;

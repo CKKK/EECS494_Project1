@@ -33,8 +33,13 @@ public class Boomerange : MonoBehaviour {
 			float u = (Time.time - actualFarestTime)/(actualFarestTime - beginningTime);
 			transform.position = (1 - u) * farestPoint + u * throw_obj.transform.position;
 			if (u >= 1) {
+				if (throw_obj.GetComponent<PlayerControl> ()) {
+					throw_obj.GetComponent<PlayerControl> ().has_boomerange = true;
+				}
 				Destroy (gameObject);
 			}
 		}
 	}
+
+
 }

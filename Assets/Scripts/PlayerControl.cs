@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour {
 	public int health_Max = 3;
 	public int boom_Count = 0;
 	public int key = 0;
+	public bool has_boomerange = false;
 	public Sprite [] sprites;
 	public Sprite[] spritesfordead;
 	public Sprite[] link_run_down;
@@ -822,6 +823,7 @@ public class PlayerControl : MonoBehaviour {
 		{
 			Destroy(coll.gameObject);
 			inventory.Inventory_bool[2] = true;
+			has_boomerange = true;
 		}
 		else if (coll.tag == "heart_1") { // add health
 			health_Count++;
