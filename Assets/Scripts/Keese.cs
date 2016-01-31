@@ -6,7 +6,9 @@ public class Keese : Enemy {
 	public float speed = 1;
 	float timeStart = 0;
 	float duration = 4;
-
+	public int counter;
+	public int stop_counter;
+	public Sprite[] animation_Sprites;
 	// Use this for initialization
 	public Keese(): base(1,1) {
 		
@@ -23,11 +25,11 @@ public class Keese : Enemy {
 	// Update is called once per frame
 	protected override void Update () {
 		base.Update ();
-
 		float u = (Time.time - timeStart) / duration;
 		if (u>=1) {  // if u >=1...
-			InitMovement();  // ...then initialize movement to a new point
-			u=0;
+
+				InitMovement();  // ...then initialize movement to a new point
+				u=0;
 		}
 
 //		u = 1 - Mathf.Pow( 1-u, 2 );         // Apply Ease Out easing to u

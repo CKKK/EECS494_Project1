@@ -9,7 +9,7 @@ public class inventory : MonoBehaviour {
 	public GameObject[] Inventory;
 	public GameObject[] Inventory_Selected;
 	public GameObject[] selected;
-	public static bool[] Inventory_bool = {false,false,false,false,false,false,false,false};
+	public static bool[] Inventory_bool = {false,false,false,false,false,false,false,false};//0,boom 1,bow 2,boomerage
 	public static int active_Max;
 	public static int movemen_counter;
 	public static int active_counter = -1;

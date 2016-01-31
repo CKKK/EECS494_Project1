@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public enum Direction {NORTH, EAST, SOUTH, WEST};
-public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD,PANEL,CANVAS};
+public enum EntityState {NORMAL, ATTACKING, STUNNING,DEAD,PANEL,CANVAS, VICTORY};
 public class PlayerControl : MonoBehaviour {
 	public bool invince = false;
 	public float walking_Velocity = 4.0f;
@@ -37,6 +37,9 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject[] weapon_Inventory;
 	public GameObject Arrow;
 	public static PlayerControl instance;
+	public GameObject[] enemy_prefab;
+	private GameObject trash;
+	private Dictionary<int,List<GameObject>> Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
 	// Use this for initialization
 	void Start () {
 		if(instance != null)
@@ -60,209 +63,725 @@ public class PlayerControl : MonoBehaviour {
 		}
 		if (this.transform.position.x >= 46 && this.transform.position.x < 47 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
 		{
+
 			print ("1");
+			if(Room_to_Enmeies.ContainsKey(2) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(2,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[0], new Vector3(55,7,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[2].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(59,3,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[2].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(54,8,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[2].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(52,4,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[2].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(50,3,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[2].Add(temp);
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[2].Count;i++)
+				{
+					if(Room_to_Enmeies[2][i]!=null)
+						Room_to_Enmeies[2][i].SetActive(true);
+				}
+			}
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 48 && this.transform.position.x < 49 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
 		{
 			print ("2");
+			for(int i = 0; i < Room_to_Enmeies[2].Count;i++)
+			{
+				if(Room_to_Enmeies[2][i]!=null)
+					Room_to_Enmeies[2][i].SetActive(false);
+			}			
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
 		{
 			print ("3");
+			if(Room_to_Enmeies.ContainsKey(0) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(0,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[1], new Vector3(10,6,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[0].Add(temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(12,8,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[0].Add(temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(12,4,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[0].Add(temp);
+
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[0].Count;i++)
+				{
+					if(Room_to_Enmeies[0][i]!=null)
+						Room_to_Enmeies[0][i].SetActive(true);
+				}
+			}
+	
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 5 && this.transform.position.y < 6) 
 		{
 			print ("4");
+			for(int i = 0; i < Room_to_Enmeies[0].Count;i++)
+			{
+				if(Room_to_Enmeies[0][i]!=null)
+					Room_to_Enmeies[0][i].SetActive(false);
+			}	
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 38 && this.transform.position.x < 40 && this.transform.position.y >= 9 && this.transform.position.y < 10) 
 		{
 			print ("5");
+
+			if(Room_to_Enmeies.ContainsKey(3) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(3,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[0], new Vector3(37,18,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[3].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(34,16,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[3].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(39,16,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[3].Add(temp);
+				
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[3].Count;i++)
+				{
+					if(Room_to_Enmeies[3][i]!=null)
+						Room_to_Enmeies[3][i].SetActive(true);
+				}
+			}
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 38 && this.transform.position.x < 40 && this.transform.position.y >= 11 && this.transform.position.y < 12.2) 
 		{
 			print ("6");
+			for(int i = 0; i < Room_to_Enmeies[3].Count;i++)
+			{
+				if(Room_to_Enmeies[3][i]!=null)
+					Room_to_Enmeies[3][i].SetActive(false);
+			}	
+
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 20 && this.transform.position.y < 21) 
 		{
 			print ("7");
+
+			if(Room_to_Enmeies.ContainsKey(5) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(5,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[0], new Vector3(39,28,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(42,30,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(39,27,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(36,28,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(34,30,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[5].Count;i++)
+				{
+					if(Room_to_Enmeies[5][i]!=null)
+						Room_to_Enmeies[5][i].SetActive(true);
+				}
+			}
+			for(int i = 0; i < Room_to_Enmeies[3].Count;i++)
+			{
+				if(Room_to_Enmeies[3][i]!=null)
+					Room_to_Enmeies[3][i].SetActive(false);
+			}
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 22 && this.transform.position.y < 23.1) 
 		{
-			print ("7");
+			print ("7.1");
+			for(int i = 0; i < Room_to_Enmeies[3].Count;i++)
+			{
+				if(Room_to_Enmeies[3][i]!=null)
+					Room_to_Enmeies[3][i].SetActive(true);
+			}
+			for(int i = 0; i < Room_to_Enmeies[5].Count;i++)
+			{
+				if(Room_to_Enmeies[5][i]!=null)
+					Room_to_Enmeies[5][i].SetActive(false);
+			}
+
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 27 && this.transform.position.y < 27.1) 
 		{
 			print ("8");
+			for(int i = 0; i < Room_to_Enmeies[5].Count;i++)
+			{
+				if(Room_to_Enmeies[5][i]!=null)
+					Room_to_Enmeies[5][i].SetActive(false);
+			}
+			if(Room_to_Enmeies.ContainsKey(4) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(4,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[1], new Vector3(27,30,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[4].Add(temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(27,24,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[4].Add(temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(18,27,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[4].Add(temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(20,27,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[4].Add(temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(20,29,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[4].Add(temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(20,25,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[4].Add(temp);
+
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[4].Count;i++)
+				{
+					if(Room_to_Enmeies[4][i]!=null)
+						Room_to_Enmeies[4][i].SetActive(true);
+				}
+				
+			}
+
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 27 && this.transform.position.y < 27.1) 
 		{
 			print ("9");
+			for(int i = 0; i < Room_to_Enmeies[4].Count;i++)
+			{
+				if(Room_to_Enmeies[4][i]!=null)
+					Room_to_Enmeies[4][i].SetActive(false);
+			}
+			if(Room_to_Enmeies.ContainsKey(5) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(5,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[0], new Vector3(39,28,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(42,30,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(39,27,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(36,28,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(34,30,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[5].Add(temp);
+				
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[5].Count;i++)
+				{
+					if(Room_to_Enmeies[5][i]!=null)
+						Room_to_Enmeies[5][i].SetActive(true);
+				}
+
+			}
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
-		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 31 && this.transform.position.y < 32) {
+		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 31.3 && this.transform.position.y < 31.4) {
 			print ("10");
+			for(int i = 0; i < Room_to_Enmeies[4].Count;i++)
+			{
+				if(Room_to_Enmeies[4][i]!=null)
+					Room_to_Enmeies[4][i].SetActive(false);
+			}
+			if(Room_to_Enmeies.ContainsKey(8) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(8,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[3], new Vector3(25,41,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[8].Add(temp);
+				temp = Instantiate(enemy_prefab[3], new Vector3(21,41,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[8].Add(temp);
+				temp = Instantiate(enemy_prefab[3], new Vector3(21,37,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[8].Add(temp);
+
+				
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[8].Count;i++)
+				{
+					if(Room_to_Enmeies[8][i]!=null)
+						Room_to_Enmeies[8][i].SetActive(true);
+				}
+				
+			}
+
 			this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y + 2.7f, this.transform.position.z);
 			Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y + 11, Camera.main.transform.position.z);
 		}
-		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 33 && this.transform.position.y < 34) 
+		if (this.transform.position.x >= 23 && this.transform.position.x < 24 && this.transform.position.y >= 33.9 && this.transform.position.y < 34) 
 		{
 			print ("11");
+			if(trash != null)
+				Destroy(trash.gameObject);
+			GameObject.Find("023x038").GetComponent<SpriteRenderer>().sprite = rock.GetComponent<SpriteRenderer>().sprite;
+			GameObject.Find("023x038").GetComponent<BoxCollider>().enabled = true;
+			for(int i = 0; i < Room_to_Enmeies[8].Count;i++)
+			{
+				if(Room_to_Enmeies[8][i]!=null)
+					Room_to_Enmeies[8][i].SetActive(false);
+			}
+			for(int i = 0; i < Room_to_Enmeies[4].Count;i++)
+			{
+				if(Room_to_Enmeies[4][i]!=null)
+					Room_to_Enmeies[4][i].SetActive(true);
+			}
+
+
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
-		/*if (this.transform.position.x >= 24 && this.transform.position.x < 25 && this.transform.position.y >= 38 && this.transform.position.y < 39) 
-		{
-			print ("12");
-			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
-			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
-		}*/
+
 		if (this.transform.position.x >= 16 && this.transform.position.x < 17 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
 			print ("13");
+			if(trash != null)
+				Destroy(trash.gameObject);
+			GameObject.Find("023x038").GetComponent<SpriteRenderer>().sprite = rock.GetComponent<SpriteRenderer>().sprite;
+			GameObject.Find("023x038").GetComponent<BoxCollider>().enabled = true;
+			for(int i = 0; i < Room_to_Enmeies[8].Count;i++)
+			{
+				if(Room_to_Enmeies[8][i]!=null)
+					Room_to_Enmeies[8][i].SetActive(false);
+			}
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 14 && this.transform.position.x < 15 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
 			print ("14");
+			for(int i = 0; i < Room_to_Enmeies[8].Count;i++)
+			{
+				if(Room_to_Enmeies[8][i]!=null)
+					Room_to_Enmeies[8][i].SetActive(true);
+			}
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
 			print ("15");
+			if(trash != null)
+				Destroy(trash.gameObject);
+			GameObject.Find("023x038").GetComponent<SpriteRenderer>().sprite = rock.GetComponent<SpriteRenderer>().sprite;
+			GameObject.Find("023x038").GetComponent<BoxCollider>().enabled = true;
+			GameObject.Find ("017x038").GetComponent<SpriteRenderer> ().sprite = doors [4];
+			GameObject.Find ("017x038").GetComponent<BoxCollider> ().isTrigger = false;
+			for(int i = 0; i < Room_to_Enmeies[8].Count;i++)
+			{
+				if(Room_to_Enmeies[8][i]!=null)
+					Room_to_Enmeies[8][i].SetActive(false);
+			}
+
+			if(Room_to_Enmeies.ContainsKey(9) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(9,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[3], new Vector3(37,41,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[9].Add(temp);
+				temp = Instantiate(enemy_prefab[3], new Vector3(42,41,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[9].Add(temp);
+				temp = Instantiate(enemy_prefab[3], new Vector3(42,37,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[9].Add(temp);
+				temp = Instantiate(enemy_prefab[3], new Vector3(38,37,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[9].Add(temp);
+				temp = Instantiate(enemy_prefab[3], new Vector3(41,36,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[9].Add(temp);
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[9].Count;i++)
+				{
+					if(Room_to_Enmeies[9][i]!=null)
+						Room_to_Enmeies[9][i].SetActive(true);
+				}
+				
+			}
+
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 38 && this.transform.position.y < 38.1) 
 		{
 			print ("16");
+			for(int i = 0; i < Room_to_Enmeies[8].Count;i++)
+			{
+				if(Room_to_Enmeies[8][i]!=null)
+					Room_to_Enmeies[8][i].SetActive(true);
+			}
+			for(int i = 0; i < Room_to_Enmeies[9].Count;i++)
+			{
+				if(Room_to_Enmeies[9][i]!=null)
+					Room_to_Enmeies[9][i].SetActive(false);
+			}
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 42 && this.transform.position.y < 43) 
 		{
 			print ("17");
+			for(int i = 0; i < Room_to_Enmeies[9].Count;i++)
+			{
+				if(Room_to_Enmeies[9][i]!=null)
+					Room_to_Enmeies[9][i].SetActive(false);
+			}
+
+			if(Room_to_Enmeies.ContainsKey(14) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(14,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[0], new Vector3(37,49,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[14].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(39,50,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[14].Add(temp);
+				temp = Instantiate(enemy_prefab[0], new Vector3(42,49,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[14].Add(temp);
+
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[14].Count;i++)
+				{
+					if(Room_to_Enmeies[14][i]!=null)
+						Room_to_Enmeies[14][i].SetActive(true);
+				}
+				
+			}
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 44 && this.transform.position.y < 45) 
 		{
 			print ("18");
+			for(int i = 0; i < Room_to_Enmeies[14].Count;i++)
+			{
+				if(Room_to_Enmeies[14][i]!=null)
+					Room_to_Enmeies[14][i].SetActive(false);
+			}
+			for(int i = 0; i < Room_to_Enmeies[9].Count;i++)
+			{
+				if(Room_to_Enmeies[9][i]!=null)
+					Room_to_Enmeies[9][i].SetActive(true);
+			}
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 53 && this.transform.position.y < 54) 
 		{
 			print ("19");
+			for(int i = 0; i < Room_to_Enmeies[14].Count;i++)
+			{
+				if(Room_to_Enmeies[14][i]!=null)
+					Room_to_Enmeies[14][i].SetActive(false);
+			}
+
+			if(Room_to_Enmeies.ContainsKey(15) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(15,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[2], new Vector3(38,62,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[15].Add(temp);
+				temp = Instantiate(enemy_prefab[2], new Vector3(39,61,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[15].Add(temp);
+				temp = Instantiate(enemy_prefab[2], new Vector3(40,63,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[15].Add(temp);
+				
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[15].Count;i++)
+				{
+					if(Room_to_Enmeies[15][i]!=null)
+						Room_to_Enmeies[15][i].SetActive(true);
+				}
+				
+			}
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 39 && this.transform.position.x < 40 && this.transform.position.y >= 55 && this.transform.position.y < 56) 
 		{
 			print ("20");
+			for(int i = 0; i < Room_to_Enmeies[14].Count;i++)
+			{
+				if(Room_to_Enmeies[14][i]!=null)
+					Room_to_Enmeies[14][i].SetActive(true);
+			}
+			for(int i = 0; i < Room_to_Enmeies[15].Count;i++)
+			{
+				if(Room_to_Enmeies[15][i]!=null)
+					Room_to_Enmeies[15][i].SetActive(false);
+			}
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 32 && this.transform.position.x < 33 && this.transform.position.y >= 60 && this.transform.position.y < 60.1) 
 		{
 			print ("21");
+			for(int i = 0; i < Room_to_Enmeies[15].Count;i++)
+			{
+				if(Room_to_Enmeies[15][i]!=null)
+					Room_to_Enmeies[15][i].SetActive(false);
+			}
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 60 && this.transform.position.y < 60.1) 
 		{
 			print ("22");
+			for(int i = 0; i < Room_to_Enmeies[15].Count;i++)
+			{
+				if(Room_to_Enmeies[15][i]!=null)
+					Room_to_Enmeies[15][i].SetActive(true);
+			}
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 46 && this.transform.position.x < 47 && this.transform.position.y >=27 && this.transform.position.y < 28) 
 		{
 			print ("23");
+			for(int i = 0; i < Room_to_Enmeies[5].Count;i++)
+			{
+				if(Room_to_Enmeies[5][i]!=null)
+					Room_to_Enmeies[5][i].SetActive(false);
+			}
+
+			if(Room_to_Enmeies.ContainsKey(6) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(6,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[1], new Vector3(53,27,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[6].Add (temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(53,26,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[6].Add (temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(57,27,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[6].Add (temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(57,25,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[6].Add (temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(59,23,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[6].Add (temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(59,28,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[6].Add (temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(60,24,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[6].Add (temp);
+				temp = Instantiate(enemy_prefab[1], new Vector3(60,23,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[6].Add (temp);
+
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[6].Count;i++)
+				{
+					if(Room_to_Enmeies[6][i]!=null)
+						Room_to_Enmeies[6][i].SetActive(true);
+				}
+			}
+
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 48 && this.transform.position.x < 49 && this.transform.position.y >=27 && this.transform.position.y < 28) 
 		{
 			print ("24");
+			for(int i = 0; i < Room_to_Enmeies[6].Count;i++)
+			{
+				if(Room_to_Enmeies[6][i]!=null)
+					Room_to_Enmeies[6][i].SetActive(false);
+			}
+				if(Room_to_Enmeies.ContainsKey(5) == false)
+				{
+					List<GameObject> enenmy_list = new List<GameObject>();
+					Room_to_Enmeies.Add(5,enenmy_list);
+					GameObject temp = Instantiate(enemy_prefab[0], new Vector3(39,28,0),Quaternion.identity) as GameObject;
+					Room_to_Enmeies[5].Add(temp);
+					temp = Instantiate(enemy_prefab[0], new Vector3(42,30,0),Quaternion.identity) as GameObject;
+					Room_to_Enmeies[5].Add(temp);
+					temp = Instantiate(enemy_prefab[0], new Vector3(39,27,0),Quaternion.identity) as GameObject;
+					Room_to_Enmeies[5].Add(temp);
+					temp = Instantiate(enemy_prefab[0], new Vector3(36,28,0),Quaternion.identity) as GameObject;
+					Room_to_Enmeies[5].Add(temp);
+					temp = Instantiate(enemy_prefab[0], new Vector3(34,30,0),Quaternion.identity) as GameObject;
+					Room_to_Enmeies[5].Add(temp);
+					
+				}
+				else
+				{
+					for(int i = 0; i < Room_to_Enmeies[5].Count;i++)
+					{
+						if(Room_to_Enmeies[5][i]!=null)
+							Room_to_Enmeies[5][i].SetActive(true);
+					}
+				}
+
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 46 && this.transform.position.x < 47 && this.transform.position.y >=38 && this.transform.position.y < 39) 
 		{
 			print ("25");
+			for(int i = 0; i < Room_to_Enmeies[9].Count;i++)
+			{
+				if(Room_to_Enmeies[9][i]!=null)
+					Room_to_Enmeies[9][i].SetActive(false);
+			}
+
+			if(Room_to_Enmeies.ContainsKey(10) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(10,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[2], new Vector3(57,41,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[10].Add(temp);
+				temp = Instantiate(enemy_prefab[2], new Vector3(57,37,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[10].Add(temp);
+				temp = Instantiate(enemy_prefab[2], new Vector3(54,36,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[10].Add(temp);
+				
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[10].Count;i++)
+				{
+					if(Room_to_Enmeies[10][i]!=null)
+						Room_to_Enmeies[10][i].SetActive(true);
+				}
+				
+			}
+
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 48 && this.transform.position.x < 49 && this.transform.position.y >=38 && this.transform.position.y < 39) 
 		{
 			print ("26");
+			for(int i = 0; i < Room_to_Enmeies[9].Count;i++)
+			{
+				if(Room_to_Enmeies[9][i]!=null)
+					Room_to_Enmeies[9][i].SetActive(true);
+			}
+			for(int i = 0; i < Room_to_Enmeies[10].Count;i++)
+			{
+				if(Room_to_Enmeies[10][i]!=null)
+					Room_to_Enmeies[10][i].SetActive(false);
+			}
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 62 && this.transform.position.x < 63 && this.transform.position.y >=38 && this.transform.position.y < 39) 
 		{
 			print ("27");
+			for(int i = 0; i < Room_to_Enmeies[10].Count;i++)
+			{
+				if(Room_to_Enmeies[10][i]!=null)
+					Room_to_Enmeies[10][i].SetActive(false);
+			}
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 64 && this.transform.position.x < 65 && this.transform.position.y >=38 && this.transform.position.y < 39) 
 		{
 			print ("28");
+			for(int i = 0; i < Room_to_Enmeies[10].Count;i++)
+			{
+				if(Room_to_Enmeies[10][i]!=null)
+					Room_to_Enmeies[10][i].SetActive(true);
+			}
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 71 && this.transform.position.x < 72 && this.transform.position.y >= 42 && this.transform.position.y < 43) 
 		{
 			print ("29");
+
+			if(Room_to_Enmeies.ContainsKey(12) == false)
+			{
+				List<GameObject> enenmy_list = new List<GameObject>();
+				Room_to_Enmeies.Add(12,enenmy_list);
+				GameObject temp = Instantiate(enemy_prefab[4], new Vector3(75,49,0),Quaternion.identity) as GameObject;
+				Room_to_Enmeies[12].Add(temp);
+
+				
+			}
+			else
+			{
+				for(int i = 0; i < Room_to_Enmeies[12].Count;i++)
+				{
+					if(Room_to_Enmeies[12][i]!=null)
+						Room_to_Enmeies[12][i].SetActive(true);
+				}
+				
+			}
+
+
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y+2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y+11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 71 && this.transform.position.x < 72 && this.transform.position.y >= 44 && this.transform.position.y < 45) 
 		{
 			print ("30");
+			for(int i = 0; i < Room_to_Enmeies[12].Count;i++)
+			{
+				if(Room_to_Enmeies[12][i]!=null)
+					Room_to_Enmeies[12][i].SetActive(false);
+			}
 			this.transform.position = new Vector3(this.transform.position.x,this.transform.position.y-2.7f,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y-11,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 78 && this.transform.position.x < 79 && this.transform.position.y >=49 && this.transform.position.y < 50) 
 		{
 			print ("31");
+
+
 			this.transform.position = new Vector3(this.transform.position.x+3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x+16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 80 && this.transform.position.x < 81 && this.transform.position.y >=49 && this.transform.position.y < 50) 
 		{
 			print ("32");
+
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >=39 && this.transform.position.x < 40 && this.transform.position.y >=0 && this.transform.position.y < 1) 
 		{
 			print ("33");
+
 			this.transform.position = new Vector3(376.4f,9.5f,0f);
 			Camera.main.transform.position = new Vector3(380.5f,7f,-10);
 		}
 		if (this.transform.position.x >=376 && this.transform.position.x < 377 && this.transform.position.y >=10 && this.transform.position.y < 11) 
 		{
+
 			this.transform.position = new Vector3(39.5f,1.25f,0f);
 			Camera.main.transform.position = new Vector3(39.51f,6.41f,-10);
 		}
@@ -275,7 +794,6 @@ public class PlayerControl : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider coll)
 	{
-		print (coll.tag);
 		if (coll.tag == "Weapon") 
 		{
 			if(coll.name == "bow")
@@ -294,7 +812,13 @@ public class PlayerControl : MonoBehaviour {
 		else if (coll.tag == "Rupee") {
 			rupee_Count++;
 			Destroy (coll.gameObject);
-		} else if (coll.tag == "heart_1") { // add health
+		} 
+		else if(coll.tag == "bommerage")
+		{
+			Destroy(coll.gameObject);
+			inventory.Inventory_bool[2] = true;
+		}
+		else if (coll.tag == "heart_1") { // add health
 			health_Count++;
 			if (health_Count > health_Max) {
 				health_Count = health_Max;
@@ -324,8 +848,14 @@ public class PlayerControl : MonoBehaviour {
 				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
 			else
 				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
-		} else if (coll.tag == "locked") {
-			
+		} else if (coll.gameObject.tag == "triangle") {
+			print (coll.gameObject.tag);
+			movement_controller.SetSpeed(0);
+			movement_controller.SetDirection(Direction.SOUTH);
+			this.gameObject.GetComponent<SpriteRenderer> ().sprite = sprites [8];
+			this.transform.position = new Vector3(87.5f,48.5f,0);
+			control_state_machine.ChangeState(new LinkVictory(this,100,coll.gameObject));
+
 		}
 	}
 
@@ -376,11 +906,6 @@ public class PlayerControl : MonoBehaviour {
 				}
 
 
-				if (coll.gameObject.name == "017x038") {
-					GameObject.Find ("017x038").GetComponent<SpriteRenderer> ().sprite = doors [2];
-					GameObject.Find ("017x038").GetComponent<BoxCollider> ().isTrigger = true;
-					
-				}
 				if (coll.gameObject.name == "033x060") {
 					GameObject.Find ("033x060").GetComponent<SpriteRenderer> ().sprite = doors [2];
 					GameObject.Find ("033x060").GetComponent<BoxCollider> ().isTrigger = true;
@@ -406,6 +931,7 @@ public class PlayerControl : MonoBehaviour {
 		{
 			if(Input.GetKeyDown(KeyCode.UpArrow) && ready == false)
 			{
+				presstime = 0;
 				downtime = Time.time;
 				presstime = downtime + countdown;
 				direction = 1;
@@ -420,6 +946,7 @@ public class PlayerControl : MonoBehaviour {
 
 			if(Input.GetKeyDown(KeyCode.DownArrow) && ready == false)
 			{
+				presstime = 0;
 				downtime = Time.time;
 				presstime = downtime + countdown;
 				direction = 2;
@@ -436,6 +963,7 @@ public class PlayerControl : MonoBehaviour {
 
 			if(Input.GetKeyDown(KeyCode.LeftArrow) && ready == false)
 			{
+				presstime = 0;
 				downtime = Time.time;
 				presstime = downtime + countdown;
 				direction = 3;
@@ -450,6 +978,7 @@ public class PlayerControl : MonoBehaviour {
 
 			if(Input.GetKeyDown(KeyCode.RightArrow) && ready == false)
 			{
+				presstime = 0;
 				downtime = Time.time;
 				presstime = downtime + countdown;
 				direction = 4;
@@ -462,13 +991,18 @@ public class PlayerControl : MonoBehaviour {
 				direction = 0;
 			}
 
-			if(Time.time >= presstime && ready == true)
+			if(Time.time >= presstime && ready == true && direction !=0)
 			{
-				if(coll.gameObject.transform.position.x == 23f && coll.gameObject.transform.position.y == 38f)
+				if(coll.gameObject.transform.position.x == 23f && coll.gameObject.transform.position.y == 38f && direction !=0)
 				{
 					coll.gameObject.GetComponent<SpriteRenderer>().sprite = tile;
 					coll.gameObject.GetComponent<BoxCollider>().enabled = false;
 					GameObject block_temp = Instantiate(rock,new Vector3(23,38,0),Quaternion.identity) as GameObject;
+					trash = block_temp;
+					GameObject.Find ("017x038").GetComponent<SpriteRenderer> ().sprite = doors [2];
+					GameObject.Find ("017x038").GetComponent<BoxCollider> ().isTrigger = true;
+						
+
 				}
 				ready = false;
 			}

@@ -74,7 +74,10 @@ public class Tile : MonoBehaviour {
         switch (c) {
         case 'S': // Solid
             bc.center = Vector3.zero;
-            bc.size = Vector3.one;
+			if(tileNum == 44 && x ==23 && y == 38)
+				bc.size = new Vector3(.9f,.9f,0f);
+			else
+            	bc.size = Vector3.one;
             break;
         default:
             bc.enabled = false;

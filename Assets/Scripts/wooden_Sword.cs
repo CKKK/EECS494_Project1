@@ -12,39 +12,39 @@ public class wooden_Sword : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (this != null && inventory_or_not == false) {
-			if (PlayerControl.instance.health_Max == PlayerControl.instance.health_Count) 
+
+			if (Camera.main.transform.position.y + 3 <= this.transform.position.y) 
 			{
-				if (Camera.main.transform.position.y + 3 <= this.transform.position.y) 
-				{
-					PlayerControl.instance.sword_fire = false;
-					Destroy(this.gameObject);
-				}
-				else if(Camera.main.transform.position.y -6 >= this.transform.position.y)
-				{
-					PlayerControl.instance.sword_fire = false;
-					Destroy(this.gameObject);
-				}
-				else if(Camera.main.transform.position.x-6 >= this.transform.position.x)
-				{
-					PlayerControl.instance.sword_fire = false;
-					Destroy(this.gameObject);
-				}
-				else if(Camera.main.transform.position.x +6 <= this.transform.position.x)
-				{
-					PlayerControl.instance.sword_fire = false;
-					Destroy(this.gameObject);
-				}
+				PlayerControl.instance.sword_fire = false;
+				Destroy(this.gameObject);
 			}
+			else if(Camera.main.transform.position.y -6 >= this.transform.position.y)
+			{
+				PlayerControl.instance.sword_fire = false;
+				Destroy(this.gameObject);
+			}
+			else if(Camera.main.transform.position.x-6 >= this.transform.position.x)
+			{
+				PlayerControl.instance.sword_fire = false;
+				Destroy(this.gameObject);
+			}
+			else if(Camera.main.transform.position.x +6 <= this.transform.position.x)
+			{
+				PlayerControl.instance.sword_fire = false;
+				Destroy(this.gameObject);
+			}
+
 		}
 	
 	}
 
 	void OnTriggerEnter(Collider coll)
 	{
+		print (coll.gameObject.tag);
 		if(coll.gameObject.tag == "Enemy")
 		{
-			PlayerControl.instance.sword_fire = false;
 			Destroy(this.gameObject);
+			PlayerControl.instance.sword_fire = false;
 		}
 	}
 }

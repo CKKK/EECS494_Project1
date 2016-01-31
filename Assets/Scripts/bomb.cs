@@ -15,7 +15,7 @@ public class bomb : MonoBehaviour {
 	void Update () {
 		if (this != null && inventory_or_not == false) {
 			counter ++;
-			if(counter == 30)
+			if(counter == 50)
 			{
 				Destroy(this.gameObject);
 				explosion1 = MonoBehaviour.Instantiate(explosion,this.transform.position,Quaternion.identity) as GameObject;
