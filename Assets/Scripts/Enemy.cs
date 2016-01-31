@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour {
 		return damage;
 	}
 
-	public void beAttacked(int damage){
+	public virtual void beAttacked(int damage, GameObject Collider){
 		if (!invincible) {
 			health -= 1; // need the fix this
 			if (health == 0)

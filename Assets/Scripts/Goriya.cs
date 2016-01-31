@@ -13,7 +13,7 @@ public class Goriya : Enemy {
 
 	GameObject currentMovingTowardDetector;
 
-	public Goriya(): base(1, 1) {
+	public Goriya(): base(2, 1) {
 	}
 
 	// Use this for initialization
@@ -76,13 +76,12 @@ public class Goriya : Enemy {
 		}
 	}
 
-	protected override void OnTriggerEnter(Collider coll) {
-		base.OnTriggerEnter (coll);
-		if (coll.gameObject.tag == "Weapon") {
-			if (!base.invincible) {
-				State stunState = new EnemyStunState (this, 15, coll.gameObject);
-				BehaviorStateMathine.ChangeState (stunState);
-			}
+	public override void beAttacked(int damage, GameObject collider) {
+		base.beAttacked (damage, collider);
+		if (!base.invincible) {
+			State stunState = new EnemyStunState (this, 15, collider);
+			BehaviorStateMathine.ChangeState (stunState);
 		}
+
 	}
 }
