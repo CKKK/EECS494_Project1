@@ -70,12 +70,17 @@ public class Tile : MonoBehaviour {
 		if (tileNum == 44 && x == 23 && y == 38) {
 			this.tag = "push";
 		}
-
+		if (tileNum == 44 && x == 22 && y == 60) {
+			this.tag = "push";
+		}
         switch (c) {
         case 'S': // Solid
             bc.center = Vector3.zero;
 			if(tileNum == 44 && x ==23 && y == 38)
 				bc.size = new Vector3(.9f,.9f,0f);
+			else if (tileNum == 44 && x == 22 && y == 60) {
+				bc.size = new Vector3(.9f,.9f,0f);
+			}
 			else
             	bc.size = Vector3.one;
             break;
