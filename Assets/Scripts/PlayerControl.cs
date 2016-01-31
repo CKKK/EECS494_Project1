@@ -560,6 +560,11 @@ public class PlayerControl : MonoBehaviour {
 		if (this.transform.position.x >= 30 && this.transform.position.x < 31 && this.transform.position.y >= 60 && this.transform.position.y < 60.1) 
 		{
 			print ("22");
+			presstime = 0;
+			if(trash != null)
+				Destroy(trash.gameObject);
+			GameObject.Find("022x060").GetComponent<SpriteRenderer>().sprite = rock.GetComponent<SpriteRenderer>().sprite;
+			GameObject.Find("022x060").GetComponent<BoxCollider>().enabled = true;
 			for(int i = 0; i < Room_to_Enmeies[15].Count;i++)
 			{
 				if(Room_to_Enmeies[15][i]!=null)
@@ -772,7 +777,7 @@ public class PlayerControl : MonoBehaviour {
 			this.transform.position = new Vector3(this.transform.position.x-3,this.transform.position.y,this.transform.position.z);
 			Camera.main.transform.position = new Vector3(Camera.main.transform.position.x-16,Camera.main.transform.position.y,Camera.main.transform.position.z);
 		}
-		if (this.transform.position.x >=39 && this.transform.position.x < 40 && this.transform.position.y >=0 && this.transform.position.y < 1) 
+		if (this.transform.position.x >=23.5 && this.transform.position.x < 24.1 && this.transform.position.y >=60 && this.transform.position.y < 60.1) 
 		{
 			print ("33");
 
@@ -782,8 +787,8 @@ public class PlayerControl : MonoBehaviour {
 		if (this.transform.position.x >=376 && this.transform.position.x < 377 && this.transform.position.y >=10 && this.transform.position.y < 11) 
 		{
 
-			this.transform.position = new Vector3(39.5f,1.25f,0f);
-			Camera.main.transform.position = new Vector3(39.51f,6.41f,-10);
+			this.transform.position = new Vector3(22.7f,60f,0f);
+			Camera.main.transform.position = new Vector3(23.51f,61.41f,-10);
 		}
 		
 		
@@ -995,6 +1000,7 @@ public class PlayerControl : MonoBehaviour {
 			{
 				if(coll.gameObject.transform.position.x == 23f && coll.gameObject.transform.position.y == 38f && direction !=0)
 				{
+					presstime = 0;
 					coll.gameObject.GetComponent<SpriteRenderer>().sprite = tile;
 					coll.gameObject.GetComponent<BoxCollider>().enabled = false;
 					GameObject block_temp = Instantiate(rock,new Vector3(23,38,0),Quaternion.identity) as GameObject;
@@ -1003,6 +1009,15 @@ public class PlayerControl : MonoBehaviour {
 					GameObject.Find ("017x038").GetComponent<BoxCollider> ().isTrigger = true;
 						
 
+				}
+				if(coll.gameObject.transform.position.x == 22f && coll.gameObject.transform.position.y == 60f && direction !=0)
+				{
+					presstime = 0;
+					coll.gameObject.GetComponent<SpriteRenderer>().sprite = tile;
+					coll.gameObject.GetComponent<BoxCollider>().enabled = false;
+					GameObject block_temp = Instantiate(rock,new Vector3(22,60,0),Quaternion.identity) as GameObject;
+					trash = block_temp;
+			
 				}
 				ready = false;
 			}
