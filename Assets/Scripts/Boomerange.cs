@@ -91,9 +91,12 @@ public class Boomerange : MonoBehaviour {
 		print (coll.gameObject.tag);
 		if(coll.gameObject.tag == "Enemy")
 		{
-			state = BoomerangeState.coming_back;
-			farestPoint = this.transform.position;
-			actualFarestTime = Time.time;
+			if (state == BoomerangeState.going_out) {
+				state = BoomerangeState.coming_back;
+				farestPoint = this.transform.position;
+				actualFarestTime = Time.time;
+			}
+
 			coll.gameObject.GetComponent<Enemy> ().hittenByBoomerange (gameObject);
 			PlayerControl.instance.sword_fire = false;
 		}
