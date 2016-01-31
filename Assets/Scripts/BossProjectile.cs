@@ -22,7 +22,7 @@ public class BossProjectile : EnemyProjectile {
 				{
 					Destroy(this.gameObject);
 				}
-				else if(Camera.main.transform.position.y -6 >= this.transform.position.y)
+				else if(Camera.main.transform.position.y - 6 >= this.transform.position.y)
 				{
 					Destroy(this.gameObject);
 				}

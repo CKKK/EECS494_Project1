@@ -88,4 +88,5 @@ public class Stalfos : Enemy {
 			BehaviorStateMathine.ChangeState (stunState);
 		}
 	}
+
 }
