@@ -105,8 +105,10 @@ public class Goriya : Enemy {
 	public override void beAttacked(int damage, GameObject collider) {
 		base.beAttacked (damage, collider);
 		if (!base.invincible) {
-			State stunState = new EnemyStunState (this, 15, collider);
-			BehaviorStateMathine.ChangeState (stunState);
+			if (state != GoriyaState.stop) {
+				State stunState = new EnemyStunState (this, 15, collider);
+				BehaviorStateMathine.ChangeState (stunState);
+			}
 		}
 
 	}
