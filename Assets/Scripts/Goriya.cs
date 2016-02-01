@@ -11,7 +11,11 @@ public class Goriya : Enemy {
 	GoriyaState state;
 	public GameObject[] detectors;
 
+	public Sprite[] Sprites;
 	GameObject currentMovingTowardDetector;
+	int currentMovingTowardDetectorInd;
+	int animationCounter = 0;
+
 
 	public Goriya(): base(2, 1) {
 	}
@@ -29,11 +33,17 @@ public class Goriya : Enemy {
 		//		float time_delta_fraction = Time.deltaTime / (1.0f / Application.targetFrameRate);
 		base.Update ();
 		base.BehaviorStateMathine.Update ();
+		animationCounter++;
+		animationCounter %= 30;
+		GetComponent<SpriteRenderer> ().sprite = Sprites [2 * currentMovingTowardDetectorInd + animationCounter/15];
+
+
 		if (base.BehaviorStateMathine.IsFinished()) {
 			int randNum = Random.Range (0, 100);
 			if (state == GoriyaState.move && randNum < attackProb * 100) {
 				state = GoriyaState.attack;
 				Vector3 velocity = (currentMovingTowardDetector.transform.position - transform.position).normalized * 5;
+				velocity.z = 0;
 				State attackState = new GoriyaAttackState (this, boomerang, velocity);
 				base.BehaviorStateMathine.ChangeState (attackState);
 			} else {
@@ -60,6 +70,7 @@ public class Goriya : Enemy {
 		if (avaliable_directions.Count > 0) {
 			int randDirection = (int)Random.Range (0, avaliable_directions.Count);
 			currentMovingTowardDetector = detectors [avaliable_directions [randDirection]];
+			currentMovingTowardDetectorInd = avaliable_directions [randDirection];
 			return currentMovingTowardDetector.transform.position;
 		} else {
 			return transform.position;

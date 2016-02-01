@@ -89,8 +89,7 @@ public class Boomerange : MonoBehaviour {
 	void OnTriggerEnter(Collider coll)
 	{
 		print (coll.gameObject.tag);
-		if(coll.gameObject.tag == "Enemy")
-		{
+		if (coll.gameObject.tag == "Enemy") {
 			if (state == BoomerangeState.going_out) {
 				state = BoomerangeState.coming_back;
 				farestPoint = this.transform.position;
@@ -99,6 +98,16 @@ public class Boomerange : MonoBehaviour {
 
 			coll.gameObject.GetComponent<Enemy> ().hittenByBoomerange (gameObject);
 			PlayerControl.instance.sword_fire = false;
+		} else if (coll.gameObject.tag == "Player") {
+			if (coll.gameObject.GetComponent<PlayerControl> ().block (gameObject)) {
+				if (state == BoomerangeState.going_out) {
+					state = BoomerangeState.coming_back;
+					farestPoint = this.transform.position;
+					actualFarestTime = Time.time;
+				}
+			} else {
+				coll.gameObject.GetComponent<PlayerControl> ().takeDamage (gameObject);
+			}
 		}
 	}
 
