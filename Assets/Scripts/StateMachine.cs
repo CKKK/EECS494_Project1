@@ -233,9 +233,18 @@ public class StateLinkNormalMovement: State
 		if (Input.GetKeyDown (KeyCode.I)) 
 		{
 			if(pc.invince == false)
+			{
 				pc.invince = true;
+				pc.GetComponent<AudioSource>().clip = pc.audios[0];
+				pc.GetComponent<AudioSource>().Play();
+			}
 			else
+			{
 				pc.invince = false;
+				pc.GetComponent<AudioSource>().clip = pc.audios[1];
+				pc.GetComponent<AudioSource>().Play();
+
+			}
 		}
 
 	}
@@ -382,6 +391,7 @@ public class StateLinkAttack : State
 public class LinkStunning : State
 {
 	PlayerControl pc;
+	bool prev_invince;
 	Sprite [] sprites;
 	float cooldown = 0.0f;
 	int counter = 0;
@@ -398,6 +408,11 @@ public class LinkStunning : State
 	public override void OnStart ()
 	{
 		pc.current_state = EntityState.STUNNING;
+		if (pc.invince == true)
+			prev_invince = true;
+		else
+			prev_invince = false;
+		pc.invince = true;
 		Vector3 attack_vector = pc.GetComponent<Transform> ().position - Collider_obj.GetComponent<Transform> ().position;
 		if (Mathf.Abs (attack_vector.x) > Mathf.Abs (attack_vector.y)) {
 			attack_vector.y = 0.0f;
@@ -527,7 +542,10 @@ public class LinkStunning : State
 	
 	public override void OnFinish ()
 	{
+		if(prev_invince == false)
+			pc.invince = false;
 		pc.current_state = EntityState.NORMAL;
+
 
 	}
 }

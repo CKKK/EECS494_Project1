@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,6 +8,7 @@ public class PlayerControl : MonoBehaviour {
 	public bool invince = false;
 	public float walking_Velocity = 4.0f;
 	public float pushPower = 2.0F;
+	public AudioClip[] audios;
 	public int rupee_Count = 0;
 	public int health_Count = 3;
 	public int health_Max = 3;
@@ -41,7 +42,7 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject[] enemy_prefab;
 	private GameObject trash;
 	private Dictionary<int,List<GameObject>> Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
-	public GameObject[] keys; //0= key2;
+	public GameObject[] traps;
 	// Use this for initialization
 
 
@@ -91,6 +92,7 @@ public class PlayerControl : MonoBehaviour {
 		control_state_machine = new StateMachine ();
 		control_state_machine.ChangeState (new StateLinkNormalMovement (this));
 		movement_controller = new GridBasedMovement (gameObject, true);
+
 	}
 	
 	// Update is called once per frame
@@ -521,6 +523,10 @@ public class PlayerControl : MonoBehaviour {
 				if (Room_to_Enmeies [15] [i] != null)
 					Room_to_Enmeies [15] [i].SetActive (false);
 			}
+			foreach(GameObject trap in traps)
+			{
+				trap.SetActive(true);
+			}
 			this.transform.position = new Vector3 (this.transform.position.x - 3, this.transform.position.y, this.transform.position.z);
 			Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x - 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 		}
@@ -531,6 +537,10 @@ public class PlayerControl : MonoBehaviour {
 				Destroy (trash.gameObject);
 			GameObject.Find ("022x060").GetComponent<SpriteRenderer> ().sprite = rock.GetComponent<SpriteRenderer> ().sprite;
 			GameObject.Find ("022x060").GetComponent<BoxCollider> ().enabled = true;
+			foreach(GameObject trap in traps)
+			{
+				trap.SetActive(false);
+			}
 			for (int i = 0; i < Room_to_Enmeies[15].Count; i++) {
 				if (Room_to_Enmeies [15] [i] != null)
 					Room_to_Enmeies [15] [i].SetActive (true);
@@ -710,12 +720,18 @@ public class PlayerControl : MonoBehaviour {
 		}
 		if (this.transform.position.x >= 23.5 && this.transform.position.x < 24.1 && this.transform.position.y >= 60 && this.transform.position.y < 60.1) {
 			print ("33");
-
+			foreach(GameObject trap in traps)
+			{
+				trap.SetActive(false);
+			}
 			this.transform.position = new Vector3 (376.4f, 9.5f, 0f);
 			Camera.main.transform.position = new Vector3 (380.5f, 7f, -10);
 		}
 		if (this.transform.position.x >= 376 && this.transform.position.x < 377 && this.transform.position.y >= 10 && this.transform.position.y < 11) {
-
+			foreach(GameObject trap in traps)
+			{
+				trap.SetActive(true);
+			}
 			this.transform.position = new Vector3 (22.7f, 60f, 0f);
 			Camera.main.transform.position = new Vector3 (23.51f, 61.41f, -10);
 		}
@@ -774,14 +790,12 @@ public class PlayerControl : MonoBehaviour {
 				GameObject.Find ("040x009").GetComponent<SpriteRenderer> ().sprite = doors [1];
 
 			}
-		} else if (coll.gameObject.tag == "EnemyProjectile") {
-<<<<<<< HEAD
-			print ("wtf");
-=======
+		} 
+		else if (coll.gameObject.tag == "EnemyProjectile") 
+		{
 			if (coll.gameObject.GetComponent<Boomerange>()) {
 				return;
 			}
->>>>>>> 1fca96f08373721b807cea6b33e91019f0687a46
 			EnemyProjectile enemyProjObj = coll.gameObject.GetComponent<EnemyProjectile> ();
 
 				if(invince != true)
@@ -792,7 +806,9 @@ public class PlayerControl : MonoBehaviour {
 					control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 
 
-		} else if (coll.gameObject.tag == "triangle") {
+		}
+		else if (coll.gameObject.tag == "triangle") 
+		{
 			print (coll.gameObject.tag);
 			movement_controller.SetSpeed(0);
 			movement_controller.SetDirection(Direction.SOUTH);
@@ -803,27 +819,24 @@ public class PlayerControl : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter(Collision coll) {
+	void OnCollisionEnter(Collision coll) 
+	{
 		if (coll.gameObject.tag == "trap") 
 		{
 			Enemy enemyObj = coll.gameObject.GetComponent<Enemy> ();
 			if (invince != true)
 				health_Count -= 1;
 			if (health_Count > 0)
-				this.GetComponent<SpriteRenderer>().color = Color.red;//need a state
+				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
 			else
 				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 
-<<<<<<< HEAD
-		}
-		else if (coll.gameObject.tag == "Enemy") {
-			Enemy enemyObj = coll.gameObject.GetComponent<Enemy> ();
-=======
+
 		} else if (coll.gameObject.tag == "EnemyProjectile") {
+			Enemy enemyObj = coll.gameObject.GetComponent<Enemy> ();
 			if (coll.gameObject.name == "Boomerange") {
 				return;
 			}
->>>>>>> 1fca96f08373721b807cea6b33e91019f0687a46
 			if (invince != true)
 				health_Count -= enemyObj.getDamage ();
 			if (health_Count > 0)
