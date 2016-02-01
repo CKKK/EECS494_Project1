@@ -53,6 +53,7 @@ public class Enemy : MonoBehaviour {
 
 	}
 
+
 	public virtual void OnDestroy() {
 		float rand_num = Random.value;
 		if (rand_num < drop_prob) {
