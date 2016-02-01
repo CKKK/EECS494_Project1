@@ -42,6 +42,44 @@ public class PlayerControl : MonoBehaviour {
 	private GameObject trash;
 	private Dictionary<int,List<GameObject>> Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
 	// Use this for initialization
+
+
+	public bool block(GameObject projectile){
+		if (current_state == EntityState.NORMAL) {
+			Direction attack_dir;
+			Vector3 attack_vec = projectile.transform.position - transform.position;
+			if (Mathf.Abs (attack_vec.x) > Mathf.Abs (attack_vec.y)) {
+				if (attack_vec.x > 0) {
+					attack_dir = Direction.EAST;
+				} else {
+					attack_dir = Direction.WEST;
+				}
+			} else {
+				if (attack_vec.y > 0) {
+					attack_dir = Direction.NORTH;
+				} else {
+					attack_dir = Direction.SOUTH;
+				}
+			}
+
+			if (attack_dir == current_direction) {
+				return true;
+			}
+				
+
+		}
+		return false;
+	}
+
+	public void takeDamage(GameObject collider) {
+		if (invince != true)
+			health_Count -= 1;
+		if (health_Count > 0)
+			control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, collider));
+		else
+			control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
+	}
+
 	void Start () {
 		if(instance != null)
 			Debug.LogError("Multiple link objects detected");
@@ -55,6 +93,9 @@ public class PlayerControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+
+
+
 	void Update () {
 		animation_state_machine.Update ();
 		control_state_machine.Update ();
@@ -848,6 +889,9 @@ public class PlayerControl : MonoBehaviour {
 
 			}
 		} else if (coll.gameObject.tag == "EnemyProjectile") {
+			if (coll.gameObject.GetComponent<Boomerange>()) {
+				return;
+			}
 			EnemyProjectile enemyProjObj = coll.gameObject.GetComponent<EnemyProjectile> ();
 			if(invince != true)
 				health_Count -= enemyProjObj.getDamage ();
@@ -877,6 +921,9 @@ public class PlayerControl : MonoBehaviour {
 				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 
 		} else if (coll.gameObject.tag == "EnemyProjectile") {
+			if (coll.gameObject.name == "Boomerange") {
+				return;
+			}
 			if (invince != true)
 				health_Count -= 1;
 			if (health_Count > 0)
@@ -1026,6 +1073,8 @@ public class PlayerControl : MonoBehaviour {
 
 		}
 	}
+
+
 
 	
 }

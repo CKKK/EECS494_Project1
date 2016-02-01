@@ -937,9 +937,9 @@ public class GoriyaAttackState : State {
 		boomerang.GetComponent<Boomerange> ().velocity = velocity_;
 		boomerang.tag = "EnemyProjectile";
 		boomerang.layer = 12;
-		Vector3 position = boomerang.GetComponent<Transform> ().position;
-		position.z = -1;
-		boomerang.GetComponent<Transform> ().position = position;
+//		Vector3 position = boomerang.GetComponent<Transform> ().position;
+//		position.z = -1;
+//		boomerang.GetComponent<Transform> ().position = position;
 
 	}
 

@@ -11,7 +11,9 @@ public class Goriya : Enemy {
 	GoriyaState state;
 	public GameObject[] detectors;
 
+	public Sprite[][] Sprites;
 	GameObject currentMovingTowardDetector;
+
 
 	public Goriya(): base(2, 1) {
 	}
@@ -34,6 +36,7 @@ public class Goriya : Enemy {
 			if (state == GoriyaState.move && randNum < attackProb * 100) {
 				state = GoriyaState.attack;
 				Vector3 velocity = (currentMovingTowardDetector.transform.position - transform.position).normalized * 5;
+				velocity.z = 0;
 				State attackState = new GoriyaAttackState (this, boomerang, velocity);
 				base.BehaviorStateMathine.ChangeState (attackState);
 			} else {
