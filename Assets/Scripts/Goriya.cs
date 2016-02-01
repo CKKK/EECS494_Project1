@@ -7,8 +7,10 @@ public class Goriya : Enemy {
 	public double changeDirectionProb = 0.5;
 	public float attackProb = 0.1f;
 	public float speed = 0.5f;
-	enum GoriyaState {attack, move};
+	enum GoriyaState {attack, move, stop};
 	GoriyaState state;
+	float stun_start_time;
+	GoriyaState state_mem;
 	public GameObject[] detectors;
 
 	public Sprite[] Sprites;
@@ -19,7 +21,14 @@ public class Goriya : Enemy {
 
 	public Goriya(): base(2, 1) {
 	}
-
+	public override void hittenByBoomerange (GameObject collider)
+	{
+		if (state != GoriyaState.stop) {
+			state_mem = state;
+		}
+		state = GoriyaState.stop;
+		stun_start_time = Time.time;
+	}
 	// Use this for initialization
 	protected override void Start () {
 		state = GoriyaState.move;
@@ -32,30 +41,36 @@ public class Goriya : Enemy {
 	{
 		//		float time_delta_fraction = Time.deltaTime / (1.0f / Application.targetFrameRate);
 		base.Update ();
-		base.BehaviorStateMathine.Update ();
-		animationCounter++;
-		animationCounter %= 30;
-		GetComponent<SpriteRenderer> ().sprite = Sprites [2 * currentMovingTowardDetectorInd + animationCounter/15];
+		if (state != GoriyaState.stop) {
+			base.BehaviorStateMathine.Update ();
+			animationCounter++;
+			animationCounter %= 30;
+			GetComponent<SpriteRenderer> ().sprite = Sprites [2 * currentMovingTowardDetectorInd + animationCounter / 15];
 
 
-		if (base.BehaviorStateMathine.IsFinished()) {
-			int randNum = Random.Range (0, 100);
-			if (state == GoriyaState.move && randNum < attackProb * 100) {
-				state = GoriyaState.attack;
-				Vector3 velocity = (currentMovingTowardDetector.transform.position - transform.position).normalized * 5;
-				velocity.z = 0;
-				State attackState = new GoriyaAttackState (this, boomerang, velocity);
-				base.BehaviorStateMathine.ChangeState (attackState);
-			} else {
-				state = GoriyaState.move;
-				randNum = Random.Range (0, 100);
-				if (!currentMovingTowardDetector.GetComponent<Detector> ().CollideWithTile () && randNum >= changeDirectionProb * 100) {
-					State normalMovementState = new EnemyMovementState (this, currentMovingTowardDetector.transform.position, speed);
-					base.BehaviorStateMathine.ChangeState (normalMovementState);
+			if (base.BehaviorStateMathine.IsFinished ()) {
+				int randNum = Random.Range (0, 100);
+				if (state == GoriyaState.move && randNum < attackProb * 100) {
+					state = GoriyaState.attack;
+					Vector3 velocity = (currentMovingTowardDetector.transform.position - transform.position).normalized * 5;
+					velocity.z = 0;
+					State attackState = new GoriyaAttackState (this, boomerang, velocity);
+					base.BehaviorStateMathine.ChangeState (attackState);
 				} else {
-					State normalMovementState = new EnemyMovementState (this, randomTakeStep (), speed);
-					base.BehaviorStateMathine.ChangeState (normalMovementState);
+					state = GoriyaState.move;
+					randNum = Random.Range (0, 100);
+					if (!currentMovingTowardDetector.GetComponent<Detector> ().CollideWithTile () && randNum >= changeDirectionProb * 100) {
+						State normalMovementState = new EnemyMovementState (this, currentMovingTowardDetector.transform.position, speed);
+						base.BehaviorStateMathine.ChangeState (normalMovementState);
+					} else {
+						State normalMovementState = new EnemyMovementState (this, randomTakeStep (), speed);
+						base.BehaviorStateMathine.ChangeState (normalMovementState);
+					}
 				}
+			}
+		} else {
+			if (Time.time - stun_start_time > 5) {
+				state = state_mem;
 			}
 		}
 	}

@@ -11,13 +11,20 @@ public class Stalfos : Enemy {
 	public Sprite[] Stal_sprites;
 	public List<GameObject> drop_item;
 	GameObject currentMovingTowardDetector;
+	bool stoped;
+	float stun_start_time;
 
 	public Stalfos(): base(2, 1) {
 		
 	}
-
+	public override void hittenByBoomerange (GameObject collider)
+	{
+		stoped = true;
+		stun_start_time = Time.time;
+	}
 	// Use this for initialization
 	protected override void Start () {
+		stoped = false;
 		State normalMovementState = new EnemyMovementState (this, randomTakeStep(), speed);
 		base.BehaviorStateMathine.ChangeState (normalMovementState);
 	}
@@ -25,35 +32,38 @@ public class Stalfos : Enemy {
 	// Update is called once per frame
 	protected override void Update ()
 	{
-		counter ++;
-		if (counter < 5) 
-		{
-			this.gameObject.GetComponent<SpriteRenderer>().sprite = Stal_sprites[0];
+		if (!stoped) {
+			counter++;
+			if (counter < 5) {
+				this.gameObject.GetComponent<SpriteRenderer> ().sprite = Stal_sprites [0];
 
-		} 
-		else if (counter >= 5 && counter < 10) 
-		{
-			this.gameObject.GetComponent<SpriteRenderer>().sprite = Stal_sprites[1];
+			} else if (counter >= 5 && counter < 10) {
+				this.gameObject.GetComponent<SpriteRenderer> ().sprite = Stal_sprites [1];
 
-		}
-		if (counter == 10)
-			counter = 0;
-//		float time_delta_fraction = Time.deltaTime / (1.0f / Application.targetFrameRate);
-		base.Update ();
-		base.BehaviorStateMathine.Update ();
-		if (base.BehaviorStateMathine.IsFinished()) {
-			int randNum = Random.Range (0, 100);
-			if (!currentMovingTowardDetector.GetComponent<Detector> ().CollideWithTile () && randNum >= changeDirectionProb * 100) {
-				
-				State normalMovementState = new EnemyMovementState (this, currentMovingTowardDetector.transform.position, speed);
-				base.BehaviorStateMathine.ChangeState (normalMovementState);
-				 
-			} else {
-				State normalMovementState = new EnemyMovementState (this, randomTakeStep (), speed);
-				base.BehaviorStateMathine.ChangeState (normalMovementState);
 			}
+			if (counter == 10)
+				counter = 0;
+//		float time_delta_fraction = Time.deltaTime / (1.0f / Application.targetFrameRate);
+			base.Update ();
+			base.BehaviorStateMathine.Update ();
+			if (base.BehaviorStateMathine.IsFinished ()) {
+				int randNum = Random.Range (0, 100);
+				if (!currentMovingTowardDetector.GetComponent<Detector> ().CollideWithTile () && randNum >= changeDirectionProb * 100) {
+				
+					State normalMovementState = new EnemyMovementState (this, currentMovingTowardDetector.transform.position, speed);
+					base.BehaviorStateMathine.ChangeState (normalMovementState);
+				 
+				} else {
+					State normalMovementState = new EnemyMovementState (this, randomTakeStep (), speed);
+					base.BehaviorStateMathine.ChangeState (normalMovementState);
+				}
 
 
+			}
+		} else {
+			if (Time.time - stun_start_time > 5) {
+				stoped = false;
+			}
 		}
 	}
 

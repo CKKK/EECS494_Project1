@@ -9,7 +9,10 @@ public class Aquamentus : Enemy {
 	float fire_cooldown = 0;
 	public Aquamentus() : base(10, 2){
 	}
-	
+	public override void hittenByBoomerange (GameObject collider)
+	{
+		
+	}
 	// Update is called once per frame
 	protected override void Update () {
 		base.Update ();
