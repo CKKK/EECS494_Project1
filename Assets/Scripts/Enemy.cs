@@ -46,4 +46,5 @@ public class Enemy : MonoBehaviour {
 //		print (coll.gameObject.tag);
 
 	}
+
 }
