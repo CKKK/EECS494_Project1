@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour {
 	public int health = 1;
 	public int damage = 1;
 	public StateMachine BehaviorStateMathine;
 	public bool invincible = false;
+	public List<GameObject> item_drop;
+	float drop_prob;
+
 	public Enemy(int health_, int damage_){
 		health = health_;
 		damage = damage_;
 		BehaviorStateMathine = new StateMachine ();
+		drop_prob = 0.2f;
+
 	}
 
 	public int getDamage(){
@@ -45,5 +51,15 @@ public class Enemy : MonoBehaviour {
 	protected virtual void OnTriggerEnter(Collider coll) {
 //		print (coll.gameObject.tag);
 
+	}
+
+	public virtual void OnDestroy() {
+		float rand_num = Random.value;
+		if (rand_num < drop_prob) {
+			int ind = Random.Range (0, item_drop.Count);
+
+			GameObject.Instantiate(item_drop[ind], transform.position, Quaternion.identity);
+			print(ind);
+		}
 	}
 }

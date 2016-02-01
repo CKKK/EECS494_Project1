@@ -9,10 +9,11 @@ public class Stalfos : Enemy {
 	int counter = 0;
 	public GameObject[] detectors;
 	public Sprite[] Stal_sprites;
-
+	public List<GameObject> drop_item;
 	GameObject currentMovingTowardDetector;
 
 	public Stalfos(): base(2, 1) {
+		
 	}
 
 	// Use this for initialization

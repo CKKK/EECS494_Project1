@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Aquamentus : Enemy {
 	public GameObject projectile_prefeb;
 	public float fire_interval = 100;
 	float projectile_speed = 2;
 	float fire_cooldown = 0;
-
 	public Aquamentus() : base(10, 2){
 	}
 	

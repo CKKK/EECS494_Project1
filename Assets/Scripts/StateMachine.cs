@@ -915,7 +915,7 @@ class EnemyStunState : State{
 //
 //				enemy.GetComponent<SpriteRenderer>().sprite = sprites[6];
 //			}
-			ConcludeState ();
+		ConcludeState ();
 		}
 	}
 
