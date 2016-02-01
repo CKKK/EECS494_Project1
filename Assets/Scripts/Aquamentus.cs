@@ -18,6 +18,11 @@ public class Aquamentus : Enemy {
 	public Aquamentus() : base(10, 2){
 	}
 
+	public override void hittenByBoomerange (GameObject collider)
+	{
+		
+	}
+
 	protected override void Start()
 	{
 		startpos = transform.position;
