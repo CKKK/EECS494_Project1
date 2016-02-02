@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour {
 	public GameObject Key_obj;
 	public GameObject Boomerang_obj;
 	public Drop_Kinds drop_kind = Drop_Kinds.other;
-	float drop_prob;
+	public float drop_prob;
 
 	public Enemy(int health_, int damage_){
 		health = health_;
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour {
 			GameObject.Instantiate (Boomerang_obj, transform.position, Quaternion.identity);
 		} else {
 			float rand_num = Random.value;
-			if (rand_num < drop_prob) {
+			if (rand_num < drop_prob && item_drop.Count >0) {
 				int ind = Random.Range (0, item_drop.Count);
 				print (ind);
 

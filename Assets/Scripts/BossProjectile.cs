@@ -15,8 +15,6 @@ public class BossProjectile : EnemyProjectile {
 	// Update is called once per frame
 	void Update () {
 		if (this != null) {
-			if (PlayerControl.instance.health_Max == PlayerControl.instance.health_Count) 
-			{
 
 				if (Camera.main.transform.position.y + 3 <= this.transform.position.y) 
 				{
@@ -34,7 +32,7 @@ public class BossProjectile : EnemyProjectile {
 				{
 					Destroy(this.gameObject);
 				}
-			}
+
 		}
 	}
 

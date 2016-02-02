@@ -86,6 +86,12 @@ public class Aquamentus : Enemy {
 
 		}
 	}
+
+	void OnDestroy() {
+		if (Application.loadedLevel == 1) {
+			PlayerControl.instance.boss_kill_counter++;
+		}
+	}
 }
 
 

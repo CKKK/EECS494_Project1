@@ -14,13 +14,20 @@ public class PlayerControl : MonoBehaviour {
 	public int health_Max = 3;
 	public int boom_Count = 0;
 	public int key = 0;
+	public int boss_kill_counter = 0;
 	public bool has_boomerange = false;
+	public Sprite [] link_backup_sprites;
 	public Sprite [] sprites;
+	public Sprite[] link_backup_spritesfordead;
 	public Sprite[] spritesfordead;
 	public Sprite[] link_run_down;
 	public Sprite[] link_run_up;
 	public Sprite[] link_run_right;
 	public Sprite[] link_run_left;
+	public Sprite[] link_backkup_run_down;
+	public Sprite[] link_backkup_run_up;
+	public Sprite[] link_backkup_run_right;
+	public Sprite[] link_backkup_run_left;
 	public Sprite tile;
 	public bool sword_fire;
 	public GridBasedMovement movement_controller;
@@ -41,6 +48,7 @@ public class PlayerControl : MonoBehaviour {
 	public static PlayerControl instance;
 	public GameObject[] enemy_prefab;
 	private GameObject trash;
+	public GameObject Sword_image;
 	public Dictionary<int,List<GameObject>> Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
 	public GameObject[] traps;
 	// Use this for initialization
@@ -106,6 +114,7 @@ public class PlayerControl : MonoBehaviour {
 			control_state_machine.ChangeState (new StateLinkNormalMovement (this));
 
 		}
+
 		if (Application.loadedLevel == 0) {
 			if (this.transform.position.x >= 32 && this.transform.position.x < 32.1 && this.transform.position.y >= 4 && this.transform.position.y < 4) {
 				
@@ -184,11 +193,11 @@ public class PlayerControl : MonoBehaviour {
 				if (Room_to_Enmeies.ContainsKey (3) == false) {
 					List<GameObject> enenmy_list = new List<GameObject> ();
 					Room_to_Enmeies.Add (3, enenmy_list);
-					GameObject temp = Instantiate (enemy_prefab [0], new Vector3 (37, 18, 0), Quaternion.identity) as GameObject;
+					GameObject temp = Instantiate (enemy_prefab [0], new Vector3 (34, 18, 0), Quaternion.identity) as GameObject;
 					Room_to_Enmeies [3].Add (temp);
-					temp = Instantiate (enemy_prefab [0], new Vector3 (34, 16, 0), Quaternion.identity) as GameObject;
+					temp = Instantiate (enemy_prefab [0], new Vector3 (43, 16, 0), Quaternion.identity) as GameObject;
 					Room_to_Enmeies [3].Add (temp);
-					temp = Instantiate (enemy_prefab [0], new Vector3 (39, 16, 0), Quaternion.identity) as GameObject;
+					temp = Instantiate (enemy_prefab [0], new Vector3 (36, 16, 0), Quaternion.identity) as GameObject;
 					temp.GetComponent<Enemy> ().drop_kind = Drop_Kinds.key;
 					Room_to_Enmeies [3].Add (temp);
 					
@@ -796,51 +805,192 @@ public class PlayerControl : MonoBehaviour {
 		{
 			if (this.transform.position.x >= 48.9 && this.transform.position.x < 49 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("1");
+				if (Room_to_Enmeies.ContainsKey (2) == false) {
+					List<GameObject> enenmy_list = new List<GameObject> ();
+					Room_to_Enmeies.Add (2, enenmy_list);
+					GameObject temp = Instantiate (enemy_prefab [1], new Vector3 (43, 36, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_prob = 0;
+					Room_to_Enmeies [2].Add (temp);
+					temp = Instantiate (enemy_prefab [1], new Vector3 (35, 35, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_prob = 0;
+					Room_to_Enmeies [2].Add (temp);
+					temp = Instantiate (enemy_prefab [1], new Vector3 (36, 39, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_prob = 0;
+					Room_to_Enmeies [2].Add (temp);
+					temp = Instantiate (enemy_prefab [1], new Vector3 (43, 39, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_prob = 0;
+					Room_to_Enmeies [2].Add (temp);
+					temp = Instantiate (enemy_prefab [1], new Vector3 (36, 39, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_prob = 0;
+					Room_to_Enmeies [2].Add (temp);
+					
+					
+				} else {
+					for (int i = 0; i < Room_to_Enmeies[2].Count; i++) {
+						if (Room_to_Enmeies [2] [i] != null)
+							Room_to_Enmeies [2] [i].SetActive (true);
+					}
+				}
 				this.transform.position = new Vector3 (this.transform.position.x - 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x - 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if (this.transform.position.x >= 46.0 && this.transform.position.x < 46.2 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("2");
+				for (int i = 0; i < Room_to_Enmeies[2].Count; i++) {
+					if (Room_to_Enmeies [2] [i] != null)
+						Room_to_Enmeies [2] [i].SetActive (false);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x + 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x + 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if (this.transform.position.x >= 32.9 && this.transform.position.x < 33 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("3");
+				if (Room_to_Enmeies.ContainsKey (3) == false) {
+					List<GameObject> enenmy_list = new List<GameObject> ();
+					Room_to_Enmeies.Add (3, enenmy_list);
+					GameObject temp = Instantiate (enemy_prefab [3], new Vector3 (20, 35, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_prob = 0;
+					Room_to_Enmeies [3].Add (temp);
+					temp = Instantiate (enemy_prefab [3], new Vector3 (20, 40, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_prob = 0;
+					Room_to_Enmeies [3].Add (temp);
+					temp = Instantiate (enemy_prefab [3], new Vector3 (28, 39, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_prob = 0;
+					Room_to_Enmeies [3].Add (temp);
+					
+					
+				} else {
+					for (int i = 0; i < Room_to_Enmeies[3].Count; i++) {
+						if (Room_to_Enmeies [3] [i] != null)
+							Room_to_Enmeies [3] [i].SetActive (true);
+					}
+				}
+				for (int i = 0; i < Room_to_Enmeies[2].Count; i++) {
+					if (Room_to_Enmeies [2] [i] != null)
+						Room_to_Enmeies [2] [i].SetActive (false);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x - 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x - 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if (this.transform.position.x >= 30 && this.transform.position.x < 30.1 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("4");
+				for (int i = 0; i < Room_to_Enmeies[2].Count; i++) {
+					if (Room_to_Enmeies [2] [i] != null)
+						Room_to_Enmeies [2] [i].SetActive (true);
+				}
+				for (int i = 0; i < Room_to_Enmeies[3].Count; i++) {
+					if (Room_to_Enmeies [3] [i] != null)
+						Room_to_Enmeies [3] [i].SetActive (false);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x + 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x + 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if (this.transform.position.x >= 16.9 && this.transform.position.x < 17 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("5");
+				if (Room_to_Enmeies.ContainsKey (4) == false) {
+					List<GameObject> enenmy_list = new List<GameObject> ();
+					Room_to_Enmeies.Add (4, enenmy_list);
+					GameObject temp = Instantiate (enemy_prefab [0], new Vector3 (3, 34, 0), Quaternion.identity) as GameObject;
+					Room_to_Enmeies [4].Add (temp);
+					temp = Instantiate (enemy_prefab [0], new Vector3 (3, 39, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
+					Room_to_Enmeies [4].Add (temp);
+
+					
+					
+				} else {
+					for (int i = 0; i < Room_to_Enmeies[4].Count; i++) {
+						if (Room_to_Enmeies [4] [i] != null)
+							Room_to_Enmeies [4] [i].SetActive (true);
+					}
+				}
+				for (int i = 0; i < Room_to_Enmeies[3].Count; i++) {
+					if (Room_to_Enmeies [3] [i] != null)
+						Room_to_Enmeies [3] [i].SetActive (false);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x - 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x - 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if (this.transform.position.x >= 14 && this.transform.position.x < 14.1 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("6");
+				for (int i = 0; i < Room_to_Enmeies[4].Count; i++) {
+					if (Room_to_Enmeies [4] [i] != null)
+						Room_to_Enmeies [4] [i].SetActive (false);
+				}
+				for (int i = 0; i < Room_to_Enmeies[3].Count; i++) {
+					if (Room_to_Enmeies [3] [i] != null)
+						Room_to_Enmeies [3] [i].SetActive (true);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x + 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x + 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if(this.transform.position.x >= 7.5 && this.transform.position.x < 7.51 && this.transform.position.y >= 41.5 && this.transform.position.y < 41.55)
 			{
+				print ("7");
+				if (Room_to_Enmeies.ContainsKey (5) == false) {
+					List<GameObject> enenmy_list = new List<GameObject> ();
+					Room_to_Enmeies.Add (5, enenmy_list);
+					GameObject temp = Instantiate (enemy_prefab [2], new Vector3 (2, 51, 0), Quaternion.identity) as GameObject;
+					Room_to_Enmeies [5].Add (temp);
+					temp = Instantiate (enemy_prefab [2], new Vector3 (2, 45, 0), Quaternion.identity) as GameObject;
+					Room_to_Enmeies [5].Add (temp);
+					temp = Instantiate (enemy_prefab [2], new Vector3 (13, 51, 0), Quaternion.identity) as GameObject;
+					Room_to_Enmeies [5].Add (temp);
+					temp = Instantiate (enemy_prefab [2], new Vector3 (13, 45, 0), Quaternion.identity) as GameObject;
+					temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
+					Room_to_Enmeies [5].Add (temp);
+					
+					
+				} else {
+					for (int i = 0; i < Room_to_Enmeies[5].Count; i++) {
+						if (Room_to_Enmeies [5] [i] != null)
+							Room_to_Enmeies [5] [i].SetActive (true);
+					}
+				}
+				for (int i = 0; i < Room_to_Enmeies[4].Count; i++) {
+					if (Room_to_Enmeies [4] [i] != null)
+						Room_to_Enmeies [4] [i].SetActive (false);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y + 2.7f, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y + 11, Camera.main.transform.position.z);
 			}
 			if(this.transform.position.x >= 7.5 && this.transform.position.x < 7.51 && this.transform.position.y >= 43.9 && this.transform.position.y < 44)
 			{
+				print ("8");
+				for (int i = 0; i < Room_to_Enmeies[5].Count; i++) {
+					if (Room_to_Enmeies [5] [i] != null)
+						Room_to_Enmeies [5] [i].SetActive (false);
+				}
+				for (int i = 0; i < Room_to_Enmeies[4].Count; i++) {
+					if (Room_to_Enmeies [4] [i] != null)
+						Room_to_Enmeies [4] [i].SetActive (true);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y - 2.7f, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y - 11, Camera.main.transform.position.z);
 			}
 			if(this.transform.position.x >= 7.5 && this.transform.position.x < 7.51 && this.transform.position.y >= 52.5 && this.transform.position.y < 52.55)
 			{
+				print ("9");
+				for (int i = 0; i < Room_to_Enmeies[5].Count; i++) {
+					if (Room_to_Enmeies [5] [i] != null)
+						Room_to_Enmeies [5] [i].SetActive (false);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y + 2.7f, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y + 11, Camera.main.transform.position.z);
 			}
 			if(this.transform.position.x >= 7.5 && this.transform.position.x < 7.51 && this.transform.position.y >= 54.9 && this.transform.position.y < 55)
 			{
+				print ("10");
+				for (int i = 0; i < Room_to_Enmeies[5].Count; i++) {
+					if (Room_to_Enmeies [5] [i] != null)
+						Room_to_Enmeies [5] [i].SetActive (true);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y- 2.7f, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y - 11, Camera.main.transform.position.z);
 			}
@@ -852,26 +1002,79 @@ public class PlayerControl : MonoBehaviour {
 				GameObject.Find ("012x063").GetComponent<BoxCollider>().isTrigger = true;
 				this.transform.position = new Vector3 (11.5f, this.transform.position.y, this.transform.position.z);
 				current_direction = Direction.SOUTH;
+				link_run_up = link_backkup_run_up;
+				link_run_down = link_backkup_run_down;
+				link_run_left = link_backkup_run_left;
+				link_run_right = link_backkup_run_right;
+				sprites = link_backup_sprites;
+				spritesfordead = link_backup_spritesfordead;
+				GetComponent<SpriteRenderer>().sprite = link_run_up[0];
+				selected_weapon_prefab = weapon_Inventory[3];
+				rupee_Count += 100;
+				speechmachine.instance.sentence_ind = 1;
+				Sword_image.SetActive(true);
 			}
 			if (this.transform.position.x >= 62 && this.transform.position.x < 62.5 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("11");
 				this.transform.position = new Vector3 (this.transform.position.x + 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x + 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if (this.transform.position.x >= 64.9 && this.transform.position.x < 65 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("12");
 				this.transform.position = new Vector3 (this.transform.position.x - 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x - 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if (this.transform.position.x >= 78.03 && this.transform.position.x < 78.5 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("13");
+				if (Room_to_Enmeies.ContainsKey (8) == false) {
+					List<GameObject> enenmy_list = new List<GameObject> ();
+					Room_to_Enmeies.Add (8, enenmy_list);
+					GameObject temp = Instantiate (enemy_prefab [4], new Vector3 (91, 39, 0), Quaternion.identity) as GameObject;
+					Room_to_Enmeies [8].Add (temp);
+					temp = Instantiate (enemy_prefab [4], new Vector3 (91, 35, 0), Quaternion.identity) as GameObject;
+					Room_to_Enmeies [8].Add (temp);
+					
+				} else {
+					for (int i = 0; i < Room_to_Enmeies[8].Count; i++) {
+						if (Room_to_Enmeies [8] [i] != null)
+							Room_to_Enmeies [8] [i].SetActive (true);
+					}
+				}
 				this.transform.position = new Vector3 (this.transform.position.x + 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x + 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 			}
 			if (this.transform.position.x >= 80.9 && this.transform.position.x < 81 && this.transform.position.y >= 36.98 && this.transform.position.y < 37.1) 
 			{
+				print ("14");
+				for (int i = 0; i < Room_to_Enmeies[8].Count; i++) {
+					if (Room_to_Enmeies [8] [i] != null)
+						Room_to_Enmeies [8] [i].SetActive (false);
+				}
 				this.transform.position = new Vector3 (this.transform.position.x - 3, this.transform.position.y, this.transform.position.z);
 				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x - 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
+			}
+			if (this.transform.position.x >= 87.5 && this.transform.position.x < 87.55 && this.transform.position.y >= 41.5 && this.transform.position.y < 42) 
+			{
+				this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y+ 2.7f, this.transform.position.z);
+				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y + 11, Camera.main.transform.position.z);
+
+			}
+			if (this.transform.position.x >= 87.5 && this.transform.position.x < 87.55 && this.transform.position.y >= 43.9 && this.transform.position.y < 44) 
+			{
+				this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y- 2.7f, this.transform.position.z);
+				Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, Camera.main.transform.position.y - 11, Camera.main.transform.position.z);
+				
+			}
+			if (boss_kill_counter >= 2) {
+				GameObject.Find ("087x041").GetComponent<SpriteRenderer> ().sprite = doors [0];
+				GameObject.Find ("088x041").GetComponent<SpriteRenderer> ().sprite = doors [1];
+				GameObject.Find ("087x041").GetComponent<BoxCollider>().isTrigger = true;
+				GameObject.Find ("088x041").GetComponent<BoxCollider>().isTrigger = true;
+				boss_kill_counter = 0;
+
 			}
 			
 			

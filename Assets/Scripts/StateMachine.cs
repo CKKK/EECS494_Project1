@@ -200,13 +200,17 @@ public class StateLinkNormalMovement: State
 				pc.health_Max = 3;
 				pc.rupee_Count = 0;
 				pc.boom_Count = 0;
-				pc.selected_weapon_prefab = pc.weapon_Inventory[2];
+				pc.boss_kill_counter = 0;
 				foreach (KeyValuePair<int,List<GameObject>> enemy in pc.Room_to_Enmeies) 
 				{
 					foreach(GameObject piece in enemy.Value)
 					{
 						MonoBehaviour.Destroy(piece.gameObject);
 					}
+				}
+				for(int i = 0 ; i < inventory.Inventory_bool.Length;i++)
+				{
+					inventory.Inventory_bool[i] = false;
 				}
 				pc.Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
 				Application.LoadLevel("Custom");
@@ -227,30 +231,33 @@ public class StateLinkNormalMovement: State
 						MonoBehaviour.Destroy(piece.gameObject);
 					}
 				}
-				pc.selected_weapon_prefab = pc.weapon_Inventory[3];
-
+				for(int i = 0 ; i < inventory.Inventory_bool.Length;i++)
+				{
+					inventory.Inventory_bool[i] = false;
+				}
 				pc.Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
 				Application.LoadLevel("Dungeon");
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.S)) {
-			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
+		if (Input.GetKeyDown (KeyCode.A)) {
+			if(pc.selected_weapon_prefab != null)
+				state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
 		}
-		if (Input.GetKeyDown (KeyCode.A) && pc.rupee_Count>=1 && pc.selected_weapon_prefab1.name == "bow")
+		if (Input.GetKeyDown (KeyCode.S) && pc.rupee_Count>=1 && pc.selected_weapon_prefab1.name == "bow")
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab1, 15));
 		if (Input.GetKeyDown (KeyCode.Return)) 
 		{
 			Time.timeScale = 0;
 			state_machine.ChangeState (new LinkInventory (pc, panel.panel_instance));
 		}
-		if (Input.GetKeyDown (KeyCode.A) && pc.boom_Count >= 1 && pc.selected_weapon_prefab1.name == "Boom_Bomb") {
+		if (Input.GetKeyDown (KeyCode.S) && pc.boom_Count >= 1 && pc.selected_weapon_prefab1.name == "Boom_Bomb") {
 			pc.boom_Count--;
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab1, 0));
 			if(pc.boom_Count == 0)
 				inventory.Inventory_bool[0] = true;
 		}
-		if (Input.GetKeyDown (KeyCode.A) && pc.selected_weapon_prefab1.name == "Boomerange" && pc.has_boomerange) {
+		if (Input.GetKeyDown (KeyCode.S) && pc.selected_weapon_prefab1.name == "Boomerange" && pc.has_boomerange) {
 			pc.has_boomerange = false;
 			GameObject weapon_Prefab = pc.selected_weapon_prefab1;
 			GameObject weapon_Instance = MonoBehaviour.Instantiate (weapon_Prefab, pc.transform.position, Quaternion.identity) as GameObject;
@@ -650,8 +657,14 @@ public class LinkDead : State
 	public override void OnFinish ()
 	{
 		pc.current_state = EntityState.NORMAL;
-		pc.transform.position = new Vector3(39.654f,2.904f,0f);
-		Camera.main.transform.position  = new Vector3(39.51f, 6.41f, -10f);
+		if (Application.loadedLevel == 0) {
+			pc.transform.position = new Vector3 (39.654f, 2.904f, 0f);
+			Camera.main.transform.position = new Vector3 (39.51f, 6.41f, -10f);
+		} else {
+			pc.transform.position = new Vector3 (55.5f, 39.2f, 0f);
+			Camera.main.transform.position = new Vector3 (55.5f, 39.2f, -10f);
+		}
+
 		foreach (KeyValuePair<int,List<GameObject>> enemy in pc.Room_to_Enmeies) 
 		{
 			foreach(GameObject piece in enemy.Value)
