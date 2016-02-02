@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
 		health = health_;
 		damage = damage_;
 		BehaviorStateMathine = new StateMachine ();
-		drop_prob = 1f;
+		drop_prob = .2f;
 
 
 	}

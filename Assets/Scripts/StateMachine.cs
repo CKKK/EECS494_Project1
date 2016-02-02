@@ -192,6 +192,48 @@ public class StateLinkNormalMovement: State
 			pc.current_direction = Direction.SOUTH;
 		pc.movement_controller.SetSpeed (Mathf.Abs(horizontal_Input + vertical_Input) * pc.walking_Velocity * time_delta_fraction);
 		pc.movement_controller.SetDirection (pc.current_direction);
+		if (Input.GetKeyDown (KeyCode.Alpha2)) 
+		{
+			if(Application.loadedLevel != 1) {
+				hearts.heartImages.Clear();
+				pc.health_Count =3;
+				pc.health_Max = 3;
+				pc.rupee_Count = 0;
+				pc.boom_Count = 0;
+				pc.selected_weapon_prefab = pc.weapon_Inventory[2];
+				foreach (KeyValuePair<int,List<GameObject>> enemy in pc.Room_to_Enmeies) 
+				{
+					foreach(GameObject piece in enemy.Value)
+					{
+						MonoBehaviour.Destroy(piece.gameObject);
+					}
+				}
+				pc.Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
+				Application.LoadLevel("Custom");
+			}
+
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			if(Application.loadedLevel != 0) {
+				hearts.heartImages.Clear();
+				pc.health_Count =3;
+				pc.health_Max = 3;
+				pc.rupee_Count = 0;
+				pc.boom_Count = 0;
+				foreach (KeyValuePair<int,List<GameObject>> enemy in pc.Room_to_Enmeies) 
+				{
+					foreach(GameObject piece in enemy.Value)
+					{
+						MonoBehaviour.Destroy(piece.gameObject);
+					}
+				}
+				pc.selected_weapon_prefab = pc.weapon_Inventory[3];
+
+				pc.Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
+				Application.LoadLevel("Dungeon");
+			}
+		}
+
 		if (Input.GetKeyDown (KeyCode.S)) {
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
 		}
