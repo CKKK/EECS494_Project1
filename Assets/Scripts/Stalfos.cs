@@ -9,7 +9,6 @@ public class Stalfos : Enemy {
 	int counter = 0;
 	public GameObject[] detectors;
 	public Sprite[] Stal_sprites;
-	public List<GameObject> drop_item;
 	GameObject currentMovingTowardDetector;
 	bool stoped;
 	float stun_start_time;
@@ -95,8 +94,10 @@ public class Stalfos : Enemy {
 	public override void beAttacked(int damage, GameObject collider) {
 		base.beAttacked(damage, collider);
 		if (!base.invincible) {
-			State stunState = new EnemyStunState (this, 15, collider);
-			BehaviorStateMathine.ChangeState (stunState);
+			if (!stoped) {
+				State stunState = new EnemyStunState (this, 15, collider);
+				BehaviorStateMathine.ChangeState (stunState);
+			}
 		}
 	}
 
