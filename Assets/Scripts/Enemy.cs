@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour {
 		if (!invincible) {
 			health -= damage; // need the fix this
 			if (health == 0)
+				randomDrop ();
 				Destroy (this.gameObject);
 		}
 	}
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour {
 		if (!invincible) {
 			health -= 1; // need the fix this
 			if (health == 0)
+				randomDrop ();
 				Destroy (this.gameObject);
 		}
 	}
@@ -53,8 +55,7 @@ public class Enemy : MonoBehaviour {
 
 	}
 
-
-	public virtual void OnDestroy() {
+	public void randomDrop(){
 		float rand_num = Random.value;
 		if (rand_num < drop_prob) {
 			int ind = Random.Range (0, item_drop.Count);
@@ -62,5 +63,8 @@ public class Enemy : MonoBehaviour {
 			GameObject.Instantiate(item_drop[ind], transform.position, Quaternion.identity);
 			print(ind);
 		}
+	}
+	public virtual void OnDestroy() {
+		
 	}
 }
