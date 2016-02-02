@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 // State Machines are responsible for processing states, notifying them when they're about to begin or conclude, etc.
 public class StateMachine
 {
@@ -192,12 +192,54 @@ public class StateLinkNormalMovement: State
 			pc.current_direction = Direction.SOUTH;
 		pc.movement_controller.SetSpeed (Mathf.Abs(horizontal_Input + vertical_Input) * pc.walking_Velocity * time_delta_fraction);
 		pc.movement_controller.SetDirection (pc.current_direction);
+		if (Input.GetKeyDown (KeyCode.Alpha2)) 
+		{
+			if(Application.loadedLevel != 1) {
+				hearts.heartImages.Clear();
+				pc.health_Count =3;
+				pc.health_Max = 3;
+				pc.rupee_Count = 0;
+				pc.boom_Count = 0;
+				pc.selected_weapon_prefab = pc.weapon_Inventory[2];
+				foreach (KeyValuePair<int,List<GameObject>> enemy in pc.Room_to_Enmeies) 
+				{
+					foreach(GameObject piece in enemy.Value)
+					{
+						MonoBehaviour.Destroy(piece.gameObject);
+					}
+				}
+				pc.Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
+				Application.LoadLevel("Custom");
+			}
+
+		}
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			if(Application.loadedLevel != 0) {
+				hearts.heartImages.Clear();
+				pc.health_Count =3;
+				pc.health_Max = 3;
+				pc.rupee_Count = 0;
+				pc.boom_Count = 0;
+				foreach (KeyValuePair<int,List<GameObject>> enemy in pc.Room_to_Enmeies) 
+				{
+					foreach(GameObject piece in enemy.Value)
+					{
+						MonoBehaviour.Destroy(piece.gameObject);
+					}
+				}
+				pc.selected_weapon_prefab = pc.weapon_Inventory[3];
+
+				pc.Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
+				Application.LoadLevel("Dungeon");
+			}
+		}
+
 		if (Input.GetKeyDown (KeyCode.S)) {
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab, 15));
 		}
 		if (Input.GetKeyDown (KeyCode.A) && pc.rupee_Count>=1 && pc.selected_weapon_prefab1.name == "bow")
 			state_machine.ChangeState (new StateLinkAttack (pc, pc.selected_weapon_prefab1, 15));
-		if (Input.GetKeyDown (KeyCode.Z)) 
+		if (Input.GetKeyDown (KeyCode.Return)) 
 		{
 			Time.timeScale = 0;
 			state_machine.ChangeState (new LinkInventory (pc, panel.panel_instance));
@@ -610,6 +652,14 @@ public class LinkDead : State
 		pc.current_state = EntityState.NORMAL;
 		pc.transform.position = new Vector3(39.654f,2.904f,0f);
 		Camera.main.transform.position  = new Vector3(39.51f, 6.41f, -10f);
+		foreach (KeyValuePair<int,List<GameObject>> enemy in pc.Room_to_Enmeies) 
+		{
+			foreach(GameObject piece in enemy.Value)
+			{
+				MonoBehaviour.Destroy(piece.gameObject);
+			}
+		}
+		pc.Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
 		pc.GetComponent<SpriteRenderer> ().sprite = sprites [4];
 		pc.health_Count = 3;
 	}
@@ -680,7 +730,7 @@ public class LinkInventory : State
 
 		if (flag == false) 
 		{
-			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != -206)
+			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != -42)
 				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y - 4);
 		}
 		if (Input.GetKeyDown (KeyCode.RightArrow))
@@ -719,14 +769,14 @@ public class LinkInventory : State
 			}
 		}
 		//Debug.Log(inventory.inventory_instance.Inventory[inventory.movemen_counter].name);
-		if (Input.GetKeyDown (KeyCode.Z))
+		if (Input.GetKeyDown (KeyCode.Return))
 		{
 			flag = true;
 
 		}
 		if (flag == true) 
 		{
-			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != 114)
+			if (panel.GetComponent<RectTransform> ().anchoredPosition.y != 150)
 				panel.GetComponent<RectTransform> ().anchoredPosition = new Vector3 (panel.GetComponent<RectTransform> ().anchoredPosition.x, panel.GetComponent<RectTransform> ().anchoredPosition.y+4);
 			else
 				ConcludeState();
