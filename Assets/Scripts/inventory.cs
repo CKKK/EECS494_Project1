@@ -35,12 +35,38 @@ public class inventory : MonoBehaviour {
 				{
 					if(movemen_counter == counter)
 					{
-						Inventory_Selected[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-100,0,0);
-						active_counter = i;
+						Inventory_Selected[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-80,-16,0);
+
+						if (inventory.inventory_instance.Inventory [i].name == "boom_pic_inventory")
+						{
+							PlayerControl.instance.selected_weapon_prefab1 = PlayerControl.instance.weapon_Inventory [0];
+							inventory_instance.selected[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(-50f,-31f,0f);
+							inventory_instance.selected[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(-277f,-31f,0f);
+							inventory_instance.selected[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(-277f,-31f,0f);
+							
+						}
+						else if (inventory.inventory_instance.Inventory [i].name == "Bow") 
+						{
+							PlayerControl.instance.selected_weapon_prefab1 = PlayerControl.instance.weapon_Inventory [1];
+							inventory_instance.selected[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(-277f,-31f,0f);
+							inventory_instance.selected[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(-50f,-31f,0f);
+							inventory_instance.selected[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(-277f,-31f,0f);
+							
+						}
+						else if (inventory.inventory_instance.Inventory [i].name == "Boomerage_Inventory") 
+						{
+							PlayerControl.instance.selected_weapon_prefab1 = PlayerControl.instance.weapon_Inventory [2];
+							inventory_instance.selected[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(-277f,-31f,0f);
+							inventory_instance.selected[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(-277f,-31f,0f);
+							inventory_instance.selected[2].GetComponent<RectTransform>().anchoredPosition = new Vector3(-50f,-31f,0f);
+							
+							
+						}
+
 					}
 					else
 						Inventory_Selected[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-500,0,0);
-					Inventory[i].GetComponent<RectTransform>(). anchoredPosition = new Vector3(30+counter*40,0,0);
+					Inventory[i].GetComponent<RectTransform>(). anchoredPosition = new Vector3(0+counter*30,-16,0);
 					counter++;
 				}
 				else

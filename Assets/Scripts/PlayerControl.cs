@@ -41,7 +41,7 @@ public class PlayerControl : MonoBehaviour {
 	public static PlayerControl instance;
 	public GameObject[] enemy_prefab;
 	private GameObject trash;
-	private Dictionary<int,List<GameObject>> Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
+	public Dictionary<int,List<GameObject>> Room_to_Enmeies = new Dictionary<int, List<GameObject>>();
 	public GameObject[] traps;
 	// Use this for initialization
 
@@ -125,6 +125,7 @@ public class PlayerControl : MonoBehaviour {
 				temp = Instantiate (enemy_prefab [0], new Vector3 (52, 4, 0), Quaternion.identity) as GameObject;
 				Room_to_Enmeies [2].Add (temp);
 				temp = Instantiate (enemy_prefab [0], new Vector3 (50, 3, 0), Quaternion.identity) as GameObject;
+				temp.gameObject.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
 				Room_to_Enmeies [2].Add (temp);
 			} else {
 				print (Room_to_Enmeies [2].Count);
@@ -189,6 +190,7 @@ public class PlayerControl : MonoBehaviour {
 				temp = Instantiate (enemy_prefab [0], new Vector3 (34, 16, 0), Quaternion.identity) as GameObject;
 				Room_to_Enmeies [3].Add (temp);
 				temp = Instantiate (enemy_prefab [0], new Vector3 (39, 16, 0), Quaternion.identity) as GameObject;
+				temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
 				Room_to_Enmeies [3].Add (temp);
 				
 			} else {
@@ -225,6 +227,7 @@ public class PlayerControl : MonoBehaviour {
 				temp = Instantiate (enemy_prefab [0], new Vector3 (36, 28, 0), Quaternion.identity) as GameObject;
 				Room_to_Enmeies [5].Add (temp);
 				temp = Instantiate (enemy_prefab [0], new Vector3 (34, 30, 0), Quaternion.identity) as GameObject;
+				temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
 				Room_to_Enmeies [5].Add (temp);
 				
 			} else {
@@ -412,6 +415,7 @@ public class PlayerControl : MonoBehaviour {
 				temp = Instantiate (enemy_prefab [3], new Vector3 (38, 37, 0), Quaternion.identity) as GameObject;
 				Room_to_Enmeies [9].Add (temp);
 				temp = Instantiate (enemy_prefab [3], new Vector3 (41, 36, 0), Quaternion.identity) as GameObject;
+				temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
 				Room_to_Enmeies [9].Add (temp);
 			} else {
 				for (int i = 0; i < Room_to_Enmeies[9].Count; i++) {
@@ -492,6 +496,7 @@ public class PlayerControl : MonoBehaviour {
 				temp = Instantiate (enemy_prefab [2], new Vector3 (39, 61, 0), Quaternion.identity) as GameObject;
 				Room_to_Enmeies [15].Add (temp);
 				temp = Instantiate (enemy_prefab [2], new Vector3 (40, 63, 0), Quaternion.identity) as GameObject;
+				temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
 				Room_to_Enmeies [15].Add (temp);
 				
 			} else {
@@ -573,6 +578,7 @@ public class PlayerControl : MonoBehaviour {
 				temp = Instantiate (enemy_prefab [1], new Vector3 (60, 24, 0), Quaternion.identity) as GameObject;
 				Room_to_Enmeies [6].Add (temp);
 				temp = Instantiate (enemy_prefab [1], new Vector3 (60, 23, 0), Quaternion.identity) as GameObject;
+				temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
 				Room_to_Enmeies [6].Add (temp);
 
 			} else {
@@ -628,8 +634,10 @@ public class PlayerControl : MonoBehaviour {
 				GameObject temp = Instantiate (enemy_prefab [2], new Vector3 (57, 41, 0), Quaternion.identity) as GameObject;
 				Room_to_Enmeies [10].Add (temp);
 				temp = Instantiate (enemy_prefab [2], new Vector3 (57, 37, 0), Quaternion.identity) as GameObject;
+				temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.key;
 				Room_to_Enmeies [10].Add (temp);
 				temp = Instantiate (enemy_prefab [2], new Vector3 (54, 36, 0), Quaternion.identity) as GameObject;
+				temp.GetComponent<Enemy>().drop_kind = Drop_Kinds.boomerang;
 				Room_to_Enmeies [10].Add (temp);
 				
 			} else {
@@ -662,6 +670,21 @@ public class PlayerControl : MonoBehaviour {
 				if (Room_to_Enmeies [10] [i] != null)
 					Room_to_Enmeies [10] [i].SetActive (false);
 			}
+
+			if (Room_to_Enmeies.ContainsKey (11) == false) {
+				List<GameObject> enenmy_list = new List<GameObject> ();
+				Room_to_Enmeies.Add (11, enenmy_list);
+				GameObject temp = Instantiate (enemy_prefab [5], new Vector3 (69, 37, 0), Quaternion.identity) as GameObject;
+
+				Room_to_Enmeies [11].Add (temp);
+				
+			} else {
+				for (int i = 0; i < Room_to_Enmeies[11].Count; i++) {
+					if (Room_to_Enmeies [11] [i] != null)
+						Room_to_Enmeies [11] [i].SetActive (true);
+				}
+			}
+			
 			this.transform.position = new Vector3 (this.transform.position.x + 3, this.transform.position.y, this.transform.position.z);
 			Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x + 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 		}
@@ -671,12 +694,20 @@ public class PlayerControl : MonoBehaviour {
 				if (Room_to_Enmeies [10] [i] != null)
 					Room_to_Enmeies [10] [i].SetActive (true);
 			}
+			for (int i = 0; i < Room_to_Enmeies[11].Count; i++) {
+				if (Room_to_Enmeies [11] [i] != null)
+					Room_to_Enmeies [11] [i].SetActive (false);
+			}
 			this.transform.position = new Vector3 (this.transform.position.x - 3, this.transform.position.y, this.transform.position.z);
 			Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x - 16, Camera.main.transform.position.y, Camera.main.transform.position.z);
 		}
 		if (this.transform.position.x >= 71 && this.transform.position.x < 72 && this.transform.position.y >= 42 && this.transform.position.y < 43) {
 			print ("29");
 
+			for (int i = 0; i < Room_to_Enmeies[11].Count; i++) {
+				if (Room_to_Enmeies [11] [i] != null)
+					Room_to_Enmeies [11] [i].SetActive (false);
+			}
 			if (Room_to_Enmeies.ContainsKey (12) == false) {
 				List<GameObject> enenmy_list = new List<GameObject> ();
 				Room_to_Enmeies.Add (12, enenmy_list);
@@ -698,6 +729,10 @@ public class PlayerControl : MonoBehaviour {
 		}
 		if (this.transform.position.x >= 71 && this.transform.position.x < 72 && this.transform.position.y >= 44 && this.transform.position.y < 45) {
 			print ("30");
+			for (int i = 0; i < Room_to_Enmeies[11].Count; i++) {
+				if (Room_to_Enmeies [11] [i] != null)
+					Room_to_Enmeies [11] [i].SetActive (true);
+			}
 			for (int i = 0; i < Room_to_Enmeies[12].Count; i++) {
 				if (Room_to_Enmeies [12] [i] != null)
 					Room_to_Enmeies [12] [i].SetActive (false);
@@ -724,6 +759,27 @@ public class PlayerControl : MonoBehaviour {
 			{
 				trap.SetActive(false);
 			}
+
+
+			if (Room_to_Enmeies.ContainsKey (22) == false) {
+				List<GameObject> enenmy_list = new List<GameObject> ();
+				Room_to_Enmeies.Add (22, enenmy_list);
+				GameObject temp = Instantiate (enemy_prefab [1], new Vector3 (379, 8, 0), Quaternion.identity) as GameObject;
+				Room_to_Enmeies [22].Add (temp);
+				temp = Instantiate (enemy_prefab [1], new Vector3 (379, 8, 0), Quaternion.identity) as GameObject;
+				Room_to_Enmeies [22].Add (temp);
+				temp = Instantiate (enemy_prefab [1], new Vector3 (379, 8, 0), Quaternion.identity) as GameObject;
+				Room_to_Enmeies [22].Add (temp);
+
+				
+			} else {
+				for (int i = 0; i < Room_to_Enmeies[22].Count; i++) {
+					if (Room_to_Enmeies [22] [i] != null)
+						Room_to_Enmeies [22] [i].SetActive (true);
+				}
+			}
+
+
 			this.transform.position = new Vector3 (376.4f, 9.5f, 0f);
 			Camera.main.transform.position = new Vector3 (380.5f, 7f, -10);
 		}
@@ -731,6 +787,10 @@ public class PlayerControl : MonoBehaviour {
 			foreach(GameObject trap in traps)
 			{
 				trap.SetActive(true);
+			}
+			for (int i = 0; i < Room_to_Enmeies[22].Count; i++) {
+				if (Room_to_Enmeies [22] [i] != null)
+					Room_to_Enmeies [22] [i].SetActive (false);
 			}
 			this.transform.position = new Vector3 (22.7f, 60f, 0f);
 			Camera.main.transform.position = new Vector3 (23.51f, 61.41f, -10);
@@ -832,7 +892,18 @@ public class PlayerControl : MonoBehaviour {
 				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
 
 
-		} else if (coll.gameObject.tag == "EnemyProjectile") {
+		}else if (coll.gameObject.tag == "Enemy") {
+			Enemy enemyObj = coll.gameObject.GetComponent<Enemy> ();
+			if (invince != true)
+				health_Count -= enemyObj.getDamage ();
+			if (health_Count > 0)
+				control_state_machine.ChangeState (new LinkStunning (this, sprites, 15, coll.gameObject));
+			else
+				control_state_machine.ChangeState (new LinkDead (this, spritesfordead, 47));
+			
+		}
+
+		else if (coll.gameObject.tag == "EnemyProjectile") {
 			Enemy enemyObj = coll.gameObject.GetComponent<Enemy> ();
 			if (coll.gameObject.name == "Boomerange") {
 				return;
